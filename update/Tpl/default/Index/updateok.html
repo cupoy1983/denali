@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>方维分享系统  -- 更新向导</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<load href ="__TMPL__Public/css/style.css" />
+<load href ="__TMPL__Public/js/jquery.js" />
+<load href ="__TMPL__Public/js/jquery.json.js" />
+<load href ="__TMPL__Public/js/script.js" />
+</head>
+<body><div class="install">
+<form name="install" action="{:u('Index/doupdateok')}" method="POST" id="install">
+<div class="header">
+	<h1></h1>
+</div>
+<div class="main">
+	<table class="tb" style="margin:20px 0 20px 30px; width:600px;" cellspacing="1">
+		<tr>
+			<td style="text-align:center; font-size:14px; color:#f00;">
+				<b>已成功升级</b>
+			</td>
+		</tr>
+	</table>
+	<table class="tb" style="margin:20px 0 20px 30px; width:600px;" cellspacing="1">
+		<tr>
+			<td>
+				<p style="padding:5px 0;">1.请进入后台执行【更新缓存】操作（勾选：后台数据缓存、前台数据缓存、前台模板缓存）；</p>
+				<p style="padding:5px 0;">2.本次升级修改了后台权限节点，升级完成后，请到后台 权限 > 权限组管理；</p>
+				<p style="padding:5px 0;">3.本次升级修改了接口商品分类方式，升级完成后，请到后台 分享 > 商品分类管理 选择各接口 点击 【更新分类】 中更新角色权限；</p>
+				<p style="padding:5px 0;">4.本次升级对 URL重写规则 进行了修改，如果你的站点需要重启才能生效，请重启站点；</p>
+			</td>
+		</tr>
+	</table>
+	<div class="center footer">
+		方维分享系统
+	</div>
+</div>
+</form>
+</div>
+</body>
+</html>

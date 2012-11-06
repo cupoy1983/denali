@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>方维分享系统  -- 更新向导</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<load href ="__TMPL__Public/css/style.css" />
+</head>
+<body>
+<div class="install block">
+<form name="install" action="{:u('Index/index')}" method="POST" >
+<div class="header">
+	<h1></h1>
+</div>
+<div class="main">
+	<h2 class="title" style="margin-left:30px;">注意事项</h2>
+	<table class="tb" style="margin:20px 0 20px 30px; width:600px;" cellspacing="1">
+		<tr>
+			<td>
+				<p style="padding:5px 0;"><b style="color:#f00;">1.此升级包只针对未作修改的2.20、2.21分享程序；</b></p>
+				<p style="padding:5px 0;"><b style="color:#f00;">2.升级前，强烈建议您备份原有数据，我们无法对升级前没有备份数据的用户提供任何技术支持；</b></p>
+				<p style="padding:5px 0;"><b style="color:#f00;">3.升级前，如果有修改模板，请先备份模板；</b></p>
+				<p style="padding:5px 0;"><b style="color:#f00;">4.本次升级修改了后台权限节点，升级完成后，请到后台 权限 > 权限组管理 中更新角色权限；</b></p>
+			</td>
+		</tr>
+	</table>
+	<h2 class="title">更新说明</h2>
+	<table class="tb" style="margin:20px 0 20px 30px; width:600px;" cellspacing="1">
+		<tr>
+			<td style="background:#fff; line-height:1.5em;">{$note}</td>
+		</tr>
+	</table>
+	<div class="center" style="padding:0 0 20px 0;">
+		<input type="button" value="下一步" onclick="location.href='{:u('Index/check')}'" class="formbutton" />
+	</div>
+	<div class="center footer">
+		方维分享系统
+	</div>
+</div>
+</form>
+</div>
+</body>
+</html>

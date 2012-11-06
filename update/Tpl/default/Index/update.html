@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+<title>方维分享系统  -- 更新向导</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<load href ="__TMPL__Public/css/style.css" />
+<load href ="__TMPL__Public/js/jquery.js" />
+<load href ="__TMPL__Public/js/jquery.json.js" />
+<load href ="__TMPL__Public/js/script.js" />
+</head>
+<body><div class="install">
+<form name="install" action="{:u('Index/doupdate')}" method="POST" id="install">
+<div class="header">
+	<h1></h1>
+</div>
+<div class="main">
+	<h2 class="title" style="margin-left:30px;">数据库信息</h2>
+	<table class="tb" style="margin:20px 0 20px 30px; width:600px;" cellspacing="1">
+		<tr>
+			<td class="tbopt">数据库主机名/IP:</td>
+			<td width="160"><input type="text" value="{$olddb_config.DB_HOST}" size="35" class="txt" disabled="disabled"/></td>
+			<td><span>原分享数据库主机名/IP</span></td>
+		</tr>
+		<tr>
+			<td class="tbopt">数据库名:</td>
+			<td><input type="text" value="{$olddb_config.DB_NAME}" size="35" class="txt" disabled="disabled" /></td>
+			<td><span>原分享数据库名</span></td>
+		</tr>
+		<tr>
+			<td class="tbopt">数据库用户名:</td>
+			<td><input type="text" value="{$olddb_config.DB_USER}" size="35" class="txt" disabled="disabled" /></td>
+			<td><span>原分享数据库用户名</span></td>
+		</tr>
+		<tr>
+			<td class="tbopt">数据库密码:</td>
+			<td><input type="text" value="{$olddb_config.DB_PWD}" size="35" class="txt" disabled="disabled" /></td>
+			<td><span>原分享数据库密码</span></td>
+		</tr>
+		<tr>
+			<td class="tbopt">端口号:</td>
+			<td><input type="text" value="{$olddb_config.DB_PORT}" size="35" class="txt" disabled="disabled" /></td>
+			<td><span>原分享数据库端口号</span></td>
+		</tr>
+		<tr>
+			<td class="tbopt">新分享表前缀:</td>
+			<td><input type="text" value="" size="35" id="db_prefix" name="db_prefix" class="txt" /></td>
+			<td><span>原分享表前缀为{$olddb_config.DB_PREFIX}</span></td>
+		</tr>
+		<tr>
+			<td class="tbopt">&nbsp;</td>
+			<td colspan="2"><span style="color:#f00;">新分享表前缀不能为{$olddb_config.DB_PREFIX}，否则会清空覆盖原分享数据，造成升级失败</span></td>
+		</tr>
+	</table>
+	<div class="center" style="padding:0 0 20px 0;">
+		<input type="submit" value="开始更新" class="formbutton" />
+	</div>
+	<div class="center footer">
+		方维分享系统
+	</div>
+</div>
+</form>
+</div>
+</body>
+</html>
