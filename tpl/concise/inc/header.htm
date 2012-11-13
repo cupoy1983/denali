@@ -7,8 +7,9 @@
 	<link rel="icon" href="{$_FANWE['site_root']}favicon.ico" type="image/x-icon" />
 	<script type="text/javascript" src="./public/js/jquery.js"></script>
 	<?php
+		$default_js[] = './tpl/js/jquery.blockUI.js';	
 		$default_js[] = './public/js/jquery.cookie.js';
-                $default_js[] = './public/js/jquery.easing.js';
+		$default_js[] = './public/js/jquery.easing.js';
 		$default_js[] = './public/js/jquery.lazyload.js';
 		$default_js[] = './public/js/base.js';
 	?>
@@ -17,6 +18,7 @@
 		$current_css[] = './tpl/css/base.css';
 		$current_css[] = './tpl/css/lightbox.css';
 		$current_css[] = './public/js/jqueryui/jquery.ui.css';
+		$current_css[] = './tpl/css/fairy.css';
 	?>
 	<link rel="stylesheet" type="text/css" href="{css $current_css}" media="all"/>
 	<!--{loop $css_list $css}-->
@@ -32,147 +34,36 @@
 		var COOKIE_PRE = "$_FANWE['config']['cookie']['cookie_pre']";
 		<!--{dynamic dynamicScript}-->
 
-		jQuery(function(){
-        $(window).scroll(function(){
-            if($(window).scrollTop() > 39){
-               $("#header").css({"position":"fixed"});
-            }else{
-                $("#header").css({"position":"relative"});
-            }
-            
-        });
-        });
 	</script>
 	<!--{if isset($_FANWE['cache']['business']['taobao'])}-->
 	<script src="http://a.tbcdn.cn/apps/top/x/sdk.js?appkey={$_FANWE['cache']['business']['taobao']['app_key']}"></script>
 	<!--{/if}-->
 </head>
 <body>
-	<div id="header" class="wrapper_width_100" style="position: relative; ">
-	 <div style="width:960px;margin-left: auto;margin-right: auto">
-		<a class="logo" href="{u index}"><img src="{$_FANWE['site_root']}{$_FANWE['setting']['site_logo']}" height="25" /></a>
-		<div class="head_nav">
-			<div class="hn_item"><a href="{u index}"{if MODULE_NAME == 'Index'} class="c"{/if}><span>{lang page_index}</span></a></div>
+	<div id="header" class="wrapper_width_100 wrapper" style="position: relative; ">
+		<a class="logo" href="{u index}"><img src="{$_FANWE['site_root']}{$_FANWE['setting']['site_logo']}" height="38" /></a>
+		<ul class="head_nav">
+			<li class="f"><a href="{u index}"{if MODULE_NAME == 'Index'} class="c"{/if}>{lang page_index}</a></li>
 			<?php
 				$g_r_cate = $_FANWE['cache']['goods_category']['root'];
 				$g_r_cate = &$_FANWE['cache']['goods_category']['all'][$g_r_cate];
 			?>
-			<div class="hn_item down_link" rel="hn_cates"><a href="{u book/shopping}"{if MODULE_NAME == 'Book' || MODULE_NAME == 'Look' || MODULE_NAME == 'Dapei'} class="c"{/if}><span>{$g_r_cate['cate_name']}<small class="down">&nbsp;</small></span></a></div>
-			<div class="hn_item"><a href="{u album}"{if MODULE_NAME == 'Album'} class="c"{/if}><span>{lang common/album}</span></a></div>
-			<div class="hn_item down_link" rel="hn_shops"><a href="{u shop}"{if MODULE_NAME == 'Shop'} class="c"{/if}><span>{lang common/nav_shop}<small class="down">&nbsp;</small></span></a></div>
-			<dl class="down_dl" rel="hn_cates" type="center" left="6">
-				<!--{loop $_FANWE['cache']['goods_category']['index'] $h_i_cate}-->
-				<!--{eval $h_i_cate = $_FANWE['cache']['goods_category']['all'][$h_i_cate];}-->
-				<dd><a href="{u book/cate cate=$h_i_cate['cate_code']}">{$h_i_cate['cate_name']}</a></dd>
-				<!--{/loop}-->
-				<dd class="dl_line"></dd>
-				<dd><a href="{u look/index}">{lang look}</a></dd>
-				<dd><a href="{u dapei/index}">{lang dapei}</a></dd>
-			</dl>
-			<dl class="down_dl" rel="hn_shops" type="center" left="6">
-				<dd><a href="{u exchange}">{lang common/nav_exchange}</a></dd>
-				<dd><a href="{u group/index}">{lang group}</a></dd>
-				<dd><a href="{u daren/index}">{lang daren}</a></dd>
-				<dd><a href="{u mailrss/index}">{lang common/mailrss}</a></dd>
-			</dl>
-		</div>
+			<li><a href="{u book/shopping}"{if MODULE_NAME == 'Book'} class="c"{/if}>{$g_r_cate['cate_name']}</a></li>
+			<li><a href="{u album}"{if MODULE_NAME == 'Album'} class="c"{/if}>{lang common/album}</a></li>
+			<li><a href="{u look/index}"{if MODULE_NAME == 'Look'} class="c"{/if}>{lang look}</a></li>
+			<li><a href="{u dapei/index}"{if MODULE_NAME == 'Dapei'} class="c"{/if}>{lang dapei}</a></li>
+			<li><a href="{u group/index}"{if MODULE_NAME == 'Group' || MODULE_NAME == 'Topic'} class="c"{/if}>{lang group}</a></li>
+			<li><a href="{u daren/index}"{if MODULE_NAME == 'Daren'} class="c"{/if}>{lang daren}</a></li>
+			<li><a href="{u exchange}"{if MODULE_NAME == 'Exchange'} class="c"{/if}>{lang common/nav_exchange}</a></li>
+		</ul>
 		<div class="head_user">
 			<!--{dynamic getUserInfo}-->
-			<div class="mobile_down">
-				<strong>下载客户端</strong>
-				<a class="iphone_down" href="{$_FANWE['setting']['app_down_url']}" target="_blank" title="iPhone客户端">iphone客户端</a>
-				<a class="android_down" href="{$_FANWE['setting']['apk_down_url']}" target="_blank" title="Android客户端">Andioid客户端</a>
-			</div>
 			<form action="{u search}" method="get">
 				<input type="text" name="keyword" class="search_txt" value="" tooltip="{lang search_share}"/>
 				<input type="submit" value="搜索" class="search_btn" />
 			</form>
 		</div>
-		<script type="text/javascript">
-		var HEADER_DOWNS = new Object();
-		var HEADER_DOWNS_TIMEOUT;
-		var USER_DL_TIMEOUT,USER_DL_W = 0,USER_DL_H = 0,UMSG_DL_TIMEOUT,UMSG_DL_W = 0,UMSG_DL_H = 0,UMSG_DL_L = 0;
-		jQuery(function($){
-			$("#header .down_link").hover(function(){
-				$("#header .down_link").removeClass('down_hover');
-				$("#header .down_dl").hide();
-				clearTimeout(HEADER_DOWNS_TIMEOUT);
-				$(this).addClass('down_hover');
-				var rel = $(this).attr('rel');
-				var dl = $(".down_dl[rel='"+rel+"']");
-				var type = dl.attr('type');
-				dl.css({"visibility":"hidden","display":"block"});
-				if(!HEADER_DOWNS[rel])
-				{
-					HEADER_DOWNS[rel] = new Object();
-					HEADER_DOWNS[rel].w = 0;
-					HEADER_DOWNS[rel].h = 0;
-					HEADER_DOWNS[rel].l = 0;
-					HEADER_DOWNS[rel].t = 33;
-				}
-				
-				if(HEADER_DOWNS[rel].w == 0)
-				{
-					HEADER_DOWNS[rel].w = dl.width();
-					if(($(this).width() > HEADER_DOWNS[rel].w) || type == 'center')
-						HEADER_DOWNS[rel].w = $(this).width() - 1;
-					
-					var minwidth = parseInt(dl.attr('minwidth'));
-					if(!isNaN(minwidth) && minwidth > 0 && HEADER_DOWNS[rel].w < minwidth)
-					{
-						HEADER_DOWNS[rel].w = minwidth;
-					}
-				}
-				
-				if(HEADER_DOWNS[rel].h == 0)
-					HEADER_DOWNS[rel].h = dl.height();
-					
-					
-				if(HEADER_DOWNS[rel].l == 0)
-				{
-					var left = parseInt(dl.attr('left'));
-					if(isNaN(left))
-						left = 0;
-						
-					switch(type)
-					{
-						case 'center':
-							HEADER_DOWNS[rel].l = $(this).position().left + ($(this).width() - HEADER_DOWNS[rel].w) / 2 + left;
-						break;
-						
-						case 'left':
-							HEADER_DOWNS[rel].l = $(this).position().left + $(this).width() - HEADER_DOWNS[rel].w - 1 + left;
-							HEADER_DOWNS[rel].t = 34;
-						break;
-						
-						case 'right':
-							HEADER_DOWNS[rel].l = $(this).position().left + left;
-							HEADER_DOWNS[rel].t = 34;
-						break;
-					}
-				}
-				
-				dl.css({"height":"0","width":HEADER_DOWNS[rel].w,"left":HEADER_DOWNS[rel].l,"top":HEADER_DOWNS[rel].t,"visibility":"visible"});
-				dl.animate({height:HEADER_DOWNS[rel].h},{easing:"easeInQuad",queue:false,duration:100});
-			},function(){
-				var fun = function(){
-					$("#header .down_link").removeClass('down_hover');
-					$("#header .down_dl").hide();
-				};
-				HEADER_DOWNS_TIMEOUT = setTimeout(fun,500);
-			});
-			
-			$("#header .down_dl").hover(function(){
-				clearTimeout(HEADER_DOWNS_TIMEOUT);
-			},function(){
-				$("#header .down_link").removeClass('down_hover');
-				$("#header .down_dl").hide();
-			});
-		});
-		</script>
-		</div>
-	</div>
-	<div class="clear"></div>
-	<!--{dynamic getLoginScroll}-->
-	<div class="wrapper">{advlayout name='头部广告位'}</div>
+		<div class="clear"></div>
+		<!--{dynamic getLoginScroll}-->
+		<div class="wrapper">{advlayout name='头部广告位'}</div>
 	

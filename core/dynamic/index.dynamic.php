@@ -27,7 +27,8 @@ function getIndexCateShare()
 {
  	$args = array();
 	$cache_file = getTplCache('inc/index/index_cate_share',array(),1);
-	if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1))
+	//FIXME getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1)
+	if(true)
 	{
 	 	global $_FANWE;
 	 	FanweService::instance()->cache->loadCache('goods_category');
@@ -110,5 +111,30 @@ function getIndexCateShare()
 		}
 	}
 	return tplFetch('inc/index/index_cate_share',$args,'',$cache_file);
+}
+
+/**
+ * 首页广告栏
+ */
+function getIndexAdv(){
+
+	$args = array();
+	$cache_file = getTplCache('module/home_adv', array(), 1);
+	//FIXME getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1)
+
+	if(true){
+		global $_FANWE;
+
+		// 1.获取最新的产品分享
+		$new_list = array();
+		$sql = "SELECT s.*, min(s.share_id) FROM " . FDB::table("share") . " as s
+		WHERE s.share_data='goods' AND s.status=1 GROUP BY uid ORDER BY s.day_time desc limit 15";
+		$new_list = FDB::fetchAll($sql);
+		$new_list = FS("Share")->getShareDetailList($new_list);
+
+		$args['new_list'] = $new_list;
+	}
+
+	return tplFetch('module/home_adv', $args, '', $cache_file);
 }
 ?>

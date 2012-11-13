@@ -144,61 +144,33 @@ h1,h2{font-family:"黑体", "微软雅黑", "宋体", Arial;}
 .bc { color:#333; }
 .nc { color:#A3A9B5; }
 #header{height:39px; position:relative; z-index:3;}
-#header .logo{float:left; margin:6px 0 0 6px;}
-#header .down{background:url(../images/header_down.gif) no-repeat 5px center; padding:0 0 0 13px}
-#header .head_nav{float:left; padding:5px 0 0 20px; position:relative;}
-#header .head_nav .hn_item{float:left; margin:0 0 0 6px; _margin:0 0 0 6px;}
-#header .head_nav .hn_item a{display:block; float:left; height:30px; padding:0 0 0 12px;}
-#header .head_nav .hn_item a span{display:block; float:left; height:30px; color:#525252; padding:0 12px 0 0; line-height:32px; cursor:pointer; font-size:13px; overflow:hidden;}
+#header .logo{float:left;}
+#header .head_nav{float:left; padding:12px 0 0 20px; position:relative;}
+#header .head_nav li {border-left: 1px solid #D5D5D5;float: left;height: 14px;padding: 0 7px 0 8px;}
+#header .head_nav li.f {border: medium none;padding: 0 7px;}
+#header .head_nav li a {color: #525252;font-size: 14px;font-weight: bold;}
+#header .head_nav li a:hover {color: #FF1566;}
+#header .head_nav li a.c {color: #FF1566;text-decoration: underline;}
 
-#header .head_nav .hn_item a:hover{ color:#FF1566;}
-#header .head_nav .hn_item a:hover span{ color:#FF1566;}
-#header .head_nav .hn_item a.c{font-weight: bold;color:#FF1566;}
-#header .head_nav .hn_item a.c span{font-weight: bold; color:#FF1566;}
-#header .head_user{float:right;}
-#header .head_user .user_info{float:left; color: #D5D5D5; line-height:38px; padding:0 6px 0 0; position:relative;}
-#header .head_user .user_info a{color: #525252;}
-#header .head_user .user_info a:hover{color: #F39;}
-
-#header .head_user .ui_user{float:left;height:30px; margin:5px 0 0 0;position:relative; z-index:2;}
-#header .head_user .ui_user a{float:left;height:30px; line-height:30px; display:block; padding:0 0 0 5px;}
-#header .head_user .ui_user a *{cursor:pointer;}
-#header .head_user .ui_user img{float:left; height:20px; margin:6px 6px 0 0;}
-#header .head_user .ui_user span{display:block; float:left; height:30px; color:#525252; font-weight: bold; padding:0 12px 0 0; line-height:32px; cursor:pointer; overflow:hidden;}
-
-#header .head_user .message{float:left;margin:5px 0 0 0; position:relative; z-index:2;}
-#header .head_user .message a{float:left;height:30px; line-height:30px; display:block; padding:0 0 0 10px;}
-#header .head_user .message a *{cursor:pointer;}
-#header .head_user .message span{display:block; float:left; height:30px; color:#525252; padding:0 10px 0 0; line-height:32px; cursor:pointer; overflow:hidden;}
-#header .head_user .message .h{background:url(../images/new_spot.gif) no-repeat 5px center; padding:0 0 0 11px}
+#header .head_user {float: right;}
+#header .head_user .user_info {color: #D5D5D5;float: left;line-height: 38px;padding: 0 13px 0 0;position: relative;}
+#header .head_user .user_info a {color: #525252;}
+#header .head_user .user_info a:hover {color: #FF1566;}
+#header .head_user .user_info a.h {background: url("/tpl/concise/images/new_spot.gif") no-repeat scroll left center transparent;color: #FF3399;font-weight: bold;padding-left: 12px;}
+#header .head_user .user_info a img {border: 1px solid #D5D5D5;float: left;height: 22px;margin: 7px 6px 0 0;}
+#header .head_user .user_info a b {cursor: pointer;display: block;float: left;height: 14px;line-height: 14px;margin: 11px 0 0;max-width: 75px;overflow: hidden;word-break: break-all;word-wrap: break-word;}
 
 #header .head_user .fast_share{float:left; width:59px; height:26px; margin:7px 6px 0 0;}
-#header .head_user .fast_share a{float:left; width:59px; height:26px; display:block; background:url(../images/fast_share.gif) no-repeat 0 0; text-indent:-80px; overflow:hidden;}
+#header .head_user .fast_share a{float:left; width:59px; height:26px; display:block; background:url(../images/fast_share.png) no-repeat 0 0; text-indent:-80px; overflow:hidden;}
 
-#header .down_link a:hover{color: #F39;}
-#header .down_link a:hover span{color: #F39;}
-#header .down_hover{position:relative; z-index:2;}
-#header .down_hover a{background:url(../images/header_menu_d.png) no-repeat 0 1px!important;}
-#header .down_hover a span{background:url(../images/header_menu_d.png) no-repeat right 1px!important; color:#e6e6e6}
-
-
-
-#header .mobile_down{float:left; width:128px; height:26px; background:url(../images/mobile_down.gif) no-repeat 0 0;margin:6px 6px 0 0;}
-#header .mobile_down strong{display:none;}
-#header .mobile_down a{display:block; height:26px; width:15px; overflow:hidden; text-indent:-500px; float:left;}
-#header .mobile_down a.iphone_down{margin:0 0 0 80px;_margin:0 0 0 40px;}
-#header .mobile_down a.android_down{margin:0 0 0 7px;}
-
-#header .head_user form{float:left; background:url(../images/s_l.png) no-repeat 0 0 #fff; padding:0 0 0 5px; margin:6px 0 0 0px; _display:inline; height:26px;}
+#header .head_user form{float:left; background:url(../images/s_l.png) no-repeat 0 0 #fff; padding:0 0 0 5px; margin:7px 0 0 0px; _display:inline; height:24px;}
 #header .head_user form .search_txt{float:left; width:76px; margin:5px 0 0 0;_margin:8px 0 0 0;font-family:"宋体"; border:none; background:transparent;}
 #header .head_user form .search_btn{float:left; border:none; width:29px; height:26px; overflow:hidden; text-indent:-60px;background:url(../images/s_btn.png) no-repeat 0 0; text-align:left; cursor:pointer;}
-#header .head_user .publish{float:left; width:69px; height:24px; overflow:hidden; text-indent:-69px;background:url(../images/p_share.png) no-repeat 0 0; display:block; margin:7px 0 0 7px;}
 
-#header .down_dl{position:absolute; border:1px solid #CCC; background:white; left:0; top:33px; display:none; overflow:hidden;border-radius:2px;}
-#header .down_dl dd{padding:0; margin:0;}
-#header .down_dl .dl_line{margin:5px 10px;border-top: 1px solid #F2F0F0;border-bottom: 1px solid #F2F0F0;}
-#header .down_dl dd a{display:block; clear:both; float:none; padding:0 20px; height:28px; line-height:28px; margin:0; text-align:center; color:#525252;}
-#header .down_dl dd a:hover{background: #F2F0F0;color:#FF1566;}
+#header .head_user .user_info dl {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;display: none;left: 0;overflow: hidden;position: absolute;top: 31px;z-index:10;}
+#header .head_user .user_info dl dd {margin: 0;padding: 0;}
+#header .head_user .user_info dl dd a {clear: both;display: block;float: none;height: auto;line-height: normal;margin: 0;padding: 6px 20px;text-align: center;}
+#header .head_user .user_info dl dd a:hover {background: none repeat scroll 0 0 #F2F0F0;color: #FF3399;}
 
 #footer{padding:28px 0; background:#fff; border-top:solid 1px #e1e1e1; margin:18px 0 0 0;}
 #footer #foot{padding:0 0 20px 0; border-bottom:solid 1px #e1e1e1;}

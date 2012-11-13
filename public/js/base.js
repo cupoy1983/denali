@@ -36,6 +36,34 @@ FANWE.WEEBOX_NOT_CLOSES = new Object();
 		$.weeboxs.open(SITE_PATH+"services/service.php?m=user&a=login", {contentType:'ajax',modal:isModal,draggable:false,showButton:false,title:LANG.login,width:600,onclose:closeResult});
 	}
 	
+	/*=====================会员签到=====================*/
+	$.Show_qiandao_Form = function() {
+		$.weeboxs.close();
+		if (USER_ID == 0) {
+			$.Show_Login_Form();
+			return false;
+		} else {
+			var nows = new Date();
+			$.post(SITE_URL + "checkin.php?action=checkin_ajax", {type: 2, year: nows.getFullYear(), month: (parseInt(nows.getMonth()) + 1).toString()
+			},
+			function(msg) {
+				var stdata = jQuery.parseJSON(msg);
+				if (stdata.ret == 'success') {
+					$("#ischeckid").html("<a href=\"/u/me\" class=\"pop-right-reg pop-right-shareform\" title=\"已签到\">分享</a>");
+					$.Show_Tooltip("签到成功获得 " + stdata.getjifen + " 积分！共有 " + stdata.upoints + " 积分！");
+				} else if (stdata.ret == 'nologin') {
+					$.Show_Tooltip(stdata.tip);
+					$.Show_Login_Form();
+					return false;
+				} else {
+					//$.Show_Tooltip(stdata.tip);
+					window.location.href = '/checkin/index';
+				}
+			});
+			return true;
+		}
+	}
+	
 	$.Show_Tooltip = function(msg,isErr)
 	{
 		var readyFun = function(weebox){
