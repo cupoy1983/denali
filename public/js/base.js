@@ -757,7 +757,16 @@ FANWE.WEEBOX_NOT_CLOSES = new Object();
 		}
 		else if(result.status == -3)
 		{
-			alert(LANG.goods_collect_6);
+			$("#duplicate_info a").attr("href", result.url);
+			 $.blockUI({ 
+				 message: $('#duplicate_info'),
+				 css: { 
+			         border: 'none', 
+			         color: '#E71F8D' 
+		        } 
+			 }); 
+			$('.blockOverlay').attr('title','单击关闭').click($.unblockUI);
+			$('#duplicate_info .close').click($.unblockUI);
 		}
 		else if(result.status == -4)
 		{
@@ -2937,7 +2946,16 @@ FANWE.WEEBOX_NOT_CLOSES = new Object();
 					}
 					else if(result.status == -3)
 					{
-						alert(LANG.goods_collect_6);
+						$("#duplicate_info a").attr("href", result.url);
+						 $.blockUI({ 
+							 message: $('#duplicate_info'),
+							 css: { 
+						         border: 'none', 
+						         color: '#E71F8D' 
+					        } 
+						 }); 
+						$('.blockOverlay').attr('title','单击关闭').click($.unblockUI);
+						$('#duplicate_info .close').click($.unblockUI);
 					}
 					else if(result.status == -4)
 					{

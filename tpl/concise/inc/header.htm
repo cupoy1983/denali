@@ -40,30 +40,41 @@
 	<!--{/if}-->
 </head>
 <body>
-	<div id="header" class="wrapper_width_100 wrapper" style="position: relative; ">
-		<a class="logo" href="{u index}"><img src="{$_FANWE['site_root']}{$_FANWE['setting']['site_logo']}" height="38" /></a>
-		<ul class="head_nav">
-			<li class="f"><a href="{u index}"{if MODULE_NAME == 'Index'} class="c"{/if}>{lang page_index}</a></li>
-			<?php
-				$g_r_cate = $_FANWE['cache']['goods_category']['root'];
+	<div id="header" class="wrapper_width_100 wrapper">
+		<div style="width:960px;margin:0 auto;">
+			<a class="logo" href="{u index}"><img src="{$_FANWE['site_root']}{$_FANWE['setting']['site_logo']}" height="38" /></a>
+			<ul class="head_nav">
+				<li class="f"><a href="{u index}"{if MODULE_NAME == 'Index'} class="c"{/if}>{lang page_index}</a></li>
+				<?php
+					$g_r_cate = $_FANWE['cache']['goods_category']['root'];
 				$g_r_cate = &$_FANWE['cache']['goods_category']['all'][$g_r_cate];
 			?>
-			<li><a href="{u book/shopping}"{if MODULE_NAME == 'Book'} class="c"{/if}>{$g_r_cate['cate_name']}</a></li>
-			<li><a href="{u album}"{if MODULE_NAME == 'Album'} class="c"{/if}>{lang common/album}</a></li>
-			<li><a href="{u look/index}"{if MODULE_NAME == 'Look'} class="c"{/if}>{lang look}</a></li>
-			<li><a href="{u dapei/index}"{if MODULE_NAME == 'Dapei'} class="c"{/if}>{lang dapei}</a></li>
-			<li><a href="{u group/index}"{if MODULE_NAME == 'Group' || MODULE_NAME == 'Topic'} class="c"{/if}>{lang group}</a></li>
-			<li><a href="{u daren/index}"{if MODULE_NAME == 'Daren'} class="c"{/if}>{lang daren}</a></li>
-			<li><a href="{u exchange}"{if MODULE_NAME == 'Exchange'} class="c"{/if}>{lang common/nav_exchange}</a></li>
-		</ul>
-		<div class="head_user">
-			<!--{dynamic getUserInfo}-->
-			<form action="{u search}" method="get">
-				<input type="text" name="keyword" class="search_txt" value="" tooltip="{lang search_share}"/>
-				<input type="submit" value="搜索" class="search_btn" />
-			</form>
+				<li><a href="{u book/shopping}"{if MODULE_NAME == 'Book'} class="c"{/if}>{$g_r_cate['cate_name']}</a></li>
+				<li><a href="{u album}"{if MODULE_NAME == 'Album'} class="c"{/if}>{lang common/album}</a></li>
+				<li><a href="{u look/index}"{if MODULE_NAME == 'Look'} class="c"{/if}>{lang look}</a></li>
+				<li><a href="{u dapei/index}"{if MODULE_NAME == 'Dapei'} class="c"{/if}>{lang dapei}</a></li>
+				<li><a href="{u group/index}"{if MODULE_NAME == 'Group' || MODULE_NAME == 'Topic'} class="c"{/if}>{lang group}</a></li>
+				<li><a href="{u daren/index}"{if MODULE_NAME == 'Daren'} class="c"{/if}>{lang daren}</a></li>
+				<li><a href="{u exchange}"{if MODULE_NAME == 'Exchange'} class="c"{/if}>{lang common/nav_exchange}</a></li>
+			</ul>
+			<div class="head_user">
+				<!--{dynamic getUserInfo}-->
+				<form action="{u search}" method="get">
+					<input type="text" name="keyword" class="search_txt" value="" tooltip="{lang search_share}"/>
+					<input type="submit" value="搜索" class="search_btn" />
+				</form>
+			</div>
+			<div class="clear"></div>
 		</div>
-		<div class="clear"></div>
 		<!--{dynamic getLoginScroll}-->
 		<div class="wrapper">{advlayout name='头部广告位'}</div>
+	</div>
+	<div id="duplicate_info">
+		<img class="fr close" alt="关闭评论" src="/tpl/concise/images/close.png">
+		<a href="">	
+			<img alt="评论其他分享" src="/tpl/concise/images/confuse.png" style="padding: 15px 30px 15px 30px;" class="fl">
+			<span class="fl">sorry, 已经有人分享过该宝贝，捧个场去吧！</span>
+			<img class="fr" src="/tpl/concise/images/go.png" alt="评论" style="padding-top:30px">
+		</a>
+		<br style="clear: both;">
 	</div>

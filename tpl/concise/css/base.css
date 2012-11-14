@@ -143,7 +143,7 @@ h1,h2{font-family:"黑体", "微软雅黑", "宋体", Arial;}
 .gc { color:#E71F8D; }
 .bc { color:#333; }
 .nc { color:#A3A9B5; }
-#header{height:39px; position:relative; z-index:3;}
+#header{position:relative; z-index:3;}
 #header .logo{float:left;}
 #header .head_nav{float:left; padding:12px 0 0 20px; position:relative;}
 #header .head_nav li {border-left: 1px solid #D5D5D5;float: left;height: 14px;padding: 0 7px 0 8px;}

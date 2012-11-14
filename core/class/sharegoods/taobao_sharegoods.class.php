@@ -27,8 +27,8 @@ class taobao_sharegoods implements interface_sharegoods
 		$share_goods = FDB::fetchFirst('SELECT * FROM '.FDB::table('goods')." WHERE keyid = '$key'");
 		if($share_goods && $_FANWE['uid'] > 0)
 		{
-			$user_goods = (int)FDB::fetchFirst('SELECT * FROM '.FDB::table('share_goods').' 
-				WHERE uid = '.$_FANWE['uid'].' AND goods_id = '.$share_goods['id']);
+			$user_goods = FDB::fetchFirst('SELECT * FROM '.FDB::table('share_goods').' 
+				WHERE goods_id = '.$share_goods['id']);
 			if($user_goods)
 			{
 				$result['status'] = -1;
