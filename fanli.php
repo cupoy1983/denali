@@ -1,16 +1,30 @@
 <?php
-  /**
-  * 购物者返利率
-  */
-  $fanlilv = 0.8;   //80%
-  /**
-  * 发布者返利率
-  */
-  $fanlilvbaobei = 0.1;   //10%
-  
-  $qiandao_jifen = 5;   //签到送积分
-  $lianxux = 10;        //连续签到多少天送勋章  
-  $lianxuxjf = 50;      //连续签到多少天送勋章, 额外送多少积分    
-  $lianxumonth = 28;    //连续签到一个月多少天  
-  $lianxumonthjf = 200;   //连续签到一个月可额外奖励多少积分
+define('MODULE_NAME', 'Fanli');
+
+$actions = array(
+		'index'
+);
+$action = 'index';
+if(isset($_REQUEST['action'])){
+	$action = strtolower($_REQUEST['action']);
+	if(! in_array($action, $actions)){
+		$action = 'index';
+	}
+}
+
+define('Action_NAME', $action);
+
+require dirname(__FILE__).'/core/fanwe.php';
+$fanwe = &FanweService::instance();
+$fanwe->initialize();
+
+require fimport('module/fanli');
+
+switch(Action_NAME) {
+	
+	case 'index' :
+		FanLiModule::index();
+		break;
+}
+
 ?>

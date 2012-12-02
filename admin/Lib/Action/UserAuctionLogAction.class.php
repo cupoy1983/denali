@@ -106,38 +106,55 @@ class UserAuctionLogAction extends CommonAction
 	{
 		$id = intval($_REQUEST['id']);
 		$status = intval($_REQUEST['status']);
+		$adm = trim($_REQUEST['adm']);
+		
 		$order = D("UserAuctionLog")->where("id = $id")->find();
-		$order['adm'] = trim($_REQUEST['adm']);
-		$order['status'] = $status;
-		D("UserAuctionLog")->save($order);
-		$this->success (L('EDIT_SUCCESS'));
+		if(($order["is_pay"]==0 && $status==1)||($order["is_pay"]==1 && $status==2)){
+			$this->error("状态转换出错");
+		}else{
+			$order['adm'] = $adm;
+			$order['status'] = $status;
+			D("UserAuctionLog")->save($order);
+			$this->success (L('EDIT_SUCCESS'));
+		}
 	}
 	
-	public function toggleStatus()
-	{
+	public function toggleStatus(){
+		vendor('common');
 		$id = (float)$_REQUEST['id'];
-		if($id == 0)
-			exit;
-		
 		$val = intval($_REQUEST['val']) == 0 ? 1 : 0;
-		
 		$field = trim($_REQUEST['field']);
-		if(empty($field) || $field != 'is_pay')
+		if($id == 0 || empty($field) || $field != 'is_pay'){
 			exit;
+		}
 		
+		$order = D('UserAuctionLog')->where('id = '.$id)->find();
+		$money = (float)$order['money'];
+		//is_pay为相同状态不允许转换
+		if($val == $order['is_pay']){
+			$result['isErr'] = 1;
+			$result['errMsg']="错误状态装换！";
+			die(json_encode($result));
+		}elseif($val == 1){
+			$total = FS('User')->getUserMoney($order["uid"]);
+			if($money > $total){
+				$result['isErr'] = 1;
+				$result['errMsg']="用户提现余额不足！";
+				die(json_encode($result));
+			}
+			$money = -$money;
+		}
+		
+		$data = array($field=>$val,'pay_time'=>gmtTime());
 		$result = array('isErr'=>0,'content'=>'');
-		if(false !== D('UserAuctionLog')->where('id = '.$id)->setField($field,$val))
+		if(false !== D('UserAuctionLog')->where('id = '.$id)->setField($data))
 		{
 			$this->saveLog(1,$id,$field);
 			$result['content'] = $val;
 			
-			D('UserAuctionLog')->where('id = '.$id)->setField('pay_time',gmtTime());
-			$order = D('UserAuctionLog')->where('id = '.$id)->find();
+			
 			$msg = L('PAY_'.$val);
-			$money = (float)$order['money'];
-			if($val == 1)
-				$money = -$money;
-			vendor('common');
+				
 			FS('User')->updateUserMoney($order['uid'],'UserAuctionLog','pay',$msg,$id,$money);
 		}
 		else

@@ -11,7 +11,7 @@ $array = array(
 	'STATUS_1'=>'<span style="color:#00f;">获得佣金</span>',
 	'IS_PAY'=>'支付状态',
 	'NO_PAY'=>"未支付",
-	'PAY_TIME'=>'支付/取消时间',
+	'PAY_TIME'=>'返利支付/取消时间',
 	'PAY_TIME_0'=>"取消",
 	'PAY_TIME_1'=>"支付",
 	'TYPE'=>'类型',

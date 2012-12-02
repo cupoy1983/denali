@@ -70,8 +70,7 @@ class GoodsOrderAction extends CommonAction
 			
 			if($count > 0)
 			{
-				$sql = 'SELECT DISTINCT(order_id),status,settlement_time,goods_id,create_time 
-					FROM '.C("DB_PREFIX").'goods_order '.$where;
+				$sql = 'SELECT * FROM '.C("DB_PREFIX").'goods_order '.$where;
 				$this->_sqlList($model,$sql,$count,$parameter,'order_id');
 				$list = $this->list;
 				
@@ -82,57 +81,33 @@ class GoodsOrderAction extends CommonAction
 				{
 					$goods_ids[$v['goods_id']] = '';
 					$list[$k]['status'] = L('STATUS_'.$v['status']);
-					$list[$k]['settlement_time'] = '&nbsp;';
-					if($v['settlement_time'] > 0)
+					if($v['settlement_time'] > 0){
 						$list[$k]['settlement_time'] = toDate($v['settlement_time'],'Y-m-d').'<br/>'.toDate($v['settlement_time'],'H:i:s');
+					}else{
+						$list[$k]['settlement_time'] = '&nbsp;';
+					}
 					$list[$k]['create_time'] = toDate($v['create_time'],'Y-m-d').'<br/>'.toDate($v['create_time'],'H:i:s');
-					$list[$k]['goods_name'] = &$goods_ids[$v['goods_id']];
-					$orders[$v['order_id']] = &$list[$k];
-				}
-				$where = array();
-				$where['order_id'] = array('in',array_keys($orders));
-				$temps = D('GoodsOrder')->where($where)->order('order_id DESC,type ASC')->select();
-				foreach($temps as $temp)
-				{
-					$users[$temp['uid']] = '';
-					$commission = (float)$temp['commission'] > 0 ? (float)$temp['commission'] : L('GET_COMMISSION');
+					
+					$users[$v['uid']] = '';
+					$commission = (float)$v['commission'] > 0 ? (float)$v['commission'] : L('GET_COMMISSION');
 					$pay_time = L('NO_PAY');
-					if($temp['pay_time'] > 0)
-						$pay_time = L('PAY_TIME_'.$temp['is_pay']).':'.toDate($temp['pay_time']);
-					$type = L('TYPE_'.$temp['type']);
-
-					if($temp['type'] == 0)
-					{
-						$orders[$temp['order_id']]['user']['uid'] = $temp['uid'];
-						$orders[$temp['order_id']]['user']['name'] = &$users[$temp['uid']];
-						$orders[$temp['order_id']]['user']['commission'] = $commission;
-						$orders[$temp['order_id']]['user']['is_commission'] = (float)$temp['commission'] > 0 ? true : false;
-						$orders[$temp['order_id']]['user']['is_pay'] = $temp['is_pay'];
-						$orders[$temp['order_id']]['user']['commission_rate'] = (float)$temp['commission_rate'].'%';
-						$orders[$temp['order_id']]['user']['pay_time'] = $pay_time;
-						$orders[$temp['order_id']]['user']['type'] = $type;
+					if($v['pay_time'] > 0){
+						$pay_time = L('PAY_TIME_'.$v['is_pay']).':'.toDate($v['pay_time']);
 					}
-					else
-					{
-						$orders[$temp['order_id']]['cuser']['uid'] = $temp['uid'];
-						$orders[$temp['order_id']]['cuser']['name'] = &$users[$temp['uid']];
-						$orders[$temp['order_id']]['cuser']['commission'] = $commission;
-						$orders[$temp['order_id']]['cuser']['is_commission'] = (float)$temp['commission'] > 0 ? true : false;
-						$orders[$temp['order_id']]['cuser']['is_pay'] = $temp['is_pay'];
-						$orders[$temp['order_id']]['cuser']['commission_rate'] = (float)$temp['commission_rate'].'%';
-						$orders[$temp['order_id']]['cuser']['pay_time'] = $pay_time;
-						$orders[$temp['order_id']]['cuser']['type'] = $type;
-					}
+					$type = L('TYPE_'.$v['type']);
+					
+					$list[$k]['goods_name']  = '<a href="'.$v['item_url'].'" target="_blank">'.$v['title'].'</a>';
+					$list[$k]['cuser']['uid'] = $v['uid'];
+					$list[$k]['cuser']['name'] = &$users[$v['uid']];
+					$list[$k]['cuser']['commission'] = $commission;
+					$list[$k]['cuser']['is_commission'] = (float)$v['commission'] > 0 ? true : false;
+					$list[$k]['cuser']['is_pay'] = $v['is_pay'];
+					$list[$k]['cuser']['commission_rate'] = (float)$v['commission_rate'].'%';
+					$list[$k]['cuser']['pay_time'] = $pay_time;
+					$list[$k]['cuser']['type'] = $type;
+					
 				}
 				
-				$where = array();
-				$where['id'] = array('in',array_keys($goods_ids));
-				$temps = D('Goods')->where($where)->field('id,name,url')->select();
-				foreach($temps as $temp)
-				{
-					$goods_ids[$temp['id']] = '<a href="'.$temp['url'].'" target="_blank">'.$temp['name'].'</a>';
-				}
-
 				$where = array();
 				$where['uid'] = array('in',array_keys($users));
 				$temps = D('User')->where($where)->field('uid,user_name')->select();
@@ -159,6 +134,7 @@ class GoodsOrderAction extends CommonAction
 			$condition = array ('order_id' => array ('in', explode ( ',', $id ) ) );
 			if(false !== D('GoodsOrder')->where ( $condition )->delete ())
 			{
+				$condition = array ('id' => array ('in', explode ( ',', $id ) ) );
 				D('GoodsOrderIndex')->where($condition)->delete();
 				$this->saveLog(1,$id);
 			}
@@ -182,36 +158,32 @@ class GoodsOrderAction extends CommonAction
 	{
 		$id = (float)$_REQUEST['id'];
 		$uid = (float)$_REQUEST['uid'];
-		if($id == 0 || $uid == 0)
-			exit;
-		
 		$val = intval($_REQUEST['val']) == 0 ? 1 : 0;
-		
 		$field = trim($_REQUEST['field']);
-		if(empty($field))
+		if($id == 0 || $uid == 0 || empty($field)){
 			exit;
+		}
 		
+		$data = array($field=>$val,'pay_time'=>gmtTime());
 		$result = array('isErr'=>0,'content'=>'');
-		if(false !== D('GoodsOrder')->where('order_id = '.$id.' AND uid = '.$uid)->setField($field,$val))
+		if(false !== D('GoodsOrder')->where('order_id = '.$id.' AND uid = '.$uid)->setField($data))
 		{
 			$this->saveLog(1,$id,$field);
 			$result['content'] = $val;
 			if($field == 'is_pay')
 			{
-				D('GoodsOrder')->where('order_id = '.$id.' AND uid = '.$uid)->setField('pay_time',gmtTime());
 				$order = D('GoodsOrder')->where('order_id = '.$id.' AND uid = '.$uid)->find();
 				$msg = L('PAY_'.$val);
 				$money = (float)$order['commission'];
-				if($val == 0)
+				if($val == 0){
 					$money = -$money;
+				}
 
-				if($order['type'] == 0)
-					$action = 'commission';
-				else
+				if($order['type'] == 1){
 					$action = 'buy';
-
-				$goods = D('Goods')->where('id = '.$order['goods_id'])->field('id,name,url')->find();
-				$msg .= '&nbsp;'.L('GOODS').':'.'<a href="'.$goods['url'].'" target="_blank">'.$goods['name'].'</a>&nbsp;'.L('TYPE_'.$order['type']);
+				}
+					
+				$msg .= '&nbsp;'.L('GOODS').':'.'<a href="'.$order['item_url'].'" target="_blank">'.$order['title'].'</a>&nbsp;'.L('TYPE_'.$order['type']);
 				
 				vendor('common');
 				FS('User')->updateUserMoney($uid,'GoodsOrder',$action,$msg,$id,$money);

@@ -555,6 +555,7 @@ class GoodsService
 		
 		$data = array();
 		$data['share'] = $share;
+		$data['collect'] = true;
 		$data['share_goods'] = array($share_goods);
 		
 		FS("Share")->save($data,false);

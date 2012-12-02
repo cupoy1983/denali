@@ -44,6 +44,15 @@ function showMoneyLog(id)
 jQuery(function($){
 	$("#begin_time").datepicker();
 	$("#end_time").datepicker();
+	
+	//(补丁)完成和废除的单子，不能更改付款状态
+	$(".pointer").parent().prev().each(function(){
+		var status = $(this).text();
+		if(status=="作废" || status=="完成"){
+			$(this).next().children(".pointer").removeAttr("onclick");
+		}
+	});
 });
+
 </script>
 <include file="Public:footer" />

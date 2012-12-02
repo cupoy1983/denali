@@ -1,0 +1,218 @@
+<?php
+	$css_list[0]['url'] = './tpl/css/fanli.css';
+?>
+
+<!--{template inc/header}-->
+<script src="/tpl/concise/js/fanli.js"></script>
+
+<style type="text/css">
+
+.search_rebate_d{
+	margin-left: 100px;
+}
+.search_rebate_d .input_fanli {
+    left: 40px;
+    top: 50px;
+    width: 520px;
+}
+.search_rebate_d .p2{
+	left: 575px;
+    top: 5px;
+    width: auto;
+}
+.search_rebate_d .submit {
+    height: 42px;
+    left: 573px;
+    top: 44px;
+    width: 114px;
+}
+
+
+
+#resultContainer{
+	clear: both;
+    display: block;
+	margin: 0 auto;
+    text-align: left;
+    width: 960px;
+    overflow: hidden;
+}
+
+#resultContainer .result{
+	display: none;
+}
+
+#main-pic {
+    height: 360px;
+    width: 360px;
+	padding-left: 75px;
+}
+#main-pic img{
+    height: 360px;
+    width: 360px;
+}
+#detail {
+    padding-left: 60px;
+    width: 360px;
+}
+#detail h3{
+	color: #333333;
+    font: 18px/28px "Microsoft YaHei";
+    height: 54px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+#detail th {
+    height: 34px;
+    white-space: nowrap;
+    width: 64px;
+}
+
+#J_GoUrl {
+    background-position: 0 -52px;
+    height: 55px;
+    margin: 14px 18px 0 0;
+    width: 188px;
+}
+.btn-simple {
+    background: url("/tpl/concise/images/sprite-search.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    overflow: hidden;
+    text-indent: -99999px;
+}
+
+#J_Share {
+    background-position: 0 0;
+    height: 48px;
+    margin: 14px 0 0;
+    width: 147px;
+}
+</style>
+
+<div class="fm960">
+	<div class="top-info oh">
+       <div class="pwhere">当前位置:&nbsp;&nbsp;<font color="red">妖精猫返利</font></div>
+	</div>
+	
+	<div class="search_rebate_d search_rebate pr">
+		<input type="text" id="J_Search" name="urlorname" class="input_fanli pa">
+		<input type="button" value="" id="J_SearchRebate" class="submit pa">
+		<p class="p1 pa">
+			<b>我的现金：</b>确认收货后，即可获得金元宝。 
+			<a onclick="mini_signin();" href="javascript:void(0)">现金明细查询</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<a target="_blank" href="http://fanli.guangjiela.com/help">佣金获取帮助</a>
+		</p>
+		<p class="p2 pa ">
+			支持<a rel="nofollow" target="_blank" href="http://www.taobao.com">淘宝网、</a><a rel="nofollow" target="_blank" href="http://www.tmall.com">天猫商城</a>
+		</p>
+	</div>
+	
+</div>
+<br style="clear:both;" />
+
+<div id="resultContainer">
+	<div style="display:none;" id="listNotice" class="list-notice">
+		<h4>
+			很抱歉，没有找到与“<span class="red">http://item.taobao.com/item.htm?spm=0.0.0.87.ChXvOq&amp;id=17425279471</span>”相关的宝贝<br>
+			并不是所有的宝贝都有返利，您可以尝试换一个商品搜索
+		</h4>
+		<p>建议您：</p>
+		<ol>
+			<li>看看输入的文字是否有误</li>
+			<li>去掉可能不必要的字词，如"的"、"什么"等</li>
+			<li>调整关键字，如“马克华菲正品男装针织衫”改成“马克华菲 针织衫”或“马克华菲 男装"</li>
+		</ol>
+	</div>
+
+	<div class="result">
+		<div class="fl" id="main-pic">
+			<a target="_blank" href=""><img src=""></a>
+		</div>
+		<div class="fl" id="detail">
+			<h3>
+				<a target="_blank" href="" id="J_Title"></a>
+			</h3>
+			<table id="pro-detail">
+				<tbody>
+				<tr>
+					<th>店&nbsp;掌&nbsp;柜：</th>
+					<td><a target="_blank" href="" id="J_Shopname"></a>
+					</td>
+				</tr>
+				<tr>
+					<th>所&nbsp;在&nbsp;地：</th>
+					<td><span id="J_Location"></span></td>
+				</tr>
+				<tr>
+					<th>最近成交：</th>
+					<td><span id="J_Volume"></span>笔</td>
+				</tr>
+				<tr>
+					<th>淘&nbsp;宝&nbsp;价：</th>
+					<td class="price"><b>￥</b><em><span id="J_Price"></span></em></td>
+				</tr>
+				<tr>
+					<th>返&nbsp;利&nbsp;比：</th>
+					<td class="price red"><em><span id="J_Commission"></span></em><b>%</b></td>
+				</tr>
+				</tbody>
+			</table>
+			<p class="clearfix">
+				<a target="_blank" class="btn-simple" id="J_GoUrl" href="">返利模式购买</a>
+				<a class="btn-simple" id="J_Share" href="javascript:void(0);">发布到分享</a>
+			</p>
+			
+		</div>
+		<br class="clear">
+	</div>
+</div>
+
+<script>
+	$(document).ready(function(){
+		$("#J_Search").val("请输入淘宝链接地址(必须为taobao.com或tmall.com商品链接)");
+	});
+	
+	$("#J_SearchRebate").click(function(){
+		var content = $("#J_Search").val();
+		if(content=="请输入淘宝链接地址(必须为taobao.com或tmall.com商品链接)" || content ==""){
+			exit;
+		}
+		getCommission();
+	});
+	
+	$("#J_Share").click(function(){
+		$.Fast_Share_Goods();
+	});
+	
+	$("#J_GoUrl").click(function(){
+		if(!$.Check_Login()){
+			return false; 
+		}else{
+			
+		}
+			
+	});
+	
+	$("#J_Search").focus(function(){
+	    var val=$(this).val(); //得到当前文本框的值
+	    if(val=="请输入淘宝链接地址(必须为taobao.com或tmall.com商品链接)"){
+	        $(this).val("");  //如果符合条件，则清空文本框内容
+	        $(this).css("color","#000000");
+	    }
+	});
+	
+	$("#J_Search").blur(function(){
+	    var val=$(this).val(); //得到当前文本框的值
+	    if(val==""){
+	        $(this).val("请输入淘宝链接地址(必须为taobao.com或tmall.com商品链接)"); //如果符合条件，则设置内容
+	        $(this).css("color","#cccccc");
+	    }
+	});
+	
+	
+</script>
+<!--{template inc/footer}-->

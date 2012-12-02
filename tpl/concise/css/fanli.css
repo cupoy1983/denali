@@ -1,0 +1,104 @@
+.top-info {
+    border: 0 none;
+    height: auto !important;
+    margin: 10px auto;
+    padding-left: 0;
+    width: 1000px;
+}
+.search_rebate {
+    background: url("/tpl/concise/images/search_rebate.png") no-repeat scroll 0 0 transparent;
+    height: 198px;
+    margin: 0 auto 10px;
+}
+.search_rebate .input_fanli {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    color: #cccccc;
+    font-family: "Microsoft Yahei";
+    font-size: 14px;
+    height: 29px;
+    left: 161px;
+    line-height: 29px;
+    top: 60px;
+    width: 479px;
+}
+.search_rebate .submit {
+    background: none repeat scroll 0 0 transparent;
+    border: 0 none;
+    cursor: pointer;
+    height: 43px;
+    left: 660px;
+    top: 52px;
+    width: 128px;
+}
+.search_rebate a.pa {
+    height: 12px;
+    left: 782px;
+    text-indent: -9999px;
+    top: 74px;
+    width: 73px;
+}
+.search_rebate .p1 {
+    color: #666666;
+    left: 272px;
+    top: 138px;
+}
+.search_rebate .p1 b {
+    color: #424242;
+    font-size: 14px;
+    font-weight: bold;
+}
+.search_rebate .p1 a {
+    color: #3699C7;
+    text-decoration: underline;
+}
+.search_rebate .p1 a:hover {
+    color: #3699C7;
+    text-decoration: none;
+}
+.search_rebate .p2 {
+    color: #666666;
+    left: 799px;
+    top: 56px;
+    width: 80px;
+}
+.search_rebate .p2 a {
+    color: #F58F3D;
+    text-decoration: underline;
+}
+.search_rebate .p2 a:hover {
+    color: #F58F3D;
+    text-decoration: none;
+}
+.search_rebate_d {
+    background-image: url("/tpl/concise/images/search_rebate_d.png");
+    font-size: 14px !important;
+    height: 103px !important;
+    margin-bottom: 51px;
+}
+.search_rebate_d .input_fanli {
+    left: 246px;
+    top: 53px;
+    width: 520px;
+}
+.search_rebate_d .submit {
+    height: 42px;
+    left: 789px;
+    top: 44px;
+    width: 114px;
+}
+.search_rebate_d .p2 {
+    left: 49px;
+    top: 42px;
+    width: auto;
+}
+.search_rebate_d .p2 a {
+    text-decoration: none;
+}
+.search_rebate_d .p2 a:hover {
+    text-decoration: underline;
+}
+.search_rebate_d .p1 {
+    display: none;
+}
+

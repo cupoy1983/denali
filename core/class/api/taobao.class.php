@@ -167,7 +167,6 @@ class Taobao
 									FS('User')->updateUserScore((int)$order['uid'],'goods','commission','成功购买商品 '.$item['item_title'].' 获得积分',$order_id,$score);
 								}
 							}
-							
 							FDB::query('UPDATE '.FDB::table('goods_order').' SET status = 1,settlement_time = '.TIME_UTC.',commission = '.$commission.' WHERE order_id = '.$order_id.' AND uid = '.(int)$order['uid']);
 							$is_insert = true;
 						}

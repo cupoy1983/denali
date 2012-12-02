@@ -249,8 +249,14 @@ class ShareService
 		$share_album_id = (int)$share_data['albumid'];
 		$share_cid = (int)$share_data['cid'];
 		unset($share_data['albumid'],$share_data['cid']);
-		$share_data['create_time'] = TIME_UTC;
-		$share_data['day_time'] = getTodayTime();
+		$createTime = 0;
+		if($data['collect']){
+			$createTime = TIME_UTC - mt_rand(0, 10*24*3600);
+		}else{
+			$createTime = TIME_UTC;
+		}
+		$share_data['create_time'] = $createTime;
+		$share_data['day_time'] = intval($share_data['create_time'] / (24*3600)) * (24*3600);
 		$share_id = FDB::insert('share',$share_data,true);
 		
 		if(intval($share_id)>0)
@@ -469,12 +475,12 @@ class ShareService
 							$goods_data['taoke_url'] = $goods['taoke_url'];
 							$goods_data['price'] = $goods['price'];
 							$goods_data['delist_time'] = $goods['delist_time'];
-							$goods_data['create_time'] = TIME_UTC;
 							$goods_data['color'] = $goods['color'];
 							$goods_data['commission'] = (float)$goods['commission'];
 							$goods_data['content'] = $goods['content'];
-							$goods_data['create_day'] = getTodayTime();
-							
+							//获取随机时间
+							$goods_data['create_time'] = $createTime + mt_rand(0, 24*3600);
+							$goods_data['create_day'] = intval($goods_data['create_time'] / (24*3600)) * (24*3600);
 							$goods['goods_id'] = (int)FDB::insert('goods',$goods_data,true);
 							if(!defined('IS_COLLECT_GOODS'))
 								FDB::insert('goods_check',array('id'=>$goods['goods_id']));
@@ -3437,5 +3443,6 @@ class ShareService
 		}
 		return $list;
 	}
+	
 }
 ?>

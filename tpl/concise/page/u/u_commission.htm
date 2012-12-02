@@ -58,7 +58,7 @@
 				<th>提现金额</th>
 				<th>处理状态</th>
 				<th>支付状态</th>
-				<th width="130">支付/取消时间</th>
+				<th width="130">返利支付/取消时间</th>
 				<th class="last" width="130">申请时间</th>
 			</tr>
 			<!--{loop $order_list $order}-->
@@ -135,7 +135,7 @@
 				<th>佣金类型</th>
 				<th>所得佣金</th>
 				<th>支付状态</th>
-				<th>支付/取消时间</th>
+				<th>返利支付/取消时间</th>
 				<th width="80">结算时间</th>
 				<th class="last" width="80">创建时间</th>
 			</tr>
@@ -150,7 +150,7 @@
 				<td class="lt-td last tl" style="text-align:center;vertical-align:middle;" rowspan="2">{$order['create_time']}</td>
 			</tr>
 			<tr>
-				<td class="lt-td tl" colspan="4">商品：<a href="{$order['taoke_url']}" target="_blank">{cutstr $order['name'] 68}</a></td>
+				<td class="lt-td tl" colspan="4">商品：<a href="{$order['click_url']}" target="_blank">{cutstr $order['title'] 68}</a></td>
 			</tr>
 			<!--{/loop}-->
 		</tbody>

@@ -1226,19 +1226,20 @@ class UModule
 			break;
 			
 			case 6:
+				$uid = $_FANWE['uid'];
 				$money = (float)$_FANWE['request']['money'];
-				if($money < 0)
+				if($money < 0){
 					exit;
-				
-				$user_money = FS('User')->getUserMoney($_FANWE['uid']);
-				if($money > $user_money)
-					$money = $user_money;
-
-				if($money == 0)
-				{
+				}
+				$sql = 'SELECT sum(money) FROM '.FDB::table('user_auction_log').' where is_pay=0 and status=0 and uid='.$uid;
+				$total = FDB::resultFirst($sql);
+				$user_money = FS('User')->getUserMoney($uid);
+				if($money == 0 || $money > $user_money - $total){
 					showError(lang('user','auction_log_title'),lang('user','auction_log_error1'),FU('u/commission',array('type'=>4)));
 					exit;
 				}
+
+				
 				
 				$data = array();
 				$data['money'] = $money;
@@ -1301,9 +1302,9 @@ class UModule
 					$order['pay_time_format'] = fToDate($order['pay_time']);
 					$order['settlement_time_format'] = fToDate($order['settlement_time'],'Y-m-d').'<br/>'.fToDate($order['settlement_time'],'H:i:s');
 					$order_list[$order['order_id']] = $order;
-					$goods_list[$order['goods_id']][] = &$order_list[$order['order_id']];
+					//$goods_list[$order['goods_id']][] = &$order_list[$order['order_id']];
 				}
-				FS('Goods')->formatByIDKeys($goods_list,false);
+				//FS('Goods')->formatByIDKeys($goods_list,false);
 			break;
 		}
 		include template('page/u/u_commission');

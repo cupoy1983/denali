@@ -34,14 +34,17 @@
 	<tr class="act">
 		<th>&nbsp;</th>
 		<td>
-			<if condition="$order.status eq 0">
-			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<if condition="($order.is_pay eq 1) and ($order.status neq 1)">
+			<input type="submit" class="submit_btn" value="完成" />&nbsp;&nbsp;
 			<input type="hidden" name="status" value="1" />
 			<input type="hidden" name="id" value="{$order.id}" />
-			</if>
-			<if condition="$order.status eq 1">
-			<input type="submit" class="submit_btn" value="{$Think.lang.CLEAR}" />
+			<elseif condition="($order.is_pay eq 0) and ($order.status neq 2)"/>
+			<input type="submit" class="submit_btn" value="作废" />&nbsp;&nbsp;
 			<input type="hidden" name="status" value="2" />
+			<input type="hidden" name="id" value="{$order.id}" />
+			<else/>
+			<input type="submit" class="submit_btn" value="还原" />&nbsp;&nbsp;
+			<input type="hidden" name="status" value="0" />
 			<input type="hidden" name="id" value="{$order.id}" />
 			</if>
 		</td>

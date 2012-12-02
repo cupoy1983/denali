@@ -200,8 +200,9 @@ function toggleStatus(obj,id,name,args)
 					setTimeout(fun,1);
 				}
 			}
-			else
-				$.ajaxError();
+			else{
+				$.ajaxError(result.errMsg);
+			}
 		}
 	});
 }

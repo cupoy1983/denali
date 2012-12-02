@@ -1,10 +1,16 @@
 <?php
 class CheckinModule 
 {
+	
+	 const qiandao_jifen = 5;   //签到送积分
+	 const lianxux = 10;        //连续签到多少天送勋章
+	 const lianxuxjf = 50;      //连续签到多少天送勋章, 额外送多少积分
+	 const lianxumonth = 28;    //连续签到一个月多少天
+	 const lianxumonthjf = 200;   //连续签到一个月可额外奖励多少积分
+	
     public function index()
     {    
         global $_FANWE;        
-        include_once(FANWE_ROOT.'fanli.php'); 
         $timedate = date("Ymd");
         $where = " WHERE times=1 AND FROM_UNIXTIME(time,'%Y%m%d')='{$timedate}'";
         $sql = "SELECT id FROM ".FDB::table("qiandao").$where;
@@ -44,7 +50,6 @@ class CheckinModule
         $type = $_REQUEST['type'];
         if($type==2)
         {
-            include_once(FANWE_ROOT.'fanli.php');
             $timedate = date("Ymd");
             $where = " WHERE uid='{$_FANWE['uid']}' AND times=1 AND FROM_UNIXTIME(time,'%Y%m%d')='{$timedate}'";
             $sql = "SELECT id FROM ".FDB::table("qiandao").$where;
@@ -62,13 +67,13 @@ class CheckinModule
             else
             {
                 //更新积分
-                FDB::query('UPDATE '.FDB::table("user").' SET credits = credits+'.$qiandao_jifen.' WHERE uid = '.$_FANWE['uid']);
+                FDB::query('UPDATE '.FDB::table("user").' SET credits = credits+'.self::qiandao_jifen.' WHERE uid = '.$_FANWE['uid']);
                 $qindao_data = array();
                 $qindao_data['time'] = time();
                 $qindao_data['uid']  = $_FANWE['uid'];
                 $qindao_data['user_name'] = $_FANWE['user_name'];
                 $qindao_data['times'] = 1;
-                $qindao_data['jifen'] = $qiandao_jifen;
+                $qindao_data['jifen'] = self::qiandao_jifen;
                 FDB::insert('qiandao',$qindao_data,true); 
                 
                 //如果连续签到10次 开始
@@ -87,11 +92,11 @@ class CheckinModule
                 $flag = CheckinModule::iflianxu($qarr);
                 if($flag==9)
                 {
-                    $sql = 'UPDATE '.FDB::table("user").' SET credits = credits+'.$lianxuxjf.' WHERE uid = '.$_FANWE['uid'];
+                    $sql = 'UPDATE '.FDB::table("user").' SET credits = credits+'.self::lianxuxjf.' WHERE uid = '.$_FANWE['uid'];
                     FDB::query($sql);
                     $timedate = date("Ymd");
                     $qdsql = 'UPDATE '.FDB::table("qiandao").
-                    " SET jifen = jifen+'{$lianxuxjf}' WHERE uid = '{$_FANWE['uid']}' AND FROM_UNIXTIME(time,'%Y%m%d')='{$timedate}'";
+                    " SET jifen = jifen+'{self::lianxuxjf}' WHERE uid = '{$_FANWE['uid']}' AND FROM_UNIXTIME(time,'%Y%m%d')='{$timedate}'";
                     FDB::query($qdsql);     
                 }
                 if(empty($media) && $flag>=9)
@@ -110,16 +115,16 @@ class CheckinModule
                 $sql = 'SELECT SUM(jifen)
                     FROM '.FDB::table("qiandao").$where;
                 $upoints = FDB::resultFirst($sql);
-                $yday = $lianxumonth - $uday;
+                $yday = self::lianxumonth - $uday;
                 //如果连续签到28次,送积分
                 if($yday==0)
                 {
                     //更新积分
                     FDB::query('UPDATE '.FDB::table("user").
-                    ' SET credits = credits+'.$lianxumonthjf.' WHERE uid = '.$_FANWE['uid']);
+                    ' SET credits = credits+'.self::lianxumonthjf.' WHERE uid = '.$_FANWE['uid']);
                     $timedate = date("Ymd");
                     $qdsql = 'UPDATE '.FDB::table("qiandao").
-                    " SET jifen = jifen+'{$lianxumonthjf}' WHERE uid = '{$_FANWE['uid']}' AND FROM_UNIXTIME(time,'%Y%m%d')='{$timedate}'";
+                    " SET jifen = jifen+'{self::lianxumonthjf}' WHERE uid = '{$_FANWE['uid']}' AND FROM_UNIXTIME(time,'%Y%m%d')='{$timedate}'";
                     FDB::query($qdsql);     
                     //统计积分
                     $timedate = date("Ym");
@@ -129,8 +134,8 @@ class CheckinModule
                     $upoints = FDB::resultFirst($sql);
                       echo json_encode(array(
                         'ret'=>'success',
-                        'tip'=>"你已经连续签到{$lianxumonth}天，已获取额外送您的{$lianxumonthjf}全勤奖积分啦！",
-                        'getjifen'=>$qiandao_jifen,
+                        'tip'=>"你已经连续签到{self::lianxumonth}天，已获取额外送您的{self::lianxumonthjf}全勤奖积分啦！",
+                        'getjifen'=>self::qiandao_jifen,
                         'upoints'=>$upoints
                         )
                     );     
@@ -139,8 +144,8 @@ class CheckinModule
                 {
                     echo json_encode(array(
                         'ret'=>'success',
-                        'tip'=>"你已经连续签到{$uday}天，还有{$yday}天就可以领取{$lianxumonthjf}积分哦！",
-                        'getjifen'=>$qiandao_jifen,
+                        'tip'=>"你已经连续签到{$uday}天，还有{$yday}天就可以领取{self::lianxumonthjf}积分哦！",
+                        'getjifen'=>self::qiandao_jifen,
                         'upoints'=>$upoints
                         )
                     );
@@ -185,7 +190,6 @@ class CheckinModule
     public function checkintimes()
     {
         global $_FANWE;
-        include_once(FANWE_ROOT.'fanli.php');
         $type = $_REQUEST['type'];
         $month = $_REQUEST['month'];
         $year = $_REQUEST['year'];
@@ -199,7 +203,7 @@ class CheckinModule
             $value['tdsate'] = date('Y-m-d',$value['time']);
             $qdtime[$key]['time'] = date('Y-m-d',$value['time']);
         }
-        echo json_encode(array('ret'=>'success','data'=>$qdtime,'checkintimes'=>count($qdtime),'lasttimes'=>$lianxumonth-count($qdtime)));
+        echo json_encode(array('ret'=>'success','data'=>$qdtime,'checkintimes'=>count($qdtime),'lasttimes'=>self::lianxumonth-count($qdtime)));
         exit; 
     }
 }
