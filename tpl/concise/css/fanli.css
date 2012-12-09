@@ -75,21 +75,22 @@
     font-size: 14px !important;
     height: 103px !important;
     margin-bottom: 51px;
+	margin-left: 100px;
 }
 .search_rebate_d .input_fanli {
-    left: 246px;
-    top: 53px;
+    left: 40px;
+    top: 50px;
     width: 520px;
 }
 .search_rebate_d .submit {
     height: 42px;
-    left: 789px;
+    left: 573px;
     top: 44px;
     width: 114px;
 }
 .search_rebate_d .p2 {
-    left: 49px;
-    top: 42px;
+    left: 575px;
+    top: 5px;
     width: auto;
 }
 .search_rebate_d .p2 a {
@@ -100,5 +101,71 @@
 }
 .search_rebate_d .p1 {
     display: none;
+}
+#resultContainer{
+	clear: both;
+    display: block;
+	margin: 0 auto;
+    text-align: left;
+    width: 960px;
+    overflow: hidden;
+}
+
+#resultContainer .result{
+	display: none;
+}
+#main-pic {
+    height: 360px;
+    width: 360px;
+	padding-left: 75px;
+}
+#main-pic img{
+    height: 360px;
+    width: 360px;
+}
+#detail {
+    padding-left: 60px;
+    width: 360px;
+}
+#detail h3{
+	color: #333333;
+    font: 18px/28px "Microsoft YaHei";
+    height: 54px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+#detail th {
+    height: 30px;
+    white-space: nowrap;
+    width: 64px;
+}
+#detail .red{
+	color:#FF6600;
+	font-size:26px;
+}
+#detail .red b{
+	font-size:18px;
+	font-weight:bold;
+}
+.btn-simple {
+    background: url("/tpl/concise/images/sprite-search.png") no-repeat scroll 0 0 transparent;
+    display: block;
+    float: left;
+    overflow: hidden;
+    text-indent: -99999px;
+}
+#J_GoUrl {
+    background-position: 0 -52px;
+    height: 55px;
+    margin: 14px 18px 0 0;
+    width: 188px;
+}
+#J_Share {
+    background-position: 0 0;
+    height: 48px;
+    margin: 14px 0 0;
+    width: 147px;
 }
 

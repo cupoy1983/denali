@@ -13,8 +13,8 @@ $_FANWE['request'] = unserialize(REQUEST_ARGS);
 $shareId = (int)$_FANWE['request']['id'];
 $shareGoods = FS('Goods')->getShareGoodsByShareId($shareId);
 $goodsId = $shareGoods['goods_id'];
-//FIXME frankie 修改采集uid默认大小
-$MAX_UID = 5;
+//frankie 修改采集uid默认大小
+$MAX_UID = 200;
 $goods = FS('Goods')->getById($goodsId);
 
 if(empty($goods)){

@@ -15,7 +15,7 @@ function getGoodsComment($goodShare)
 	}
 	
 	$today_time = getTodayTime();
-	//FIXME frankie 分享评论采集的最大值为20
+	//frankie 分享评论采集的最大值为20
 	if($goods['comment_collect_time'] < $today_time || $share['comment_count'] < 20)
 	{
 		FS('Delay')->create(array('m'=>'goods','a'=>'comment','id'=>$share_id));

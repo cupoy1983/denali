@@ -27,8 +27,7 @@ function getIndexCateShare()
 {
  	$args = array();
 	$cache_file = getTplCache('inc/index/index_cate_share',array(),1);
-	//FIXME getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1)
-	if(true)
+	if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1))
 	{
 	 	global $_FANWE;
 	 	FanweService::instance()->cache->loadCache('goods_category');
@@ -120,9 +119,8 @@ function getIndexAdv(){
 
 	$args = array();
 	$cache_file = getTplCache('module/home_adv', array(), 1);
-	//FIXME getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1)
 
-	if(true){
+	if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1)){
 		global $_FANWE;
 
 		// 1.获取最新的产品分享
