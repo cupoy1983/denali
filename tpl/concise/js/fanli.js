@@ -32,7 +32,7 @@ function ItemsConvert(iids) {
 			var picUrl = result.pic_url;
 			var nick = result.nick;
 			var location = result.item_location;
-			var rate = result.commission_rate / 100;
+			var rate = result.commission_rate / 100 * 0.45;
 			var volume = result.volume;
 			var item = $("#J_Search").val();
 			var go = "/tgo.php?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(clickUrl) + "&item=" + encodeURIComponent(item) + "&from=fanli";
@@ -43,7 +43,8 @@ function ItemsConvert(iids) {
 			$("#J_Location").text(location);
 			$("#J_Volume").text(volume);
 			$("#J_Price").text(price);
-			$("#J_Commission").text(rate);
+			$("#J_Commission_Rate").text(rate);
+			$("#J_Commission").text(Math.round(rate * price)/100);
 			$("#main-pic img").attr("src", picUrl);
 			$("#J_GoUrl").attr("href", go);
 			

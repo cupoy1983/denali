@@ -1238,8 +1238,6 @@ class UModule
 					showError(lang('user','auction_log_title'),lang('user','auction_log_error1'),FU('u/commission',array('type'=>4)));
 					exit;
 				}
-
-				
 				
 				$data = array();
 				$data['money'] = $money;

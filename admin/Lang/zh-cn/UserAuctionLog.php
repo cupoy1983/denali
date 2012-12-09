@@ -3,11 +3,17 @@ $array = array(
 	'UserAuctionLog'=>'会员提现',
 	'UserAuctionLog_INDEX'=>'提现列表',
 	'UserAuctionLog_SHOW'=>'查看提现',
+	'UserAuctionLog_CHARGE'=>'会员充值',
+	'USERAUCTIONLOG_LISTCHARGE'=>'提现日志',
+	
+	'USER_NAME'=>'用户名',
+	'CHARGE_AMOUNT'=>'充值金额',
 	
 	'MONEY'=>'提现金额',
 	'USER_MONEY'=>'会员现有资金',
 	'USER_NANE'=>'会员名',
 	'CREATE_TIME'=>'申请时间',
+	'CHARGE_TIME'=>'充值时间',
 	'PAY_TIME'=>'支付/取消时间',
 	'IS_PAY'=>'支付状态',
 	'IS_PAY_0'=>'未支付',

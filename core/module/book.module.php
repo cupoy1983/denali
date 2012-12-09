@@ -206,31 +206,35 @@ class BookModule
 				$page_args['tag'] = urlencode($tag);
 			}
 				
-			if(!empty($_FANWE['request']['sort']))
+			if(!empty($_FANWE['request']['sort'])){
 				$page_args['sort'] = $sort;
-			else
-				$page_args['sort'] = 'hot1';
+			}
 			
 			$field = '';
 			$today_time = getTodayTime();
-			switch($sort)
+			$seoPrefix = '';
+			switch($page_args['sort'])
 			{
 				//24小时最热 24小时喜欢人数
 				case 'hot1':
 					$sort = " ORDER BY sgi.collect_1count DESC,sgi.share_id DESC";
+					$seoPrefix = "当天最热";
 				break;
 				//1周天最热 1周喜欢人数
 				case 'hot7':
 					$sort = " ORDER BY sgi.collect_7count DESC,sgi.share_id DESC";
+					$seoPrefix = "1周天最热";
 				break;
 				//最新
 				case 'new':
 					$sort = " ORDER BY sgi.share_id DESC";
+					$seoPrefix = "最新宝贝";
 				break;
 				
 				default:
 					$sort = " ORDER BY sgi.collect_1count DESC,sgi.share_id DESC";
 					$page_args['sort'] = 'hot1';
+					$seoPrefix = "";
 				break;
 			}
 			
@@ -356,6 +360,12 @@ class BookModule
 					$share_list[$data['share_id']] = $data;
 				}
 				$share_list = FS('Share')->getShareDetailList($share_list,false,false,false,true,2);
+			}
+			//处理title
+			if(!empty($category)){
+				$_FANWE['PAGE_SEO_SELF']['short_name']=$seoPrefix.$_FANWE['PAGE_SEO_SELF']['short_name'];
+			}else{
+				$_FANWE['PAGE_SEO_SELF']['short_name']=$seoPrefix.$tag;
 			}
 			
 			include template('page/book/book_index');

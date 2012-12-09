@@ -130,6 +130,7 @@ class UserAuctionLogAction extends CommonAction
 		
 		$order = D('UserAuctionLog')->where('id = '.$id)->find();
 		$money = (float)$order['money'];
+		$logType = null;
 		//is_pay为相同状态不允许转换
 		if($val == $order['is_pay']){
 			$result['isErr'] = 1;
@@ -143,27 +144,91 @@ class UserAuctionLogAction extends CommonAction
 				die(json_encode($result));
 			}
 			$money = -$money;
+			$logType=3;
+		}else{
+			$logType=4;
 		}
 		
 		$data = array($field=>$val,'pay_time'=>gmtTime());
 		$result = array('isErr'=>0,'content'=>'');
-		if(false !== D('UserAuctionLog')->where('id = '.$id)->setField($data))
-		{
+		if(false !== D('UserAuctionLog')->where('id = '.$id)->setField($data)){
 			$this->saveLog(1,$id,$field);
 			$result['content'] = $val;
-			
-			
 			$msg = L('PAY_'.$val);
-				
-			FS('User')->updateUserMoney($order['uid'],'UserAuctionLog','pay',$msg,$id,$money);
-		}
-		else
-		{
+			
+			$log = array();
+			$log['uid']=$order['uid'];
+			$log['model']="UserAuctionLog";
+			$log['action']="pay";
+			$log['msg']=$msg;
+			$log['order_id']=$id;
+			$log['money']=$money;
+			$log['type']=$logType;
+			FS('User')->updateUserMoney($log);
+		}else{
 			$this->saveLog(0,$id,$field);
 			$result['isErr'] = 1;
 		}
 		
 		die(json_encode($result));
+	}
+	
+	/**
+	 * 会员充值
+	 */
+	public function charge(){
+		$this->display();
+	}
+	/**
+	 * 会员充值，操作user_money_log表
+	 */
+	public function doCharge(){
+
+		$uid = intval($_REQUEST['uid']);
+		$amount = intval($_REQUEST['amount']);
+		if($uid <= 0 || $amount <= 0){
+			$this->error("充值错误");
+		}else{
+			Vendor("common");
+			
+			$log['uid'] = $uid;
+			$log['money'] = $amount;
+			$log['create_time'] = TIME_UTC;
+			$log['create_day'] = getTodayTime();
+			$log['type'] = 0;
+			$log['rec_id'] = 0;
+			$log['rec_module'] = "userauctionlog";
+			$log['rec_action'] = "charge";
+			$log['content'] = "会员充值成功，充值金额".$amount."元";
+			$success = FDB::insert('user_money_log',$log);
+			if(!empty($success)){
+				FDB::query("UPDATE ".FDB::table('user')." SET money = money + ".(float)$amount." WHERE uid = $uid", 'UNBUFFERED');
+			}
+			
+			$this->success ("充值成功");
+		}
+	}
+	/**
+	 * 充值列表，操作user_money_log表
+	 */
+	public function listCharge(){
+		$where = 'where type=0';
+		$model = M();
+		
+		$sql = 'SELECT COUNT(id) AS tcount FROM '.C("DB_PREFIX").'user_money_log '.$where;
+		$count = $model->query($sql);
+		$count = $count[0]['tcount'];
+		
+		$sql = 'SELECT * FROM '.C("DB_PREFIX").'user_money_log '.$where;
+		$list = $this->_sqlList($model,$sql,$count);
+		foreach($list as &$t){
+			$uid = $t['uid'];
+			$user_nick = D('User')->where("uid = '".$uid."'")->getField('user_name');
+			$t['user_nick'] = $user_nick;
+		}
+		$this->assign ( 'list', $list );
+		$this->display();
+		return;
 	}
 }
 

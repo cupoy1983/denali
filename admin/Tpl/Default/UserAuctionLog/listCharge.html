@@ -1,0 +1,12 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+
+<fanwe:list 
+	id="checkList" 
+	style="list" 
+	name="type" 
+	datasource="list" 
+	show="id:{$Think.lang.ID}|80,user_nick:{$Think.lang.USER_NAME}|80,money:{$Think.lang.CHARGE_AMOUNT}|60,create_time|toDate:{$Think.lang.CHARGE_TIME}|130" />
+<div class="pager">{$page}</div>
+
+<include file="Public:footer" />

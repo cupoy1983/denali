@@ -24,13 +24,6 @@
 										<span>{lang nickname}：</span>
 										<input style="*margin-left:-1px;" maxlength="36" type="text" name="user_name" id="reg_user_name" class="text" value="" istip="0" rel=".err_ulike" check="0"/>
 									</div>
-									<div class="ipt_sex">
-										<span>{lang gender}：</span>
-										<div class="rdo">
-											<input type="radio" name="gender" value="0" checked="checked" class="ck">{lang user/gender_0}
-											<input style="margin-left:10px" type="radio" name="gender" value="1" class="ck">{lang user/gender_1}
-										</div>
-									</div>
 									<div class="ipt_password">
 										<span>{lang password}：</span>
 										<input style="*margin-left:-1px;" maxlength="36" type="password" name="password" id="reg_password" class="text" istip="0" rel=".err_password" check="0"/>
@@ -38,6 +31,20 @@
 									<div class="ipt_respassword">
 										<span>{lang cpassword}：</span>
 										<input type="password" maxlength="36" name="confirm_password" id="reg_cpassword" class="text" istip="0" rel=".err_rstpassword" check="0"/>
+									</div>
+									<div class="ipt_sex">
+										<span>{lang gender}：</span>
+										<div class="rdo">
+											<input type="radio" name="gender" value="0" checked="checked" class="ck">{lang user/gender_0}
+											<input style="margin-left:10px" type="radio" name="gender" value="1" class="ck">{lang user/gender_1}
+										</div>
+									</div>
+									<div class="ipt_type">
+										<span>用户类型：</span>
+										<div class="rdo">
+											<input type="radio" name="type" value="0" checked="checked" class="ck">个人
+											<input type="radio" name="type" value="1" class="ck">商家
+										</div>
 									</div>
 									<div class="ipt_check">
                                         <span>{lang checkcode}：</span>

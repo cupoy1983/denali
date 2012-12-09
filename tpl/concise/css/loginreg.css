@@ -99,12 +99,13 @@ _margin-top:21px; }
 .ipt_sex { margin-left:48px; height:30px; margin-top:20px; overflow:hidden; room:1; _width:300px; line-height:30px; }
 .ipt_sex .rdo .ck { vertical-align:middle; text-align:center; margin-top:-3px; }
 .ipt_password { margin-left:48px; margin-top:20px; overflow:hidden; room:1; _width:334px; line-height:30px; }
+.ipt_type { margin-left:20px; margin-top:20px; overflow:hidden; room:1; _width:334px; line-height:30px; }
 .ipt_respassword { margin-left:20px; margin-top:20px; overflow:hidden; room:1; _width:334px; line-height:30px; }
 .ipt_check { margin-left:34px; margin-top:20px; overflow:hidden; room:1; _width:334px; line-height:30px; }
 .ipt_check #img_checkcode { width:78px; height:26px; margin-top:2px; float:left; margin-left:4px; vertical-align:middle; text-align:center; *margin-top:2px;
 }
 .ipt_check a { color:#09e; float:left; margin-left:6px; }
-.ipt_box { margin-left:91px; margin-top:20px; overflow:hidden; room:1; _width:290px; }
+.ipt_box { margin-left:50px; margin-top:20px; overflow:hidden; room:1; _width:290px; }
 .ipt_box a:hover { text-decoration:underline; }
 .ipt_box .box { margin-right:2px; }
 .ipt_sub { margin-left:92px; margin-top:20px; overflow:hidden; room:1; *margin-left:48px;width:430px; }

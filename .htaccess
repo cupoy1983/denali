@@ -142,14 +142,7 @@ RewriteRule ^album/category/c(\d+)/(hot|new)$  album\.php\?action=category&id=$1
 RewriteRule ^album/category/c(\d+)/(\d+)$  album\.php\?action=category&id=$1&page=$2 [QSA,L]
 RewriteRule ^album/category/c(\d+)$  album\.php\?action=category&id=$1 [QSA,L]
 
-RewriteRule ^album/show/a(\d+)/s(\d+)/t(\d+)/(\d+)$  album\.php\?action=show&id=$1&sid=$2&type=$3&page=$4 [QSA,L]
-RewriteRule ^album/show/a(\d+)/s(\d+)/t(\d+)$  album\.php\?action=show&id=$1&sid=$2&type=$3 [QSA,L]
-RewriteRule ^album/show/a(\d+)/s(\d+)/(\d+)$  album\.php\?action=show&id=$1&sid=$2&page=$3 [QSA,L]
-RewriteRule ^album/show/a(\d+)/t(\d+)/(\d+)$  album\.php\?action=show&id=$1&type=$2&page=$3 [QSA,L]
-RewriteRule ^album/show/a(\d+)/s(\d+)$  album\.php\?action=show&id=$1&sid=$2 [QSA,L]
-RewriteRule ^album/show/a(\d+)/t(\d+)$  album\.php\?action=show&id=$1&type=$2 [QSA,L]
-RewriteRule ^album/show/a(\d+)/(\d+)$  album\.php\?action=show&id=$1&page=$2 [QSA,L]
-RewriteRule ^album/show/a(\d+)$  album\.php\?action=show&id=$1 [QSA,L]
+RewriteRule ^album/a(\d+)$  album\.php\?action=show&id=$1 [QSA,L]
 
 RewriteRule ^album/(hot|new)/(\d+)$  album\.php\?action=index&sort=$1&page=$2 [QSA,L]
 RewriteRule ^album/(hot|new)$  album\.php\?action=index&sort=$1 [QSA,L]
@@ -188,4 +181,5 @@ RewriteRule ^([A-Za-z]+)/([A-Za-z]+)$  $1\.php\?action=$2 [QSA,L]
 RewriteRule ^([A-Za-z]+)/([A-Za-z]+).html$  $1\.php\?action=$2 [QSA,L]
 RewriteRule ^([A-Za-z]+).html$  $1\.php [QSA,L]
 RewriteRule ^([A-Za-z]+)/$  $1\.php [QSA,L]
+RewriteRule ^([A-Za-z]+)$  $1\.php [QSA,L]
 </IfModule>

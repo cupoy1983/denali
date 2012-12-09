@@ -175,8 +175,12 @@ class GoodsOrderAction extends CommonAction
 				$order = D('GoodsOrder')->where('order_id = '.$id.' AND uid = '.$uid)->find();
 				$msg = L('PAY_'.$val);
 				$money = (float)$order['commission'];
+				$log = array();
 				if($val == 0){
 					$money = -$money;
+					$log['type']=2;
+				}else{
+					$log['type']=1;
 				}
 
 				if($order['type'] == 1){
@@ -186,7 +190,14 @@ class GoodsOrderAction extends CommonAction
 				$msg .= '&nbsp;'.L('GOODS').':'.'<a href="'.$order['item_url'].'" target="_blank">'.$order['title'].'</a>&nbsp;'.L('TYPE_'.$order['type']);
 				
 				vendor('common');
-				FS('User')->updateUserMoney($uid,'GoodsOrder',$action,$msg,$id,$money);
+				
+				$log['uid']=$uid;
+				$log['model']="GoodsOrder";
+				$log['action']=$action;
+				$log['msg']=$msg;
+				$log['order_id']=$id;
+				$log['money']=$money;
+				FS('User')->updateUserMoney($log);
 			}
 		}
 		else

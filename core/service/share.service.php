@@ -2514,7 +2514,7 @@ class ShareService
 			$data = array();
 			$data['content'] = 	$post['content'];
 			$data['share_id'] = $share['share_id'];
-			$parent_comment_id = ShareService::saveComment($data);
+			$parent_comment_id = ShareService::saveComment($data, $share);
 		}
 
 		//评论给原创分享
@@ -2524,7 +2524,7 @@ class ShareService
 			$data = array();
 			$data['content'] = 	$post['content'];
 			$data['share_id'] = $base_id;
-			$base_comment_id = ShareService::saveComment($data);
+			$base_comment_id = ShareService::saveComment($data, $share);
 		}
 
 		return array(
@@ -2847,13 +2847,13 @@ class ShareService
 	/**
 	 * 保存分享的评论
 	 * @param array $post 提交的数据
+	 * @param array $share 分享数据
 	 * @return int 评论编号
 	 */
-	public function saveComment($post)
+	public function saveComment($post, $share)
 	{
 		global $_FANWE;
 		$share_id = intval($post['share_id']);
-		$share = ShareService::getShareById($share_id);
 		$data = array();
 		$data['content'] = 	htmlspecialchars(trim($post['content']));
 		$data['uid'] = $_FANWE['uid'];

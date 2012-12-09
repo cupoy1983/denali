@@ -27,8 +27,6 @@
     width: 114px;
 }
 
-
-
 #resultContainer{
 	clear: both;
     display: block;
@@ -64,11 +62,18 @@
     word-break: break-all;
     word-wrap: break-word;
 }
-
 #detail th {
-    height: 34px;
+    height: 30px;
     white-space: nowrap;
     width: 64px;
+}
+#detail .red{
+	color:#FF6600;
+	font-size:26px;
+}
+#detail .red b{
+	font-size:18px;
+	font-weight:bold;
 }
 
 #J_GoUrl {
@@ -153,16 +158,20 @@
 				</tr>
 				<tr>
 					<th>淘&nbsp;宝&nbsp;价：</th>
-					<td class="price"><b>￥</b><em><span id="J_Price"></span></em></td>
+					<td class="price"><em><b>￥</b><span id="J_Price"></span></em><b> (具体价格参照淘宝)</b></td>
 				</tr>
 				<tr>
 					<th>返&nbsp;利&nbsp;比：</th>
-					<td class="price red"><em><span id="J_Commission"></span></em><b>%</b></td>
+					<td class="price"><em><span id="J_Commission_Rate"></span></em><b>% (聚划算商品除外)</b></td>
+				</tr>
+				<tr>
+					<th>返&nbsp;&nbsp;&nbsp;&nbsp;利：</th>
+					<td class="red" title="实际佣金以淘宝成交价格乘以返利比率为准"><em><b>￥</b><span id="J_Commission"></span></em></td>
 				</tr>
 				</tbody>
 			</table>
 			<p class="clearfix">
-				<a target="_blank" class="btn-simple" id="J_GoUrl" href="">返利模式购买</a>
+				<a target="_blank" class="btn-simple" id="J_GoUrl" href="#" title="实际佣金以淘宝成交价格乘以返利比率为准">返利模式购买</a>
 				<a class="btn-simple" id="J_Share" href="javascript:void(0);">发布到分享</a>
 			</p>
 			

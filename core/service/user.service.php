@@ -1055,11 +1055,16 @@ class UserService
 			return -1;
 	}
 	
-	public function updateUserMoney($uid,$model,$action,$msg='',$order_id = 0,$money = 0,$is_log = true)
-	{
+	public function updateUserMoney($l,$is_log = true){
 		global $_FANWE;
-		$model = strtolower($model);
-		$action = strtolower($action);
+		$uid = $l['uid'];
+		$model = strtolower($l['model']);
+		$action = strtolower($l['action']);
+		$msg = $l['msg'];
+		$order_id = $l['order_id'];
+		$money = $l['money'];
+		$type = $l['type'];
+		
 		$handle = $model."_".$action."_money";
 
 		if(abs($money) > 0)
@@ -1084,6 +1089,7 @@ class UserService
 					$log['rec_id'] = $order_id;
 					$log['rec_module'] = $model;
 					$log['rec_action'] = $action;
+					$log['type'] = $type;
 					$logCount = FDB::resultFirst('SELECT count(rec_id) FROM '.FDB::table('user_money_log').' WHERE uid = '.$uid.' and rec_id='.$order_id);
 					if(empty($logCount)){
 						FDB::insert('user_money_log',$log);

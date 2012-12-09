@@ -220,12 +220,12 @@ function FU($type,$args = array(),$is_full = false)
 					break;
 					
 					case 'show':
-						$action = $seo_modules[$module][$action]['action'];
+						$action = '';
 						$args['aid'] = $args['id'];
 						unset($args['id']);
-						$params = array('aid'=>0,'sid'=>0,'type' => 0,'page' => 0);
-						$search = array('aid/','sid/','type/','page/');
-						$replace = array('a','s','t','');
+						$params = array('aid'=>0);
+						$search = array('aid/');
+						$replace = array('a');
 					break;
 		
 					case 'edit':

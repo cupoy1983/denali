@@ -2,7 +2,7 @@
 class AboutModule{
 	public function about(){
 		global $_FANWE;
-		
+		$_FANWE['nav_title'] = "关于我们";
 		$cache_file = getTplCache('page/about/about');
 		if(!@include($cache_file))
 		{
@@ -13,7 +13,7 @@ class AboutModule{
 	
 	public function contact(){
 		global $_FANWE;
-		
+		$_FANWE['nav_title'] = "联系我们";
 		$cache_file = getTplCache('page/about/contact');
 		if(!@include($cache_file))
 		{
@@ -24,7 +24,7 @@ class AboutModule{
 	
 	public function link(){
 		global $_FANWE;
-		
+		$_FANWE['nav_title'] = "友情链接";
 		$cache_file = getTplCache('page/about/link');
 		if(!@include($cache_file))
 		{
@@ -35,7 +35,7 @@ class AboutModule{
 	
 	public function help(){
 		global $_FANWE;
-		
+		$_FANWE['nav_title'] = "获取帮助";
 		$cache_file = getTplCache('page/about/help');
 		if(!@include($cache_file))
 		{
@@ -46,7 +46,7 @@ class AboutModule{
 	
 	public function iphone(){
 		global $_FANWE;
-	
+		$_FANWE['nav_title'] = "iphone客户端";
 		$cache_file = getTplCache('page/about/iphone');
 		if(!@include($cache_file))
 		{
@@ -57,7 +57,7 @@ class AboutModule{
 	
 	public function android(){
 		global $_FANWE;
-	
+		$_FANWE['nav_title'] = "android客户端";
 		$cache_file = getTplCache('page/about/android');
 		if(!@include($cache_file))
 		{

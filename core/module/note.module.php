@@ -185,7 +185,7 @@ class NoteModule
 				$current_type = 'other';
 			break;
 		}
-		
+		$goodShare = $current_obj['goods_id'].'||'.$current_obj['share_id'];
 		include template('page/note/note_index');
 		display();
 	}

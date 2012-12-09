@@ -123,6 +123,7 @@ class UserModule
 			'password'         => $_FANWE['request']['password'],
 			'confirm_password' => $_FANWE['request']['confirm_password'],
 			'gender'           => intval($_FANWE['request']['gender']),
+			'type'           => intval($_FANWE['request']['type']),
 		);
 
 		$vservice = FS('Validate');
@@ -174,6 +175,7 @@ class UserModule
 			'email' => $data['email'],
 			'user_name' => $data['user_name'],
 			'password'  => $data['password'],
+			'type' => $data['type'],
 			'invite_id' => FS('User')->getReferrals(),
 			$user_field => $integrate_id,
 		);

@@ -53,13 +53,13 @@ if((int)FDB::resultFirst($sql) > 0)
 }
 
 $share_data = array();
-$share_data['content'] = htmlspecialchars($_FANWE['request']['content']);
-$share_data['uid'] = $_FANWE['uid'];
-$share_data['rec_id'] = $aid;
-$share_data['rec_uid'] = $rec_uid;
-$share_data['title'] = addslashes($album['title']);
-$share_data['type'] = 'album_item';
-$data['share'] = $share_data;
+// $share_data['content'] = htmlspecialchars($_FANWE['request']['content']);
+// $share_data['uid'] = $_FANWE['uid'];
+// $share_data['rec_id'] = $aid;
+// $share_data['rec_uid'] = $rec_uid;
+// $share_data['title'] = addslashes($album['title']);
+// $share_data['type'] = 'album_item';
+// $data['share'] = $share_data;
 
 $data['rel_goods'] = array();
 $data['rel_photo'] = array();
@@ -89,7 +89,7 @@ switch($rec_type)
 	break;
 }
 $data['pub_out_check'] = (int)$_FANWE['request']['pub_out_check'];
-$share = FS("Share")->save($data);
+$share = FS("Share")->getShareById($rec_share_id);
 if($share['status'])
 {
 	FS('Image')->updateImageRel($rec_obj['img_id']);
@@ -107,7 +107,6 @@ if($share['status'])
 	$album_share['cid'] = $album['cid'];
 	FDB::insert("album_share",$album_share);
 	
-	$share = FS('Share')->getShareById($share['share_id']);
 	if($share['status'] == 1)
 	{
 		$album_share = array();

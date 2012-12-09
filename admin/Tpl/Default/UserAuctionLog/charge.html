@@ -1,0 +1,39 @@
+<tagLib name="fanwe" />
+<include file="Public:header" />
+<link href="__TMPL__Static/Js/DatePicker/jquery.ui.all.css" rel="stylesheet" />
+<script type="text/javascript" src="__TMPL__Static/Js/user.js"></script>
+<div class="handle-btns">
+	<fanwe:linkBtn text="{$Think.lang.RETURN_LIST}" href="{:U(MODULE_NAME.'/index')}" />
+</div>
+<form method='post' id="form" name="form" action="{:U(MODULE_NAME.'/doCharge')}" enctype="multipart/form-data">
+<table cellpadding="4" cellspacing="0" border="0" class="table-form">
+	<tr>
+		<th width="200">{$Think.lang.UID}</th>
+		<td>
+			<select name="uid" id="userSelect">
+				<option value="">{:getLang('SEARCH_USER','User')}</option>
+			</select>&nbsp;
+			<input type="text" class="textinput" size="8" id="userName" />&nbsp;
+			<input class="submit_btn" type="button" value="{$Think.lang.SEARCH}" onclick="searchUser('#userSelect','#userName');" />
+		</td>
+	</tr>
+	<tr>
+		<th width="200">充值金额</th>
+		<td>
+			<input type="text" class="textinput" size="8" name="amount" style="width:140px;"/>&nbsp;
+		</td>
+	</tr>
+	<tr class="act">
+		<th>&nbsp;</th>
+		<td>
+			<input type="submit" class="submit_btn" value="{$Think.lang.SUBMIT}" />&nbsp;&nbsp;
+			<input type="reset" class="reset_btn" value="{$Think.lang.RESET}" />
+		</td>
+	</tr>
+</table>
+</form>
+<script type="text/javascript">
+var EMPTY_USER = "{:getLang('EMPTY_USER','User')}";
+
+</script>
+<include file="Public:footer" />

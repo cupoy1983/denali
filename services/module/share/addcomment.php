@@ -29,8 +29,7 @@ if($check_result['error_code'] == 1)
 	outputJson($result);
 }
 
-$comment_id = FS('Share')->saveComment($_FANWE['request']);
-//FS("User")->updateUserScore($_FANWE['uid'],'share','comments',$_FANWE['request']['content'],$comment_id);
+$comment_id = FS('Share')->saveComment($_FANWE['request'], $share);
 
 $comment = FS('Share')->getShareComment($comment_id);
 $comment['user'] = array('uid'=>$_FANWE['uid'],'user_name'=>$_FANWE['user_name'],'url'=>FU('u/index',array('uid'=>$_FANWE['uid'])));
