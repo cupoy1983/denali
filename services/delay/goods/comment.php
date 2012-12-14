@@ -67,6 +67,9 @@ if($goods['comment_collect_time'] < $today_time)
 				$item['uid'] = mt_rand(1, $MAX_UID);
 				$item['content'] = preg_replace("/[\r\n]/",'',$rate['rateContent']);
 				$item['content'] = FS('Goods')->generateGoodsName($item['content']);
+				if(!checkContent($item['content'])){
+					continue;
+				}
 				$item['create_time'] = str2Time(str_replace('.','-',$rate['rateDate']));
 				if(!empty($temp_content))
 					$temp_content .= "\n".serialize($item);
@@ -114,7 +117,7 @@ if($goods['comment_collect_time'] < $today_time)
 			writeFile($cache_path,$temp_content);
 			
 			sleep(1);
-			$args = array('m'=>'goods','a'=>'comment','id'=>$shareId,'page'=>2,'comment_url'=>$comment_url);
+			$args = array('m'=>'goods','a'=>'comment','id'=>$shareId,'comment_url'=>$comment_url);
 			FS('Delay')->create($args,false);
 		}
 	}
@@ -158,9 +161,22 @@ function insertGoodsComment($shareId, $uid)
 	@unlink($cache_path);
 }
 
+function checkContent($content){
+	if(mb_strlen($content,'utf-8')<5){
+		return false;
+	}elseif($content=="此用户没有填写评论!"){
+		return false;
+	}elseif(strpos($content,"差")!==false){
+		return false;
+	}else{
+		return true;
+	}
+}
+
 function goodsCommentSort($a, $b){
     if ((int)$a['create_time'] == (int)$b['create_time'])
         return 0;
     return ((int)$a['create_time'] < (int)$b['create_time']) ? -1 : 1;
 }
 ?>
+

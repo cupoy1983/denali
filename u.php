@@ -67,12 +67,10 @@ elseif(in_array($action,array('notic')))
 
 $_FANWE['home_uid'] = $home_uid;
 $_FANWE['home_user_names'] = FS('User')->getUserShowName($home_uid);
-
-$home_user = FS('User')->getUserById($home_uid);
-if(empty($home_user))
+if(empty($_FANWE['home_user_names']['name'])){
 	fHeader("location: ".FU('index/index'));
-
-$_FANWE['nav_title'] = $home_user['user_name'].lang('common','space');
+}
+$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].lang('common','space');
 require fimport('module/u');
 
 if(class_exists("UModule"))

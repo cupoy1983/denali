@@ -16,13 +16,13 @@ function getGoodsComment($goodShare)
 	
 	$today_time = getTodayTime();
 	//frankie 分享评论采集的最大值为20
-	if($goods['comment_collect_time'] < $today_time || $share['comment_count'] < 20)
+	if($goods['comment_collect_time'] < $today_time && $share['comment_count'] < 20)
 	{
 		FS('Delay')->create(array('m'=>'goods','a'=>'comment','id'=>$share_id));
 	}
-	
-	$args = FS('Goods')->getCommentList($goods_id);
-	$args['id'] = $goods_id;
-	return tplFetch('inc/note/goods_comment',$args,'');
+	//frankie FIXME 去除显示商品评论，改为分享评论
+// 	$args = FS('Goods')->getCommentList($goods_id);
+// 	$args['id'] = $goods_id;
+// 	return tplFetch('inc/note/goods_comment',$args,'');
 }
 ?>

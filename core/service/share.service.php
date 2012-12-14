@@ -1124,11 +1124,6 @@ class ShareService
 			if($update_user_cache && ($share['type'] == 'album' || $share['type'] == 'album_item'))
 				FS('Album')->setUserCache($share['uid']);
 			
-			if($share['type'] == 'fav')
-			{
-				FDB::delete('fav_me','share_id = '.$share_id);
-			}
-			
 			if($share['comment_count'] > 0)
 			{
 				FDB::delete('share_comment','share_id = '.$share_id);
@@ -1172,7 +1167,7 @@ class ShareService
 				goods = goods - '.$goods_count.',
 				collects = collects - '.$collect_count.' WHERE uid = '.$share['uid'],'SILENT');
 
-			ShareService::deleteShareCache();
+			ShareService::deleteShareCache($share_id);
 			
 			if(isset($cache_data['imgs']['all']))
 			{
@@ -1184,7 +1179,7 @@ class ShareService
 		}
 	}
 
-	public function deleteShareCache()
+	public function deleteShareCache($share_id)
 	{
 		$key = getDirsById($share_id);
 		clearCacheDir('share/'.$key);
@@ -2574,16 +2569,6 @@ class ShareService
 		
 		//添加关注消息提示
 		FS("User")->setUserTips($share['uid'],2);
-		$favshare = ShareService::save($data);
-		if($favshare['status'])
-		{
-			$data = array();
-			$data['share_id'] = $favshare['share_id'];
-			$data['uid'] = $share['uid'];
-			$data['parent_id'] = $share['share_id'];
-			$data['cuid'] = $_FANWE['uid'];
-			FDB::insert('fav_me',$data);
-		}
 	}
 
 	/**
