@@ -1,4 +1,143 @@
 #content { min-height:600px; _height:600px; }
+
+/* best album*/
+.album_top_con, .album_top_con .add_album, .album_top_con .tips h3 .moudou, #album_slide_btn a, .album_category .more .more_link, .album_category_nav {
+    background: url("/tpl/concise/images/album-bg-op.png") no-repeat scroll 0 0 transparent;
+}
+.album_top {
+    height: 280px;
+}
+.album_top_box {
+    background: none repeat scroll 0 0 #FFFFFF;
+    height: 250px;
+    overflow: hidden;
+}
+#album_slide {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    width: 500px;
+}
+#album_slide ul {
+    position: absolute;
+    width: 9999em;
+}
+#album_slide ul li {
+    float: left;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+    width: 250px;
+}
+#album_slide ul li img {
+    border-radius: 5px 5px 5px 5px;
+    height: 250px;
+    vertical-align: top;
+    width: 250px;
+}
+#album_slide ul li .title {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 0 5px 5px 5px;
+    bottom: 0;
+    color: #FFFFFF;
+    font-family: '微软雅黑';
+    font-size: 20px;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 15px;
+    position: absolute;
+    width: 245px;
+    filter:progid:DXImageTransform.Microsoft.gradient(startcolorstr=#33000000,endcolorstr=#33000000);
+}
+.album_top_con {
+    background-repeat: repeat-x;
+    height: 245px;
+    margin: -243px 0 0 510px;
+    padding: 0 0 0 20px;
+    width: 422px;
+}
+.album_top_con h1 {
+    color: #FF83B4;
+    font-family: '微软雅黑';
+    font-size: 20px;
+    height: 46px;
+    line-height: 46px;
+}
+.album_top_con .title_desc {
+    color: #666666;
+    font-family: '微软雅黑';
+    font-size: 14px;
+    line-height: 20px;
+}
+.album_top_con .add_album {
+    background-position: 0 -300px;
+    color: #FFFFFF;
+    display: block;
+    font-family: '微软雅黑';
+    font-size: 14px;
+    height: 27px;
+    line-height: 27px;
+    margin: 10px 0 0;
+    text-align: center;
+    width: 111px;
+}
+.album_top_con .tips {
+    margin: 25px 0 0;
+    overflow: hidden;
+}
+.album_top_con .tips li {
+    width: 210px;
+}
+.album_top_con .tips h3 {
+    color: #333333;
+    font-size: 14px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 0 5px;
+}
+.album_top_con .tips h3 .moudou {
+    background-position: 12px -346px;
+    color: #80B100;
+    display: inline-block;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 0 0 28px;
+}
+.album_top_con .tips_title {
+    color: #666666;
+}
+.album_top_con .tip_link {
+    color: #40ACFF;
+    font-size: 14px;
+    text-decoration: underline;
+}
+.album_top_con .see_detail {
+    display: inline-block;
+    margin: 17px 0 0;
+}
+#album_slide_btn {
+    height: 10px;
+    margin: 10px 0 0 230px;
+    width: 470px;
+}
+#album_slide_btn .div {
+    margin: 0 0 0 200px;
+}
+#album_slide_btn a {
+    background-position: right -400px;
+    cursor: pointer;
+    float: left;
+    height: 8px;
+    margin-left: 7px;
+    overflow: hidden;
+    text-indent: -20px;
+    width: 8px;
+}
+#album_slide_btn a.selected {
+    background-position: 0 -400px;
+}
+
 .album-nav { margin:4px 14px 0; overflow:hidden; position:relative; height:38px; }
 .album-nav .hot-album,
 .album-nav .all_album { float:left; background:url(../images/hot-album.png) no-repeat 0 5px; width:120px; height:37px; }
@@ -251,31 +390,6 @@ border-radius:2px; line-height:20px; line-height:15px; }
 #lb_album_add .share_to { height:30px; line-height:40px; }
 #lb_album_add label { margin-right:5px; display:block; float:left; height:26px; line-height:35px; width:140px; }
 #lb_album_add #box_share { float:left; height:35px; line-height:22px; margin:0 2px 0 13px; vertical-align:middle; }
-
-.album_index_create{background:#f8f8f8; padding:20px; width:920px;}
-.album_index_create h1{color:#fc508c; font-size:20px;}
-.album_index_create p{padding:15px 0 10px 2px;}
-.album_index_create .aic_btn{display:block; background:#fc508c; height:28px; line-height:28px; color:#fff; font-weight:bold; width:108px; text-align:center; margin:0 0 0 2px;}
-
-.album_book_list{}
-.album_book_list ul{float:left; margin:0 0 0 -22px;}
-.album_book_list li{float:left; width:223px; margin:18px 0 0 22px; _display:inline; background:#f7f7f7; overflow:hidden; position:relative;}
-.album_book_list li .abl_big{display:block; width:223px; height:223px; display:block; overflow:hidden; float:left;}
-.album_book_list li .abl_big img{float:left;}
-.album_book_list li .abl_smalls{float:left; width:230px; margin:1px 0 0 -1px; height:55px;}
-.album_book_list li .abl_smalls a{float:left; display:block; width:55px; height:55px; overflow:hidden; overflow:hidden; text-align:center; margin:0 0 0 1px; _display:inline;}
-.album_book_list li .abl_mask{display:block; width:223px; height:55px; overflow:hidden; text-indent:-999px; position:absolute; left:0; top:224px; background:#fff; opacity:0.5; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);}
-.album_book_list li .abl_mask:hover{opacity:0; filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);}
-.album_book_list li .abl_title{float:left; padding:0 0 0 8px; height:36px; line-height:36px; color:#676767; font-size:14px; font-weight:bold; width:150px; overflow:hidden;}
-.album_book_list li .abl_count{float:right; padding:10px 8px 10px 0; height:16px; line-height:16px; color:#989898;  overflow:hidden;}
-.album_book_list li .abl_user{float:left; width:203px; height:20px; padding:0 10px 10px 10px; overflow:hidden; position:relative;}
-.album_book_list li .abl_uimg{float:left;}
-.album_book_list li .abl_uimg img{float:left; width:20px; height:20px;}
-.album_book_list li .abl_uname{font-size:14px; float:left; line-height:20px; color:#86bf34; font-weight:bold; display:block; padding:0 0 0 10px; height:20px; overflow:hidden;}
-
-.album_index_best{}
-.album_index_best h2{color:#636363; padding:10px; font-size:18px;}
-.album_index_best li{margin-top:0;}
 
 .album_subnav{height:38px;background:url('../images/album_cate_bg.png') repeat-x 0 0; overflow:hidden;}
 .album_subnav a{display:block; padding:12px 30px 0 30px; height:26px; float:left; color:#7f7f7f;}
