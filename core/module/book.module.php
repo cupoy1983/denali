@@ -378,6 +378,7 @@ class BookModule
 				$n="爱逛街";
 				if(empty($t)){
 					$t = $n;
+					$n = "";
 				}
 			}
 			
