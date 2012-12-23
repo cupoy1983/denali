@@ -376,6 +376,9 @@ class BookModule
 			}else{
 				$t=$tag;
 				$n="爱逛街";
+				if(empty($t)){
+					$t = $n;
+				}
 			}
 			
 			$_FANWE['PAGE_SEO_SELF']['short_name']="时尚".$n.$t."_热卖".$t."_新款".$t;
