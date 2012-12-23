@@ -193,7 +193,7 @@ class UModule
 			if(!FS('User')->getIsFollowUId($home_uid))
 				$is_show_follow = true;
 		}
-
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的个人主页';
 		include template('page/u/u_book');
 		display();
 	}
@@ -231,7 +231,8 @@ class UModule
 		    $share_list_html = tplFetch("inc/u/u_share_list",$args);
         else
             $share_list_html = tplFetch("inc/u/me_share_list",$args);
-
+		
+        $_FANWE['nav_title'] = '咱发表的';
 		include template('page/u/u_me');
 		display();
 	}
@@ -301,7 +302,7 @@ class UModule
 		
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager);
 		$share_list_html = tplFetch("inc/u/u_share_list",$args);
-
+		$_FANWE['nav_title'] = '朋友呼咱的';
 		include template('page/u/u_me');
 		display();
 	}
@@ -348,7 +349,7 @@ class UModule
 
 		$args = array('comment_list'=>&$comment_list,'pager'=>&$pager);
 		$share_list_html = tplFetch("inc/u/u_comments_list",$args);
-
+		$_FANWE['nav_title'] = '评论咱的';
 		include template('page/u/u_me');
 		display();
 	}
@@ -380,7 +381,7 @@ class UModule
 
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager);
 		$share_list_html = tplFetch("inc/u/me_share_list",$args);
-
+		$_FANWE['nav_title'] = '咱逛逛呗';
 		include template('page/u/u_me');
 		display();
 	}
@@ -436,7 +437,7 @@ class UModule
 		
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'all');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
-
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'十分喜欢';
 		include template('page/u/u_fav');
 		display();
 	}
@@ -492,7 +493,7 @@ class UModule
 		
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'goods');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
-		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的宝贝';
 		include template('page/u/u_book_list');
 		display();
 	}
@@ -548,7 +549,7 @@ class UModule
 		
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'look');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
-		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的晒晒更健康';
 		include template('page/u/u_book_list');
 		display();
 	}
@@ -604,7 +605,7 @@ class UModule
 		
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'dapei');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
-		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的时尚搭配';
 		include template('page/u/u_book_list');
 		display();
 	}
@@ -660,7 +661,7 @@ class UModule
 		
 		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'photo');
 		$share_list_html = tplFetch("inc/u/book_share_list",$args);
-		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的相册';
 		include template('page/u/u_book_list');
 		display();
 	}
@@ -694,7 +695,7 @@ class UModule
 			$group_ids[$thread['fid']][] = &$thread_list[$thread['tid']]['group'];
 		}
 		FS('Group')->formatByIdKeys($group_ids,false);
-		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的独家大作';
 		include template('page/u/u_topic');
 		display();
 	}
@@ -735,7 +736,7 @@ class UModule
 			$group_ids[$thread['fid']][] = &$thread_list[$thread['tid']]['group'];
 		}
 		FS('Group')->formatByIdKeys($group_ids,false);
-		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的小组动态';
 		include template('page/u/u_topic');
 		display();
 	}
@@ -771,7 +772,7 @@ class UModule
 			$group_ids[$thread['fid']][] = &$thread_list[$thread['tid']]['group'];
 		}
 		FS('Group')->formatByIdKeys($group_ids,false);
-
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的疯狂推荐';
 		include template('page/u/u_topic');
 		display();
 	}
@@ -867,7 +868,7 @@ class UModule
 
 			$user_list[] = $data;
 		}
-
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的爱慕者';
 		include template('page/u/u_follow');
 		display();
 	}
@@ -926,7 +927,7 @@ class UModule
 
 			$user_list[] = $data;
 		}
-
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的粉丝';
 		include template('page/u/u_fans');
 		display();
 	}
@@ -950,6 +951,7 @@ class UModule
 		FDB::query("DELETE FROM ".FDB::table('user_notice')." WHERE uid='$home_uid' AND type=5");
 
 		include template('page/u/u_message');
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的短信';
 		display();
 	}
 	
@@ -969,6 +971,7 @@ class UModule
 		$_FANWE['user_notice']['all'] -= $_FANWE['user_notice'][6];
 		$_FANWE['user_notice'][6] = 0;
 		FDB::query("DELETE FROM ".FDB::table('user_notice')." WHERE uid='$home_uid' AND type=6");
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的通知';
 		include template('page/u/u_message');
 		display();
 	}
@@ -990,6 +993,7 @@ class UModule
 		$_FANWE['user_notice'][7] = 0;
 		FDB::query("DELETE FROM ".FDB::table('user_notice')." WHERE uid='$home_uid' AND type=7");
 		include template('page/u/u_message');
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的系统消息';
 		display();
 	}
 
@@ -1076,7 +1080,7 @@ class UModule
 			$order['create_time'] = fToDate($order['create_time']);
 			$order_list[] = $order;
 		}
-		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的积分兑换';
 		include template('page/u/u_exchange');
 		display();
 	}
@@ -1176,6 +1180,8 @@ class UModule
 		}
 		if(count($album_list) > 0)
 			FS('Album')->albumImagesFormat($album_list);
+		
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'推荐的专辑';
 		include template('page/u/u_album');
 		display();
 	}
@@ -1305,6 +1311,7 @@ class UModule
 				//FS('Goods')->formatByIDKeys($goods_list,false);
 			break;
 		}
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的票票';
 		include template('page/u/u_commission');
 		display();
 	}

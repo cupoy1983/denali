@@ -361,12 +361,24 @@ class BookModule
 				}
 				$share_list = FS('Share')->getShareDetailList($share_list,false,false,false,true,2);
 			}
+			
 			//处理title
+			$t="爱逛街";
+			$n="";
 			if(!empty($category)){
-				$_FANWE['PAGE_SEO_SELF']['short_name']=$seoPrefix.$_FANWE['PAGE_SEO_SELF']['short_name'];
+				if(empty($tag)){
+					$t=$_FANWE['PAGE_SEO_SELF']['short_name'];
+				}else{
+					$t=$tag;
+					$n=$_FANWE['PAGE_SEO_SELF']['short_name'];
+					$_FANWE['PAGE_SEO_SELF']['TAG']='';
+				}
 			}else{
-				$_FANWE['PAGE_SEO_SELF']['short_name']=$seoPrefix.$tag;
+				$t=$tag;
+				$n="爱逛街";
 			}
+			
+			$_FANWE['PAGE_SEO_SELF']['short_name']="时尚".$n.$t."_热卖".$t."_新款".$t;
 			
 			include template('page/book/book_index');
 			display($cache_file); 
