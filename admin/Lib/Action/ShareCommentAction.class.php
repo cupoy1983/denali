@@ -68,7 +68,7 @@ class ShareCommentAction extends CommonAction{
 					$count = $model->where( 'share_id ='. $shareId)->count();
 					$key = getDirsById($shareId);
 					clearCacheDir('share/'.$key.'/commentlist');
-					D('Share')->where("share_id = '$shareId'")->setDec('comment_count',$count);
+					D('Share')->where("share_id = '$shareId'")->setField('comment_count',$count);
 					FS('Share')->updateShareCache($shareId,'comments');
 				}else{
 					$this->saveLog(0,$id);
