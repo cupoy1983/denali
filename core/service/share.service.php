@@ -75,16 +75,6 @@ class ShareService
 			}
 		}
 
-		/*//当为转发的时候，获取原创ID
-		if($share_data['parent_id'] > 0 && $share_data['base_id'] == 0)
-		{
-			$base_id = intval(FDB::resultFirst('SELECT base_id
-				FROM '.FDB::table("share").'
-				WHERE share_id = '.$share_data['parent_id']));
-
-			$share_data['base_id'] = $base_id == 0 ? $share_data['parent_id'] : $base_id;
-		}*/
-
 		if(isset($post['type']))
 			$share_data['type'] = $post['type'];
 
@@ -266,24 +256,10 @@ class ShareService
 			if(empty($share_data_now_type))
 				$share_data_now_type = 'default';
 						
-			/*//是否是回复 是的 话 添加评论消息提示
-			if(intval($share_data['parent_id']) > 0)
-			{
-				$base_share_id = FDB::resultFirst("select uid from ".FDB::table('share')." where share_id = ".$share_data['parent_id']);
-				$result = FDB::query("INSERT INTO ".FDB::table('user_notice')."(uid, type, num, create_time) VALUES('$base_share_id',3,1,'".TIME_UTC."')", 'SILENT');
-				if(!$result)
-					FDB::query("UPDATE ".FDB::table('user_notice')." SET num = num + 1, create_time='".TIME_UTC."' WHERE uid='$base_share_id' AND type=3");
-			}*/
-			
 			$share_cates = array();
 			$result['status'] = true;
 			$result['share_id'] = $share_id;
 			
-			/*$content_match = FS('Words')->segment(clearExpress($share_data['content']),100);
-			$title_tags = FS('Words')->segment($share_data['title'],100);
-            if(!empty($title_tags))
-				$content_match = array_merge($content_match, $title_tags);*/
-
 			$content_match = clearExpress($share_data['content']);
             $content_match .= ' '.$share_data['title'];
 			
