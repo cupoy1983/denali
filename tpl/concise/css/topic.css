@@ -37,7 +37,7 @@ _padding-top:2px; line-height:16px; background:url(../images/adds.png) no-repeat
 #topic_con .pub_shop .shop_bar .rstar { height:15px; line-height:15px; }
 .pub_box { clear:both; margin-top:20px; }
 .pub_box .pub_tit { color:#FF579A; font-size:14px; font-weight:bold; line-height:36px; }
-.pub_box .pub_edit { clear:both; width:590px; padding:0 20px 10px; background-color:#f1f1f1; position:relative; zoom:1; }
+.pub_box .pub_edit { clear:both; width:600px; padding:0 20px 10px; background-color:#f1f1f1; position:relative; zoom:1; }
 .pub_box .pub_txt { padding:2px 5px; border:1px solid #ccc; width:523px; height:72px; clear:both; overflow:hidden; background-color:#FFF; }
 .pub_box .pub_btn { width:54px; height:78px; background-color:#f69; border:none; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;}
 .pub_box .pub_loading{background:url(../images/pub_loading.gif) no-repeat center center #F69;}

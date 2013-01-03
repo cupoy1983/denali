@@ -1,27 +1,24 @@
 <div id="publish_topic" class="pub_box r10">
-<form method="post">
+<script src="/public/ueditor/editor_config.js"></script>
+<script src="/public/ueditor/editor.min.js"></script>
+<form id="topic_form" method="post">
 	<span class="pub_tit">{lang add_post}...</span>
 	<input type="hidden" name="share_id" value="" />
 	<div class="pub_edit r5">
-		<div>
-			<span class="fw_count">{sprintf char_check 140}</span>
-		</div>
-		<textarea name="content" id="publish_topic_content" class="PUB_TXT pub_txt fl rl5" length="140" position="0">{$post_topic_content}</textarea>
+		<script type="text/javascript">
+			var content = $("#ueditor").val();
+			UE.getEditor('ueditor').setContent(content);
+    	</script>
+		<textarea id="ueditor" name="content" class="fl PUB_TXT">{$post_topic_content}</textarea>
 		<!--{if $is_join_group == 1}-->
-		<input type="button" class="pub_btn fl rr5" value="{lang publish}" onclick="$.Topic_Post_Save(this)" />
+		<input type="button" id="J_Publish" class="pub_btn fr rr5" value="{lang publish}" style="margin-top:160px;"/>
 		<!--{else}-->
-		<input type="button" class="pub_btn fl rr5" value="加入&#10;小组" style="color:#CCC" onclick="location.href='{u group/detail fid=$forum_id}'" />
+		<input type="button" class="pub_btn fl rr5" value="加入&#10;小组" style="color:#CCC;margin-top:160px;" onclick="location.href='{u group/detail fid=$forum_id}'" />
 		<!--{/if}-->
 		<input type="hidden" name="tid" value="{$post_topic_tid}" />
 		<input type="hidden" name="module" value="{$post_topic_module}" />
 		<input type="hidden" name="action" value="{$post_topic_action}" />
-		<!--{if $_FANWE['setting']['share_is_tag'] == 1}-->
-        <div class="fl pub_tags hide PUB_SHARE_TAG_BOX">
-            <span class="fl tag_title">{lang tag}：</span>
-            <input type="text" class="fl tag_txt PUB_SHARE_TAG" name="tags" title="{sprintf share_tag_tip $_FANWE['setting']['share_tag_count']}" />
-            <ul></ul>
-        </div>
-		<!--{/if}-->
+		
 		<div class="pub_ext">
 			<div class="pub_opt fl">
 				<span class="fl">{lang add}：</span>
@@ -43,9 +40,14 @@
 <div class="clear"></div>
 <script type="text/javascript">
 jQuery(function($){
-	$.Pub_Count_Bind($("#publish_topic_content").get(0));
 	$('.PUB_IMG li').live('mousedown',function(){
 		$('.PUB_IMG').dragsort();
+	});
+	$("#J_Publish").click(function(){
+		var content = $.trim(UE.getEditor('ueditor').getContent());
+		$("#ueditor").val(content);
+		$.Topic_Post_Save(this);
+		$("#topic_form").css("display", "block");
 	});
 });
 </script>

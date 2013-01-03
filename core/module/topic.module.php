@@ -62,10 +62,9 @@ class TopicModule
 
 		$args = array(
 			'share_list'=>&$post_list,
-			'pager'=>&$pager,
-			'current_share_id'=>$topic['share_id']
+			'pager'=>&$pager
 		);
-		$post_html = tplFetch("inc/share/post_share_list",$args);
+		$post_html = tplFetch("inc/share/post_list",$args);
 
 		include template('page/topic/topic_detail');
 		display();
@@ -137,24 +136,29 @@ class TopicModule
 			showError('提交失败',$check_result['error_msg'],-1);
 		}
 
-		$thread = array();
-		$thread['fid'] = $forum_id;
-		//FIXME frankie 已去除使用，删除数据库字段
-		$thread['share_id'] = 0;
-		$thread['uid'] = $_FANWE['uid'];
-		$thread['title'] = htmlspecialchars($_FANWE['request']['title']);
-		$thread['content'] = $_FANWE['request']['content'];
-		$thread['create_time'] = TIME_UTC;
-		$tid = FDB::insert('forum_thread',$thread,true);
+		$share = FS('Share')->submit($_FANWE['request']);
+		if($share['status']){
+			$thread = array();
+			$thread['fid'] = $forum_id;
 			
-		$content_match = FS('Words')->segmentToUnicode($thread['title']);
-		FDB::insert("forum_thread_match",array('tid'=>$tid,'content'=>$content_match));
-
-		FDB::query("update ".FDB::table("user_count")." set forums = forums + 1,threads = threads + 1 where uid = ".$_FANWE['uid']);
-		FDB::query("update ".FDB::table("forum")." set thread_count = thread_count+1 where fid = ".$forum_id);
-
-		FS('Medal')->runAuto($_FANWE['uid'],'forums');
-		FS('User')->medalBehavior($_FANWE['uid'],'continue_forum');
+			$thread['share_id'] = $share['share_id'];
+			$thread['uid'] = $_FANWE['uid'];
+			$thread['title'] = htmlspecialchars($_FANWE['request']['title']);
+			$thread['content'] = $_FANWE['request']['content'];
+			$thread['create_time'] = TIME_UTC;
+			$tid = FDB::insert('forum_thread',$thread,true);
+			FDB::query('UPDATE '.FDB::table('share').' SET rec_id = '.$tid.'
+			WHERE share_id = '.$share['share_id']);
+			
+			$content_match = FS('Words')->segmentToUnicode($thread['title']);
+			FDB::insert("forum_thread_match",array('tid'=>$tid,'content'=>$content_match));
+	
+			FDB::query("update ".FDB::table("user_count")." set forums = forums + 1,threads = threads + 1 where uid = ".$_FANWE['uid']);
+			FDB::query("update ".FDB::table("forum")." set thread_count = thread_count+1 where fid = ".$forum_id);
+	
+			FS('Medal')->runAuto($_FANWE['uid'],'forums');
+			FS('User')->medalBehavior($_FANWE['uid'],'continue_forum');
+		}
 		fHeader('location: '.FU('group/detail',array('fid'=>$forum_id)));
 	}
 

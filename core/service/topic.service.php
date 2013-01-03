@@ -211,20 +211,16 @@ class TopicService
 		if(!$tid)
 			return array();
 		
-		$sql = 'SELECT s.* 
-			FROM '.FDB::table('forum_post').' AS fp 
-			INNER JOIN '.FDB::table('share').' AS s ON s.share_id = fp.share_id  
-			WHERE fp.tid = '.$tid.' ORDER BY pid DESC LIMIT '.$limit;
+		$sql = 'SELECT * FROM '.FDB::table('forum_post').' WHERE tid = '.$tid.' ORDER BY pid DESC LIMIT '.$limit;
 		$list = FDB::fetchAll($sql);
-		return FS('Share')->getShareDetailList($list,true,true,true);
+		return $list;
 	}
 
-	public function saveTopicPost($tid,$content,$share_id = 0)
+	public function saveTopicPost($tid, $content)
 	{
 		global $_FANWE;
 		$post = array();
 		$post['tid'] = $tid;
-		$post['share_id'] = $share_id;
 		$post['uid'] = $_FANWE['uid'];
 		$post['content'] = $content;
 		$post['create_time'] = TIME_UTC;
@@ -418,26 +414,22 @@ class TopicService
 		return $list;
 	}
 
-	public function deletePost($share_id,$is_score = true)
+	public function deletePost($post_id,$is_score = true)
 	{
-		if(intval($share_id) == 0)
+		if(intval($post_id) == 0)
 			return false;
 
-		$post = FDB::fetchFirst('SELECT * FROM '.FDB::table('forum_post').' WHERE share_id = '.$share_id);
-		if(empty($post))
+		$post = FDB::fetchFirst('SELECT * FROM '.FDB::table('forum_post').' WHERE pid = '.$post_id);
+		if(empty($post)){
 			return true;
+		}
 
-		FDB::delete('forum_post','share_id = '.$share_id);
+		FDB::delete('forum_post','pid = '.$post_id);
 
-		FDB::query('UPDATE '.FDB::table('forum_thread').' SET
-				post_count = post_count - 1
-				WHERE tid = '.$post['tid']);
+		FDB::query('UPDATE '.FDB::table('forum_thread').' SET post_count = post_count - 1 WHERE tid = '.$post['tid']);
 
-		FDB::query('UPDATE '.FDB::table('user_count').' SET
-				forum_posts = forum_posts - 1
-				WHERE uid = '.$post['uid']);
+		FDB::query('UPDATE '.FDB::table('user_count').' SET forum_posts = forum_posts - 1 WHERE uid = '.$post['uid']);
 				
-		FS('Share')->deleteShare($share_id,$is_score);
 		FS('Medal')->runAuto($post['uid'],'ask_posts');
 	}
 
@@ -487,7 +479,7 @@ class TopicService
 		$res = FDB::query('SELECT * FROM '.FDB::table('forum_post').' WHERE tid = '.$tid);
 		while($data = FDB::fetch($res))
 		{
-            TopicService::deletePost($data['share_id'],false);
+            TopicService::deletePost($data['pid'],false);
 		}
 		FDB::query('DELETE FROM '.FDB::table('forum_post').' WHERE tid = '.$tid);
 		FDB::query('DELETE FROM '.FDB::table('forum_thread_best').' WHERE tid = '.$tid);
