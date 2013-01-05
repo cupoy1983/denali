@@ -9,7 +9,7 @@ h2 a, h2 { font-size:14px; color:#333; padding-left:3px; font-weight:normal; }
 #topic_edit_box { margin-top:30px; }
 #topic_edit_box dt { float:left; display:inline; margin-right:10px; _margin-right:0; width:38px; line-height:30px; text-align:center; font-size:14px; color:#333; font-weight:bold; clear:both; }
 #topic_edit_box dd { float:left; width:530px; line-height:30px; }
-#topic_edit_box dd .text { height:28px; line-height:28px; width:530px; padding:0 5px; margin:0; border:1px solid #82af00; }
+#topic_edit_box dd .text { height:28px; line-height:28px; width:800px; padding:0 5px; margin:0; border:1px solid #82af00; }
 #topic_edit_box dd textarea { width:530px; height:200px; border:1px solid #82af00; padding:0 5px; margin:0; overflow:auto; }
 #topic_edit_box dd .radio { margin-top:-1px; vertical-align:middle; margin-right:2px; }
 #topic_edit_box dd label { line-height:28px; vertical-align:middle; }
@@ -37,7 +37,7 @@ _padding-top:2px; line-height:16px; background:url(../images/adds.png) no-repeat
 #topic_con .pub_shop .shop_bar .rstar { height:15px; line-height:15px; }
 .pub_box { clear:both; margin-top:5px; }
 .pub_tit { color:#FF579A; font-size:14px; font-weight:bold; line-height:36px; }
-.pub_box .pub_edit { clear:both; width:600px; padding:0 20px 10px; background-color:#f1f1f1; position:relative; zoom:1; }
+.pub_box .pub_edit { clear:both; width:900px; padding:0 20px 10px; background-color:#f1f1f1; position:relative; zoom:1; }
 .pub_box .pub_txt { padding:2px 5px; border:1px solid #ccc; width:523px; height:72px; clear:both; overflow:hidden; background-color:#FFF; }
 .pub_box .pub_btn { width:54px; height:78px; background-color:#f69; border:none; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;}
 .pub_box .pub_loading{background:url(../images/pub_loading.gif) no-repeat center center #F69;}
