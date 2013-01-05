@@ -475,7 +475,7 @@ class TopicService
 		$share = FS('Share')->getShareById($share_id);
 		FS('Share')->deleteShare($share_id,$is_score);
 		
-		//FDB::query('UPDATE '.FDB::table('share')." SET rec_id = 0,parent_id = 0,type = 'default' WHERE rec_id = ".$tid." AND type = 'bar_post'");
+		//FIXME 一次性删除所有topic下的post
 		$res = FDB::query('SELECT * FROM '.FDB::table('forum_post').' WHERE tid = '.$tid);
 		while($data = FDB::fetch($res))
 		{

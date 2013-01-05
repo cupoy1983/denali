@@ -16,7 +16,7 @@ a:hover{color:#ff1566;}
 a:focus {outline:medium none;}
 .red_f{color:#ff1566;}
 .tipcolor{color:#999;}
-
+.clr{clear:both;}
 .clear{clear:both;}
 .fl,
 .fleft{float:left;}
@@ -103,6 +103,7 @@ h1,h2{font-family:"黑体", "微软雅黑", "宋体", Arial;}
 .ml30 { margin-left:30px; }
 .ml35 { margin-left:35px; }
 .ml40 { margin-left:40px; }
+.m0a  {margin:0 auto;}
 .pt0 { padding-top:0; }
 .pt5 { padding-top:5px; }
 .pt10 { padding-top:10px; }
