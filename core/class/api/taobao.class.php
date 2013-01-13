@@ -87,13 +87,14 @@ class Taobao
 		setTimeLimit(3600);
 		global $_FANWE;
 		
-		if($page <= 1)
-		{
+		if($page <= 1){
 			FDB::query('TRUNCATE TABLE '.FDB::table('taobaoke_report_temp'));
 		}
 
 		include_once FANWE_ROOT.'sdks/taobao/TopClient.php';
         include_once FANWE_ROOT.'sdks/taobao/request/TaobaokeReportGetRequest.php';
+        include_once FANWE_ROOT.'sdks/taobao/request/TaobaokeItemsDetailGetRequest.php';
+        
 		Cache::getInstance()->loadCache('business');
 		
 		$client = new TopClient;
@@ -111,17 +112,14 @@ class Taobao
 		$is_complete = false;
 		$total_results = 0;
 
-		if(isset($resp['taobaoke_report']))
-		{
+		if(isset($resp['taobaoke_report'])){
 			$count = 0;
 			$taobaoke_report = (array)$resp['taobaoke_report'];
 			$total_results = (int)$taobaoke_report['total_results'];
 			
-			if($total_results > 0)
-			{
+			if($total_results > 0){
 				$taobaoke_report_members = $taobaoke_report['taobaoke_report_members'];
-				foreach($taobaoke_report_members->taobaoke_report_member as $item)
-				{
+				foreach($taobaoke_report_members->taobaoke_report_member as $item){
 					$item = (array)$item;
 					$item['pay_time'] = str2Time($item['pay_time']);
 					$item['outer_code'] = isset($item['outer_code']) ? $item['outer_code'] : '';
@@ -130,62 +128,121 @@ class Taobao
 					$item['commission_rate'] = $item['commission_rate'] * 100;
 					$item['item_title'] = addslashes($item['item_title']);
 
-					if(!empty($item['outer_code']) && preg_match("/^o\d+$/",$item['outer_code']))
-					{
+					if(!empty($item['outer_code']) && preg_match("/^o\d+$/",$item['outer_code'])){
 						$order_id = (float)substr($item['outer_code'],1);
-						if($order_id == 0)
+						if($order_id == 0){
 							continue;
+						}
 
 						$bln = (int)FDB::resultFirst('SELECT COUNT(id) FROM '.FDB::table('taobaoke_report')." 
 							WHERE outer_code = '".addslashes($item['outer_code'])."' 
 								AND num_iid = '".addslashes($item['num_iid'])."' 
 								AND pay_time = '".addslashes($item['pay_time'])."'");
 
-						if($bln > 0)
+						if($bln > 0){
 							continue;
+						}
 						
 						$is_insert = false;
 						$res = FDB::query('SELECT * FROM '.FDB::table('goods_order').' 
-							WHERE order_id = '.$order_id.' AND keyid = \'taobao_'.$item['num_iid'].'\' AND status = 0');
+							WHERE order_id = '.$order_id);
 						
-						while($order = FDB::fetch($res))
-						{
+						while($order = FDB::fetch($res)){
+							//淘宝tradeId存在, 且和淘宝客报表一致, 证明该订单已被处理, 跳过!
+							if($order['out_trade_id'] == $item['trade_id']){
+								continue;
+							}
+							
 							$commission = ((float)$item['commission']) * ((float)$order['commission_rate'] / 100);
 							
-							if($_FANWE['setting']['goods_buy_score_type'] > 0 && $_FANWE['setting']['goods_buy_score_rate'] > 0)
-							{
+							//搜索子订单:
+							// 1.遍历查询该子订单是否存在，是否已更新，存在并且未更新则更新订单的tradeId, status等字段
+							// 2.子订单不存在，新建goods_order, 并设置tradeId, status等字段
+							
+							$res = FDB::query('SELECT * FROM '.FDB::table('goods_order').' WHERE keyid=\'taobao_'.$item['num_iid'].'\' AND uid='.$order['uid']);
+							$o = null;
+							$completed = false;
+							while($t = FDB::fetch($res)){
+								//if 遍历子订单, 存在该淘宝客报表中的tradeId, 证明该报表已被处理过
+								//elseif 遍历子订单的tradeId为空全部为空,选取一个进行更新
+								// else 遍历子订单的tradeId不为空, 且不为当前淘宝客报表中tradeId, 跳过
+								if(empty($t['out_trade_id'])){
+									$o = $t;
+								}elseif($t['out_trade_id'] == $item['trade_id']){
+									$completed = true;
+								}else{
+									continue;
+								}
+							}
+							//该报表已处理则跳过，处理下一条报表数据
+							if($completed){
+								continue;
+							}
+								
+							if(empty($o)){
+								$req = new TaobaokeItemsDetailGetRequest;
+								$req->setFields("num_iid,title,click_url,detail_url,num_iid");
+								$req->setPid($_FANWE['cache']['business']['taobao']['tk_pid']);
+								$req->setNumIids($item['num_iid']);
+								
+								$resp = (array)$client->execute($req);
+								if((int)$resp['total_results'] > 0){
+									$details = $resp['taobaoke_item_details'];
+									$d = $details->taobaoke_item_detail;
+									$i = $d->item;
+									$o['click_url'] = (string)$d->click_url;
+									$o['item_url'] = (string)$i->detail_url;
+								}
+								$orderId = FDB::insert('goods_order_index', array('id' => 'NULL', 'create_day' => getTodayTime()), true);
+								$o['order_id'] = $orderId;
+								$o['uid'] = $order['uid'];
+								$o['type'] = 1;
+								$o['status'] = 1;
+								$o['is_pay'] = 0;
+								$o['commission_rate'] = $order['commission_rate'];
+								$o['commission'] = $commission;
+								$o['title'] = $item['item_title'];
+								$o['keyid'] = 'taobao_'.$item['num_iid'];
+								$o['out_trade_id'] = $item['trade_id'];
+								$o['outer_code'] = $item['outer_code'];
+								$o['create_time'] = TIME_UTC;
+								FDB::insert('goods_order', $o, true);
+							}else{
+								FDB::query('UPDATE '.FDB::table('goods_order').' SET status = 1,out_trade_id='.$item['trade_id'].',outer_code=\''.$item['outer_code'].
+								'\',settlement_time = '.TIME_UTC.',commission = '.$commission.' WHERE order_id = '.$o['order_id'].' AND uid = '.(int)$o['uid']);
+							}
+							
+							//用户返积分
+							if($_FANWE['setting']['goods_buy_score_type'] > 0 && $_FANWE['setting']['goods_buy_score_rate'] > 0){
 								$score = 0;
 								$rate = (float)$_FANWE['setting']['goods_buy_score_rate'];
-								if($_FANWE['setting']['goods_buy_score_type'] == 1)
-									$score = (float)$item['real_pay_fee'] * $rate;
-								else
-									$score = (float)$item['commission'] * $rate;
-									
+								//根据用户获得的佣金进行返积分
+								$score = (float)$item['commission'] * $rate;
 								$score = round($score);
-								if($score > 0)
-								{
+								if($score > 0){
 									FS('User')->updateUserScore((int)$order['uid'],'goods','commission','成功购买商品 '.$item['item_title'].' 获得积分',$order_id,$score);
 								}
 							}
-							FDB::query('UPDATE '.FDB::table('goods_order').' SET status = 1,settlement_time = '.TIME_UTC.',commission = '.$commission.' WHERE order_id = '.$order_id.' AND uid = '.(int)$order['uid']);
+							
+							FDB::query('update '.FDB::table("user").' set is_lock=0 where uid='.$order['uid']);
 							$is_insert = true;
 						}
 						
-						if($is_insert)
+						if($is_insert){
 							FDB::insert('taobaoke_report_temp',$item);
+						}
 					}
 				}
 
-				if($page * $page_size >= $total_results)
-				{
+				if($page * $page_size >= $total_results){
 					FDB::query('INSERT INTO '.FDB::table('taobaoke_report').'(id,trade_id,num_iid,item_title,item_num,pay_price,real_pay_fee,commission_rate,commission,outer_code,app_key,pay_time,pay_day) SELECT NULL AS id,trade_id,num_iid,item_title,item_num,pay_price,real_pay_fee,commission_rate,commission,outer_code,app_key,pay_time,pay_day FROM '.FDB::table('taobaoke_report_temp').' ORDER BY pay_time ASC,trade_id ASC');
 					return 1;
-				}
-				else
+				}else{
 					return 0;
-			}
-			else
+				}
+			}else{
 				return 1;
+			}
 		}
 		return -1;
 	}

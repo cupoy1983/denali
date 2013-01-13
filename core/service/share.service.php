@@ -99,6 +99,23 @@ class ShareService
 			foreach($share_goods as $goods)
 			{
 				$goods = fAddslashes(json_decode(base64_decode($goods),true));
+				if(empty($goods['item']['taoke_url'])){
+					include_once FANWE_ROOT.'sdks/taobao/TopClient.php';
+					include_once FANWE_ROOT.'sdks/taobao/request/TaobaokeItemsDetailGetRequest.php';
+					$client = new TopClient;
+					$client->appkey = trim($_FANWE['cache']['business']['taobao']['app_key']);
+					$client->secretKey = trim($_FANWE['cache']['business']['taobao']['app_secret']);
+					$req = new TaobaokeItemsDetailGetRequest;
+					$req->setFields("num_iid,title,click_url,detail_url,num_iid");
+					$req->setPid($_FANWE['cache']['business']['taobao']['tk_pid']);
+					$req->setNumIids($goods['item']['gid']);
+					 
+					$resp = (array)$client->execute($req);
+					if((int)$resp['total_results'] > 0){
+						$details = $resp['taobaoke_item_details'];
+						$goods['item']['taoke_url'] = (string)$details->taobaoke_item_detail->click_url;
+					}
+				}
 				$gkey = $goods['item']['key'];
 				$c_data = array();
 				$c_data['goods_id'] = $goods['item']['id'];

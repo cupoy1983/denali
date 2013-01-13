@@ -1,10 +1,15 @@
 function getCommission() {
 	var url = $("#J_Search").val();
+	//在JavaScript中，正则表达式只能使用"/"开头和结束，不能使用双引号
+    var Expression=/http(s)?:////([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+    var exp=new RegExp(Expression);
+    
 	var id = getUrlParam(url, 'id');
-	if (/\d+/gi.test(id)) {
+	if (/\d+/gi.test(id) && exp.test(url)) {
 		ItemsConvert(id);
 	} else {
 		alert('Sorry，链接错误，请输入正确的宝贝地址！');
+		window.location.reload();
 	}
 }
 function getUrlParam(url, paramName) {
@@ -51,7 +56,7 @@ function ItemsConvert(iids) {
 		} else if(resp.total_results == 0) {
 			alert('Sorry，该宝贝无佣金返利!');
 		}else{
-			alert('Sorry，淘宝返利系统维护中，请稍后再试吧!');
+			alert('Sorry，淘宝返利系统维护中，请稍后按F5刷新重试吧!');
 		}
 	});
 }

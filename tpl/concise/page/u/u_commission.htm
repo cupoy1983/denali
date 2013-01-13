@@ -8,10 +8,10 @@
 	<div class="zone_head clearfix">
 		<div class="fleft zh_cat">
 			<a href="{u u/commission}"{if $type == 0} class="c"{/if}>佣金列表</a>
-			<!--{if $_FANWE['setting']['user_commission_type'] == 0}-->
 			<span>|</span>
 			<a href="{u u/commission type=1}"{if $type == 1} class="c"{/if}>已结算佣金</a>
-			<!--{/if}-->
+			<span>|</span>
+			<a href="{u u/commission type=2}"{if $type == 2} class="c"{/if}>朋友奖励</a>
 			<span>|</span>
 			<a href="{u u/commission type=3}"{if $type == 3} class="c"{/if}>资金日志</a>
 			<span>|</span>
@@ -19,9 +19,17 @@
 			<span>|</span>
 			<a href="{u user/commission}">佣金说明</a>
 		</div>
+		<!--{if $friend != true}-->
 		<div class="fright">
 			<a href="{u u/commission type=5}" class="zone_btn" >我要提现</a>
 		</div>
+		<!--{else}-->
+		<div class="fright" style="width:100px;">
+			<a href="/fanli/friend" class="zone_btn" >朋友佣金</a>
+			<span>点击，更新朋友给您的现金奖励。</span>
+		</div>
+		<!--{/if}-->
+		
 	</div>
 </div>
 <div class="mt20 zone_wrapper clearfix">
@@ -132,17 +140,21 @@
 				<th>所得佣金</th>
 				<th>支付状态</th>
 				<th>返利支付/取消时间</th>
+				<!--{if $friend != true}-->
 				<th width="80">结算时间</th>
+				<!--{/if}-->
 				<th class="last" width="80">创建时间</th>
 			</tr>
 			<!--{loop $order_list $order}-->
 			<tr>
 				<td class="lt-td first" style="text-align:center; vertical-align:middle;" rowspan="2">o{$order['order_id']}</td>
-				<td class="lt-td tl" style="text-align:center;">{if $order['type'] == 0}佣金返现{else}购买返现{/if}</td>
+				<td class="lt-td tl" style="text-align:center;">{if $order['type'] == 1}购买返现{elseif $order['type'] == 2}朋友分红{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['commission'] > 0}{$order['commission_format']}{else}<span style="color:#ccc;">获取中</span>{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['pay_time'] > 0}{if $order['is_pay'] == 1}已支付{else}取消支付{/if}{else}未支付{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['pay_time'] > 0}{$order['pay_time_format']}{/if}</td>
+				<!--{if $friend != true}-->
 				<td class="lt-td" rowspan="2" style="text-align:center;vertical-align:middle;">{if $order['settlement_time'] > 0}{$order['settlement_time_format']}{/if}</td>
+				<!--{/if}-->
 				<td class="lt-td last tl" style="text-align:center;vertical-align:middle;" rowspan="2">{$order['create_time']}</td>
 			</tr>
 			<tr>

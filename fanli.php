@@ -2,7 +2,8 @@
 define('MODULE_NAME', 'Fanli');
 
 $actions = array(
-		'index'
+		'index',
+		'friend'
 );
 $action = 'index';
 if(isset($_REQUEST['action'])){
@@ -24,6 +25,9 @@ switch(Action_NAME) {
 	
 	case 'index' :
 		FanLiModule::index();
+		break;
+		case 'friend' :
+			FanLiModule::friend();
 		break;
 }
 

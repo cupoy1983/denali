@@ -95,6 +95,7 @@
 	$("#J_SearchRebate").click(function(){
 		var content = $("#J_Search").val();
 		if(content=="请输入淘宝链接地址(必须为taobao.com或tmall.com商品链接)" || content ==""){
+			alert("亲，查询返利请先输入宝贝地址哦！")
 			exit;
 		}
 		getCommission();
@@ -107,8 +108,6 @@
 	$("#J_GoUrl").click(function(){
 		if(!$.Check_Login()){
 			return false; 
-		}else{
-			
 		}
 			
 	});
@@ -118,6 +117,8 @@
 	    if(val=="请输入淘宝链接地址(必须为taobao.com或tmall.com商品链接)"){
 	        $(this).val("");  //如果符合条件，则清空文本框内容
 	        $(this).css("color","#000000");
+	    }else{
+	    	$(this).select();
 	    }
 	});
 	

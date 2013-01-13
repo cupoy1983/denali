@@ -1198,6 +1198,26 @@ class UModule
 		$args['type'] = $type;
 		switch($type)
 		{
+			case 2:
+				$where = " WHERE uid = ".$_FANWE['uid']." AND status = 1 AND type = 2 ";
+				$sql = 'SELECT COUNT(order_id) FROM '.FDB::table('goods_order').$where;
+				$count = FDB::resultFirst($sql);
+				$pager = buildPage('u/commission',$args,$count,$_FANWE['page'],15);
+				
+				$sql = 'SELECT * FROM '.FDB::table('goods_order').$where.' ORDER BY order_id DESC LIMIT '.$pager['limit'];
+				$res = FDB::query($sql);
+				$order_list = array();
+				while($order = FDB::fetch($res)){
+					if($order['commission'] > 0){
+						$order['commission_format'] = priceFormat($order['commission']);
+					}
+					$order['create_time'] = fToDate($order['create_time'],'Y-m-d').'<br/>'.fToDate($order['create_time'],'H:i:s');
+					$order['pay_time_format'] = fToDate($order['pay_time']);
+					$order['settlement_time_format'] = fToDate($order['settlement_time'],'Y-m-d').'<br/>'.fToDate($order['settlement_time'],'H:i:s');
+					$order_list[$order['order_id']] = $order;
+				}
+				$friend = true;
+				break;
 			case 3:
 				$where = " WHERE uid = ".$_FANWE['uid'];
 				$count = FDB::resultFirst('SELECT COUNT(id) FROM '.FDB::table('user_money_log').$where);
@@ -1226,9 +1246,6 @@ class UModule
 					$order['pay_time_format'] = fToDate($order['pay_time']);
 					$order_list[] = $order;
 				}
-			break;
-			
-			case 5:
 			break;
 			
 			case 6:
@@ -1262,31 +1279,11 @@ class UModule
 			
 			default:
 				unset($args['type']);
-				$where = ' WHERE uid = '.$home_uid;
-				if($_FANWE['setting']['user_commission_type'] == 2)
-					$where .= ' AND pay_time > 0';
-				elseif($_FANWE['setting']['user_commission_type'] == 1)
-				{
-					if($type == 2)
-					{
-						$args['type'] = 2;
-						$where .= ' AND is_pay = 1';
-					}
-					else
-						$where .= ' AND status = 1';
-				}
-				else
-				{
-					if($type == 2)
-					{
-						$args['type'] = 2;
-						$where .= ' AND is_pay = 1';
-					}
-					elseif($type == 1)
-					{
-						$args['type'] = 1;
-						$where .= ' AND status = 1';
-					}
+				$where = ' WHERE type=1 AND uid = '.$home_uid;
+				
+				if($type == 1){
+					$args['type'] = 1;
+					$where .= ' AND status = 1';
 				}
 				
 				$sql = 'SELECT COUNT(order_id) FROM '.FDB::table('goods_order').$where;
@@ -1306,9 +1303,7 @@ class UModule
 					$order['pay_time_format'] = fToDate($order['pay_time']);
 					$order['settlement_time_format'] = fToDate($order['settlement_time'],'Y-m-d').'<br/>'.fToDate($order['settlement_time'],'H:i:s');
 					$order_list[$order['order_id']] = $order;
-					//$goods_list[$order['goods_id']][] = &$order_list[$order['order_id']];
 				}
-				//FS('Goods')->formatByIDKeys($goods_list,false);
 			break;
 		}
 		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的票票';

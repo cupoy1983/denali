@@ -3,7 +3,6 @@ include_once FANWE_ROOT.'sdks/taobao/TopClient.php';
 include_once FANWE_ROOT.'sdks/taobao/request/ItemGetRequest.php';
 include_once FANWE_ROOT.'sdks/taobao/request/ShopGetRequest.php';
 include_once FANWE_ROOT.'sdks/taobao/request/TaobaokeItemsDetailGetRequest.php';
-include_once FANWE_ROOT.'sdks/taobao/request/TaobaokeItemsConvertRequest.php';
 
 class taobao_sharegoods implements interface_sharegoods
 {
