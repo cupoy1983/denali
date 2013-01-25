@@ -116,7 +116,7 @@ _margin-top:21px; }
 .err_email div{float:left; padding:10px 0 0 0;}
 .err_ulike { font-size:12px; color:#999; margin-top:15px; line-height:150%; height:36px; visibility:hidden; _margin-top:14px; }
 .err_ulike div{float:left; padding:10px 0 0 0;}
-.err_password { font-size:12px; color:#999; margin-top:60px; line-height:150%; height:26px; padding-top:10px; visibility:hidden; _margin-top:60px; }
+.err_password { font-size:12px; color:#999; margin-top:15px; line-height:150%; height:26px; padding-top:10px; visibility:hidden; _margin-top:60px; }
 .err_password div{float:left;}
 .err_rstpassword { font-size:12px; color:#999; margin-top:15px; line-height:150%; height:26px; padding-top:10px; visibility:hidden; _margin-top:14px; }
 .err_rstpassword div{float:left;}

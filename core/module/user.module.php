@@ -170,13 +170,27 @@ class UserModule
 			outputJson($result);
 		};
 		//================add by chenfq 2011-10-14=======================		
-				
+		
+		$referee = $_FANWE['request']['referee'];
+		$inviteId = null;
+		if(!empty($referee)){
+			$user = FS("User")->getUsersByName($referee);
+			$inviteId = $user['uid'];
+		}else{
+			$inviteId = FS('User')->getReferrals();
+		}
+		
+		//默认邀请人为uid为系统管理员用户
+		if(empty($inviteId)){
+			$inviteId = 1;
+		}
+		
 		$user = array(
 			'email' => $data['email'],
 			'user_name' => $data['user_name'],
 			'password'  => $data['password'],
 			'type' => $data['type'],
-			'invite_id' => FS('User')->getReferrals(),
+			'invite_id' => $inviteId,
 			$user_field => $integrate_id,
 		);
 		

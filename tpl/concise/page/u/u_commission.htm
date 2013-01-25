@@ -25,8 +25,13 @@
 		</div>
 		<!--{else}-->
 		<div class="fright" style="width:100px;">
+			<!--{if $month != true}-->
 			<a href="/fanli/friend" class="zone_btn" >朋友佣金</a>
-			<span>点击，更新朋友给您的现金奖励。</span>
+			<span style="color:red;">点击，更新朋友给您的现金奖励。</span>
+			<!--{else}-->
+			<a href="#" class="zone_btn" >朋友佣金</a>
+			<span style="color:red;">您当月已领取过，等待下月再查询。</span>
+			<!--{/if}-->
 		</div>
 		<!--{/if}-->
 		

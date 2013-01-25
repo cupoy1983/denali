@@ -175,6 +175,15 @@ class UserService
 	}
 
 	/**
+	 * 获取随机用户(虚假展示)
+	 * @param unknown_type $num
+	 */
+	public function getRandUsers($num){
+		return FDB::fetchAll('SELECT uid, user_name FROM '.FDB::table('user').
+				' where uid < 200 AND uid >10 ORDER BY RAND() LIMIT '.$num);
+	}
+	
+	/**
 	 * 根据会员名称获取会员列表
 	 * @param array $user_names 名称数组
 	 * @return array

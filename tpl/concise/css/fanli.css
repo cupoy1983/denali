@@ -141,6 +141,9 @@
     white-space: nowrap;
     width: 64px;
 }
+#detail .price{
+	font-size:16px;
+}
 #detail .red{
 	color:#FF6600;
 	font-size:26px;
@@ -167,5 +170,81 @@
     height: 48px;
     margin: 14px 0 0;
     width: 147px;
+}
+.mainTip {
+    clear: both;
+    margin: 0 auto;
+    text-align: left;
+    width: 960px;
+}
+.qanda {
+    background-color: #FFFFFF;
+    border: 1px solid pink;
+    clear: both;
+    height: 83px;
+    margin: 15px 0 0;
+    text-align: left;
+    width: 635px;
+}
+.tixian{
+	float:left;
+	width:315px;
+	height:85px;
+	overflow:hidden;
+	margin-top:15px;
+	padding-left:8px;
+}
+.tixian li{
+	padding-top:8px;
+}
+.hot_play {
+    position: relative;
+}
+.hot_play ul {
+    float: left;
+    padding: 0;
+}
+.hot_play img {
+    border: 0 none;
+    height: 77px;
+    margin: -5px 0 0 -6px;
+    overflow: scroll;
+    padding: 0;
+    width: 78px;
+}
+.qtext {
+    float: left;
+    height: 83px;
+    margin: 0;
+    padding: 0;
+    width: 562px;
+}
+.qtext ul {
+    margin: 10px 0 0;
+    padding: 0;
+}
+.qtext li {
+    display: block;
+    float: left;
+    line-height: 180%;
+    margin: 0 0 0 10px;
+    padding: 0;
+    width: 270px;
+}
+.qtext li img {
+    display: block;
+    float: left;
+    height: 43px;
+    padding: 10px 0 0 15px;
+    width: 43px;
+}
+.qtext li span {
+    float: right;
+    margin: 0 0 0 10px;
+    padding: 0;
+    width: 200px;
+}
+.qtext li a:link {
+    color: #666666;
 }
 

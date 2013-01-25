@@ -5,7 +5,7 @@ class InviteModule
 	{
 		global $_FANWE;
 		if($_FANWE['uid'] == 0)
-			fHeader("location: ".FU('user/login',array('refer'=>FU('invite/index'))));
+			fHeader("location: ".FU('user/login'));
 		
 		FanweService::instance()->cache->loadCache('medals');
 		$medal_list = array();

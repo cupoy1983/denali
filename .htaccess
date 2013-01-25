@@ -22,6 +22,9 @@ RewriteRule ^u/(\d+)/group/s(\d+)$  u\.php\?action=group&uid=$1&sort=$2 [QSA,L]
 RewriteRule ^u/([a-z]+)/([a-z]+)/(\d+)/(\d+)$  u\.php\?action=$1&$2=$3&page=$4 [QSA,L]
 RewriteRule ^u/([a-z]+)/([a-z]+)/(\d+)$  u\.php\?action=$1&$2=$3 [QSA,L]
 
+RewriteRule ^u/([a-z]+)/t(\d+)/(\d+)$  u\.php\?action=$1&type=$2&page=$3 [QSA,L]
+RewriteRule ^u/([a-z]+)/t(\d+)$  u\.php\?action=$1&type=$2[QSA,L]
+
 RewriteRule ^u/(\d+)/([a-z]+)/t(\d+)/(\d+)$  u\.php\?action=$2&uid=$1&type=$3&page=$4 [QSA,L]
 RewriteRule ^u/(\d+)/([a-z]+)/t(\d+)$  u\.php\?action=$2&uid=$1&type=$3[QSA,L]
 

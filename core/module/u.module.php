@@ -1208,6 +1208,10 @@ class UModule
 				$res = FDB::query($sql);
 				$order_list = array();
 				while($order = FDB::fetch($res)){
+					//当月已统计查询过，前台不再提供查询
+					if($order['create_time']> mktime(0,0,0,date("m",time()),1,date("Y",time()))){
+						$month=true;
+					}
 					if($order['commission'] > 0){
 						$order['commission_format'] = priceFormat($order['commission']);
 					}
@@ -1247,6 +1251,10 @@ class UModule
 					$order_list[] = $order;
 				}
 			break;
+			
+			case 5:
+				//提取佣金，直接break，不进入default
+				break;
 			
 			case 6:
 				$uid = $_FANWE['uid'];

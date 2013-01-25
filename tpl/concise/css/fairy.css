@@ -315,7 +315,7 @@ body {
 #foot .followus .tqq {
     background: url("/tpl/concise/images/icons_share.png") no-repeat scroll 0 -278px transparent;
 }
-.foot_left .friend{
+.foot_left #friend_link{
 	height:110px;
 	overflow:hidden;
 }
