@@ -8,7 +8,7 @@ class FanLiModule{
 		$users = FS('User')->getRandUsers(10);
 		
 		$t = time();
-		$t1 = mktime(0,0,8,date( "m ",$t),date( "d ",$t),date( "Y ",$t)); 
+		$t1 = mktime(8,0,0,date( "m ",$t),date( "d ",$t),date( "Y ",$t));
 		
 		foreach($users as $key => $user){
 			$users[$key]['money'] = rand(1,1000)/10;
