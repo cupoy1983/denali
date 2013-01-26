@@ -30,7 +30,6 @@ function ItemsConvert(iids) {
 		if (resp.taobaoke_items) {
 			$("#resultContainer .result").css("display", "block");
 			var result = resp.taobaoke_items.taobaoke_item[0];
-			
 			var title = result.title;
 			var price = result.price;
 			var clickUrl = result.click_url;
@@ -39,12 +38,15 @@ function ItemsConvert(iids) {
 			var nick = result.nick;
 			var location = result.item_location;
 			var r = parseFloat($("#J_Commission_Rate").val());
-			var rate = (result.commission_rate * r) / 10000 ;
+			var rate = 0;
+			if(r > 0){
+				rate = (result.commission_rate * r) / 10000 ;
+			}
 			var volume = result.volume;
 			var item = $("#J_Search").val();
 			var go = "/tgo.php?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(clickUrl) + "&item=" + encodeURIComponent(item) + "&from=fanli";
 			//保存rate变量下次api调用后使用
-			$("#J_Commission_Rate").text(rate);
+			$("#J_Commission_Rate").attr('v',rate);
 			$("#J_Title").text(title);
 			$("#J_Title").attr("href", clickUrl);
 			$("#J_Shopname").text(nick);
@@ -58,8 +60,10 @@ function ItemsConvert(iids) {
 			
 		} else if(resp.total_results == 0) {
 			alert('Sorry，该宝贝无佣金返利!');
+			return false;
 		}else{
 			alert('Sorry，淘宝返利系统维护中，请稍后按F5刷新重试吧!');
+			return false;
 		}
 	});
 	
@@ -71,7 +75,7 @@ function ItemsConvert(iids) {
 			var result = resp.promotions.promotion_in_item.promotion_in_item[0];
 			
 			var price = result['item_promo_price'];
-			var rate = $("#J_Commission_Rate").text();
+			var rate = $("#J_Commission_Rate").attr('v');
 			$("#J_Ture_Price").text(price);
 			$("#J_Commission").text(Math.round(rate * price)/100);
 			$("#J_Price").css("text-decoration","line-through");

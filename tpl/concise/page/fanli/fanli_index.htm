@@ -74,7 +74,7 @@
 				</tr>
 				</tbody>
 			</table>
-			<input type="hidden" value="$rate" id="J_Commission_Rate" >
+			<input type="hidden" value="$rate" v="" id="J_Commission_Rate" >
 			<p class="clearfix">
 				<a target="_blank" class="btn-simple" id="J_GoUrl" href="#" title="实际佣金以淘宝成交价格乘以返利比率为准">返利模式购买</a>
 				<a class="btn-simple" id="J_Share" href="javascript:void(0);">发布到分享</a>
@@ -115,9 +115,8 @@
 	$(document).ready(function(){
 		$("#J_Search").val("请输入淘宝链接地址(必须为taobao.com或tmall.com商品链接)");
 		
-		$('#fanner').totemticker({
-			row_height	:	'20px',
-			mousestop	:	true,
+		$('#fanner').rollover({
+			interval:'3000'
 		});
 	});
 	

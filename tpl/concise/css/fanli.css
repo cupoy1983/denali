@@ -195,7 +195,8 @@
 	padding-left:8px;
 }
 .tixian li{
-	padding-top:8px;
+	height: 25px;
+    line-height: 25px;
 }
 .hot_play {
     position: relative;

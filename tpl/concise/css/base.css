@@ -181,8 +181,7 @@ h1,h2{font-family:"黑体", "微软雅黑", "宋体", Arial;}
 .foot_left{float:left;}
 .foot_left div{float:left; width:169px; padding:0 0 0 15px; color:#64605f;}
 .foot_left div ul,
-.foot_left div li{float:left;}
-.foot_left div li{padding:9px 0 0 0; width:169px;}
+.foot_left div li{float:left; height:25px;line-height:25px; width:169px;}
 .foot_left div li a{color:#8d8c8a;}
 .foot_left div li a:hover{color:#ff1566;}
 .foot_right{float:right; width:220px; padding:20px 0; text-align:center; border-left:solid 1px #e0e0e0;}
