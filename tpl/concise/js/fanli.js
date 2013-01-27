@@ -47,6 +47,7 @@ function ItemsConvert(iids) {
 			var go = "/tgo.php?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(clickUrl) + "&item=" + encodeURIComponent(item) + "&from=fanli";
 			//保存rate变量下次api调用后使用
 			$("#J_Commission_Rate").attr('v',rate);
+			$("#J_Rate").text(rate);
 			$("#J_Title").text(title);
 			$("#J_Title").attr("href", clickUrl);
 			$("#J_Shopname").text(nick);
@@ -76,9 +77,11 @@ function ItemsConvert(iids) {
 			
 			var price = result['item_promo_price'];
 			var rate = $("#J_Commission_Rate").attr('v');
-			$("#J_Ture_Price").text(price);
-			$("#J_Commission").text(Math.round(rate * price)/100);
-			$("#J_Price").css("text-decoration","line-through");
+			if(price <= parseFloat($("#J_Price").text())){
+				$("#J_Ture_Price").text('￥'+price);
+				$("#J_Commission").text(Math.round(rate * price)/100);
+				$("#J_Price").css("text-decoration","line-through");
+			}
 		}
 	});
 }
