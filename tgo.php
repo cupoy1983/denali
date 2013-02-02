@@ -17,7 +17,7 @@ if(empty($from)){
 	$url = $_REQUEST['url'];
 }
 
-if(! empty($url) && strpos($url, 's.click.taobao.com')){
+if(!empty($url) && strpos($url, 's.click.taobao.com')){
 	//fuid：发布宝贝用户id sid：分享的id gid：商品的id kid：商品的key
 	$sid = 0;
 	$gid = 0;
@@ -91,7 +91,10 @@ if(! empty($url) && strpos($url, 's.click.taobao.com')){
 			$url .= '&unid=o' . $id;
 		}
 	}
+}elseif(!empty($url)){
+	
 }else{
+
 	exit;
 }
 
