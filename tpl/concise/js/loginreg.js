@@ -120,6 +120,39 @@ jQuery(function($){
 		});
 	});
 	
+	$("#J_Referee").blur(function(){
+		var obj = this;
+		this.setAttribute('check',0);
+		var referee = $.trim(obj.value);
+		if(referee == '')
+		{
+			Reg_Err_Handler(obj,LANG.referee_require);
+			return;	
+		}
+		var query = new Object();
+		query.field = 'referee';
+		query.referee = referee;
+		Reg_Check_Loading(obj);
+		$.ajax({ 
+			url: SITE_PATH+"services/service.php?m=user&a=check",
+			type:"POST",
+			data:query,
+			cache:true,
+			dataType:'json',
+			success:function(result){
+				if(result.status == 1){
+					Reg_OK_Handler(obj);
+					obj.value = referee;
+				}
+				else
+					Reg_Err_Handler(obj,LANG.no_such_referee);
+			},
+			error:function(){
+				Reg_Err_Handler(obj,LANG.referee_error);
+			}
+		});
+	});
+	
 	$("#reg_user_name").blur(function(){
 		var obj = this;
 		this.setAttribute('check',0);
@@ -248,7 +281,7 @@ jQuery(function($){
 	$("#registerForm").submit(function(){
 		$(".lg_reg_loading").hide();
 		$(".lg_reg_check").hide();
-		if($("#registerForm input[check=1]").length < 4)
+		if($("#registerForm input[check=1]").length < 5)
 		{
 			$(".lg_reg_check").show();
 			return false;

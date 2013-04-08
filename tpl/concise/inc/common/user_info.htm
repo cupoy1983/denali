@@ -30,7 +30,7 @@ jQuery(function($){
 		var user_dl = $("#header .user_dl");
 		user_dl.css({"visibility":"hidden","display":"block"});
 		if(USER_DL_W == 0)
-			USER_DL_W = user_dl.width();
+			USER_DL_W = user_dl.width() + 2;
 		
 		if(USER_DL_H == 0)
 			USER_DL_H = user_dl.height();
@@ -56,7 +56,7 @@ jQuery(function($){
 		var umsg_dl = $("#header .umsg_dl");
 		umsg_dl.css({"visibility":"hidden","display":"block"});
 		if(UMSG_DL_W == 0)
-			UMSG_DL_W = umsg_dl.width();
+			UMSG_DL_W = umsg_dl.width() + 2;
 			
 		if(UMSG_DL_H == 0)
 			UMSG_DL_H = umsg_dl.height();

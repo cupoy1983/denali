@@ -85,12 +85,24 @@ class UserModule
 	public function register()
 	{
 		global $_FANWE;
-		if($_FANWE['uid'] > 0)
+		if($_FANWE['uid'] > 0){
 			fHeader("location: ".FU('u/index'));
+		}
+		//获取推荐人用户名
+		$name = "";
+		if($_FANWE['cookie']['referrals_uid']){
+			$uid = (int)authcode($_FANWE['cookie']['referrals_uid'], 'DECODE');
+			
+			if ($uid > 0){
+				$name = FDB::resultFirst('SELECT user_name FROM '.FDB::table('user').' WHERE uid = '.$uid);
+				if (empty($name)){
+					fSetCookie('referrals_uid',0,-1);
+				}
+			}
+		}
+        $tpl_path = $_FANWE['setting']['is_open_register']==1? 'page/user/user_register':'page/user/user_not_register';
 
-                $tpl_path = $_FANWE['setting']['is_open_register']==1? 'page/user/user_register':'page/user/user_not_register';
-
-		$cache_file = getTplCache($tpl_path);
+		$cache_file = getTplCache($tpl_path, array($name));
 		if(!@include($cache_file))
 		{
 			$login_modules = getLoginModuleList();
@@ -159,6 +171,14 @@ class UserModule
 			$result['msg']	= lang('user','register_user_name_exist');
 			outputJson($result);
 		}
+		
+		$referee = $_FANWE['request']['referee'];
+		if(!$uservice->getUserNameExists($referee))
+		{
+			$result['status'] = 0;
+			$result['msg']	= lang('user','no_such_referee');
+			outputJson($result);
+		}
 
 		//================add by chenfq 2011-10-14 =======================
 		$user_field = $_FANWE['setting']['integrate_field_id'];
@@ -171,7 +191,7 @@ class UserModule
 		};
 		//================add by chenfq 2011-10-14=======================		
 		
-		$referee = $_FANWE['request']['referee'];
+		
 		$inviteId = null;
 		if(!empty($referee)){
 			$user = FS("User")->getUsersByName($referee);
@@ -195,8 +215,21 @@ class UserModule
 		);
 		
 		$uid = FS('User')->createUser($user);
-		if($uid > 0)
-		{
+		if($uid > 0){
+			
+			//邀请人及注册人给予现金奖励
+			$users = array(
+						"from"=>array(
+							"uid" => $inviteId,
+							"nick" => $referee
+						),
+						"me"=>array(
+							"uid" => $uid,
+							"nick" => $user['user_name']
+						),
+					);
+			FS("Commission")->reward($users);
+			
 			$_FANWE['uid'] = $uid;
 			$user = array(
 				'uid'=>$uid,

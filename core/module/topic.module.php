@@ -230,7 +230,7 @@ class TopicModule
 
 		if($topic_detail['title'] != $title || $topic_detail['content'] != $content)
 		{
-			FS("Share")->updateShare($topic_detail['share_id'],$title,$content);
+			FS("Share")->updateShare($topic_detail['share_id'],$title,strip_tags($content));
 		}
 
 		FS("Topic")->updateTopic($tid,$title,$content);

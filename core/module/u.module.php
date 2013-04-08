@@ -442,62 +442,6 @@ class UModule
 		display();
 	}
 
-	public function bao()
-	{
-		global $_FANWE;
-		$home_uid = $_FANWE['home_uid'];
-		$home_user = FS('User')->getUserById($home_uid);
-		$current_menu = 'bao';
-		
-		$page_size = (int)$_FANWE['setting']['share_pb_item_count'] * (int)$_FANWE['setting']['share_pb_load_count'];
-		$pageargs = array();
-		$pageargs['uid'] = $home_uid;
-		$sql = 'SELECT COUNT(DISTINCT share_id) FROM '.FDB::table("share_user_goods").' WHERE uid = '.$home_uid;
-		$count = FDB::resultFirst($sql);
-		
-		$pager = buildPage('u/'.ACTION_NAME,$pageargs,$count,$_FANWE['page'],$page_size);
-		$pageargs['page'] = $_FANWE['page'];
-		$pageargs['pindex'] = '_pindex_';
-		$pb_url = $_FANWE['site_root'].'services/service.php?m=u&a='.ACTION_NAME.'&'.http_build_query($pageargs);
-		$pb_list = array();
-		if($count > $_FANWE['setting']['share_pb_item_count'])
-		{
-			for($i = 2;$i <= $_FANWE['setting']['share_pb_load_count'];$i++)
-			{
-				$pb_list[] = str_replace('_pindex_',$i,$pb_url);
-			}
-		}
-		
-		$sql = 'SELECT DISTINCT(share_id) FROM '.FDB::table("share_user_goods").' WHERE uid = '.$home_uid.' 
-			ORDER BY share_id DESC LIMIT '.($_FANWE['page'] - 1) * $pager['page_size'] . "," . $_FANWE['setting']['share_pb_item_count'];
-			
-		$share_list = array();
-		$res = FDB::query($sql);
-		while($data = FDB::fetch($res))
-		{
-			$share_list[$data['share_id']] = false;
-		}
-
-		if(count($share_list) > 0)
-		{
-			$share_ids = array_keys($share_list);
-			$sql = 'SELECT share_id,uid,content,collect_count,comment_count,create_time,cache_data 
-				FROM '.FDB::table('share').' WHERE share_id IN ('.implode(',',$share_ids).')';
-			$res = FDB::query($sql);
-			while($data = FDB::fetch($res))
-			{
-				$share_list[$data['share_id']] = $data;
-			}
-			$share_list = FS('Share')->getShareDetailList($share_list,true,true,true);
-		}
-		
-		$args = array('share_list'=>&$share_list,'pager'=>&$pager,'pb_url'=>&$pb_url,'pb_list'=>&$pb_list,'book_type'=>'goods');
-		$share_list_html = tplFetch("inc/u/book_share_list",$args);
-		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的宝贝';
-		include template('page/u/u_book_list');
-		display();
-	}
-	
 	public function look()
 	{
 		global $_FANWE;
@@ -1208,8 +1152,8 @@ class UModule
 				$res = FDB::query($sql);
 				$order_list = array();
 				while($order = FDB::fetch($res)){
-					//当月已统计查询过，前台不再提供查询
-					if($order['create_time']> mktime(0,0,0,date("m",time()),1,date("Y",time()))){
+					//上月已统计查询过，前台不再提供查询
+					if($order['create_time']> mktime(0,0,0,date("m",time())-1,1,date("Y",time()))){
 						$month=true;
 					}
 					if($order['commission'] > 0){
@@ -1253,20 +1197,31 @@ class UModule
 			break;
 			
 			case 5:
-				//提取佣金，直接break，不进入default
+				//提取佣金页面，直接break，不进入default
 				break;
 			
 			case 6:
+				//提交提现申请
 				$uid = $_FANWE['uid'];
 				$money = (float)$_FANWE['request']['money'];
-				if($money < 0){
+				//提现金额需要为5的倍数
+				if($money < 0 || $money % 5 !== 0){
+					showError(lang('user','auction_log_title'),lang('user','auction_log_error2'),FU('u/commission',array('type'=>5)));
 					exit;
 				}
+				
+				$sql = 'SELECT alipay FROM '.FDB::table('user').' where uid='.$uid;
+				$alipay = FDB::resultFirst($sql);
+				if(empty($alipay)){
+					showError(lang('user','auction_log_title'),lang('user','require_alipay'),FU('settings/alipay'));
+					exit;
+				}
+				
 				$sql = 'SELECT sum(money) FROM '.FDB::table('user_auction_log').' where is_pay=0 and status=0 and uid='.$uid;
 				$total = FDB::resultFirst($sql);
 				$user_money = FS('User')->getUserMoney($uid);
 				if($money == 0 || $money > $user_money - $total){
-					showError(lang('user','auction_log_title'),lang('user','auction_log_error1'),FU('u/commission',array('type'=>4)));
+					showError(lang('user','auction_log_title'),lang('user','auction_log_error1'),FU('u/commission',array('type'=>5)));
 					exit;
 				}
 				
@@ -1287,7 +1242,7 @@ class UModule
 			
 			default:
 				unset($args['type']);
-				$where = ' WHERE type=1 AND uid = '.$home_uid;
+				$where = ' WHERE type in (1,3,4) AND uid = '.$home_uid;
 				
 				if($type == 1){
 					$args['type'] = 1;

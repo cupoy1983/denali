@@ -171,7 +171,7 @@ h1,h2{font-family:"黑体", "微软雅黑", "宋体", Arial;}
 #header .head_user form .search_txt{float:left; width:76px; margin:5px 0 0 0;_margin:8px 0 0 0;font-family:"宋体"; border:none; background:transparent;}
 #header .head_user form .search_btn{float:left; border:none; width:29px; height:26px; overflow:hidden; text-indent:-60px;background:url(../images/s_btn.png) no-repeat 0 0; text-align:left; cursor:pointer;}
 
-#header .head_user .user_info dl {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;display: none;left: 0;overflow: hidden;position: absolute;top: 31px;z-index:10;}
+#header .head_user .user_info dl {background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CCCCCC;display: none;left: 15px;overflow: hidden;position: absolute;top: 31px;z-index:10;}
 #header .head_user .user_info dl dd {margin: 0;padding: 0;}
 #header .head_user .user_info dl dd a {clear: both;display: block;float: none;height: auto;line-height: normal;margin: 0;padding: 6px 20px;text-align: center;}
 #header .head_user .user_info dl dd a:hover {background: none repeat scroll 0 0 #F2F0F0;color: #FF3399;}

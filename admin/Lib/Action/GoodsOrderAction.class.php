@@ -186,8 +186,11 @@ class GoodsOrderAction extends CommonAction
 				if($order['type'] == 1){
 					$action = 'buy';
 				}
-					
-				$msg .= '&nbsp;'.L('GOODS').':'.'<a href="'.$order['item_url'].'" target="_blank">'.$order['title'].'</a>&nbsp;'.L('TYPE_'.$order['type']);
+				if(empty($order['item_url'])){
+					$msg .= '&nbsp;'.':'.'<a>'.$order['title'].'</a>';
+				}else{
+					$msg .= '&nbsp;'.L('GOODS').':'.'<a href="'.$order['item_url'].'" target="_blank">'.$order['title'].'</a>&nbsp;'.L('TYPE_'.$order['type']);
+				}	
 				
 				vendor('common');
 				

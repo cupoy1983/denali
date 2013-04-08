@@ -34,11 +34,13 @@
 									</div>
 									<div class="ipt_sex">
 										<span>{lang gender}：</span>
-										<div class="rdo fl" style="padding-right:75px;">
+										<div class="rdo fl">
 											<input type="radio" name="gender" value="0" checked="checked" class="ck">{lang user/gender_0}
 											<input style="margin-left:10px" type="radio" name="gender" value="1" class="ck">{lang user/gender_1}
 										</div>
-										<input type="text" name="referee" id="J_Referee" class="check fl" style="color:#cccccc;"/>
+										<div style="padding-right:10px;">
+											<input type="text" name="referee" id="J_Referee" value="{$name}" class="check" rel=".err_referee" istip="0" style="color:#999999;float:right;"/>
+										</div>
 										<br style="clear:both;">
 									</div>
 									<div class="ipt_type">
@@ -88,6 +90,7 @@
 								<div class="err_ulike">{lang reg_tip_6}</div>
 								<div class="err_password">{lang reg_tip_7}</div>
 								<div class="err_rstpassword">{lang reg_tip_8}</div>
+								<div class="err_referee">{lang reg_tip_9}</div>
 							</div>
 						</div>
 					</div>
@@ -113,7 +116,9 @@
 <script>
 
 $(document).ready(function(){
-	$("#J_Referee").val("   推荐人(可选)");
+	if($("#J_Referee").val()==""){
+		$("#J_Referee").val("   推荐人(可选)");
+	}
 });
 
 $("#J_Referee").focus(function(){
@@ -130,9 +135,8 @@ $("#J_Referee").blur(function(){
     var val=$(this).val(); //得到当前文本框的值
     if(val==""){
         $(this).val("   推荐人(可选)"); //如果符合条件，则设置内容
-        $(this).css("color","#cccccc");
+        $(this).css("color","#999999");
     }
 });
-推荐人(可选)
 </script>
 <!--{template inc/footer}-->

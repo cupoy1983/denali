@@ -1,12 +1,49 @@
 <?php
-class SettingsModule
-{
-	public function personal()
-	{
+class SettingsModule{
+	
+	public function personal(){
 		global $_FANWE;
         $msg = $_FANWE['cookie']['save_personal'];
 		fSetCookie('save_personal','');
 		include template('page/settings/settings_personal');
+		display();
+	}
+	
+	public function alipay(){
+		global $_FANWE;
+		$uid = $_FANWE['uid'];
+		$sql = 'SELECT alipay FROM '.FDB::table('user').' where uid='.$uid;
+		$alipay = FDB::resultFirst($sql);
+		include template('page/settings/settings_alipay');
+		display();
+	}
+	
+	public function savealipay(){
+		global $_FANWE;
+		$uid = $_FANWE['uid'];
+		$account = $_FANWE['request']['alipay'];
+		$alipay = "";
+		
+		$sql = 'SELECT alipay FROM '.FDB::table('user').' where uid='.$uid;
+		$alipay = FDB::resultFirst($sql);
+		if(empty($alipay)){
+			$sql = 'SELECT count(*) FROM '.FDB::table('user').' where alipay=\''.$account.'\'';
+			$count = intval(FDB::resultFirst($sql));
+			if($count>0){
+				$msg = "该支付宝账户已存在，如有疑问请联系管理员QQ：1921675800";
+			}else{
+				$data = array('alipay'=>$account);
+				$condition = "uid=".$uid;
+				$result = FDB::update('user',$data,$condition);
+				if($result){
+					$alipay = $account;
+				}
+			}
+		}else{
+			$msg = "您已经设置过支付宝账户，如有疑问请联系管理员QQ：1921675800";
+		}
+		
+		include template('page/settings/settings_alipay');
 		display();
 	}
 

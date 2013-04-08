@@ -120,6 +120,7 @@ _margin-top:21px; }
 .err_password div{float:left;}
 .err_rstpassword { font-size:12px; color:#999; margin-top:15px; line-height:150%; height:26px; padding-top:10px; visibility:hidden; _margin-top:14px; }
 .err_rstpassword div{float:left;}
+.err_referee { font-size:12px; color:#999; margin-top:20px; line-height:150%; height:36px; visibility:hidden; }
 .err_check { font-size:12px; color:#999; margin-top:14px; line-height:150%; height:26px; padding-top:10px; visibility:hidden; _margin-top:14px; }
 #register_right { float:left; width:250px; }
 .rst_login { margin-left:32px; margin-top:20px; }

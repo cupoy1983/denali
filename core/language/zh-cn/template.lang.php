@@ -116,6 +116,7 @@ $lang = array(
 	'reg_tip_6'=>'支持中文，不能以数字开头，由2~20个字符组成，中文算两个字符。',
 	'reg_tip_7'=>'6-20个字母、数字或者符号',
 	'reg_tip_8'=>'这里要重复输入一下你的密码',
+	'reg_tip_9'=>'请填写您的推荐人昵称',
 	'reg_loading'=>'注册中，请稍候...',
 	'reg_check'=>'请先完善注册信息。',
 	'get_pwd'=>'找回密码',
@@ -236,6 +237,11 @@ $lang = array(
 	'js_email_error'=>'邮件地址不正确',
 	'js_email_error1'=>'电子邮件地址已经被使用。',
 	'js_email_error2'=>'验证电子邮件失败',
+	'js_referee_require'=>'请填写推荐人',
+	'js_no_such_referee'=>'该推荐人不存在，请核对',
+	'js_referee_error'=>'推荐人验证失败',
+	
+	
 	'js_user_name_error'=>'请填写昵称',
 	'js_user_name_error1'=>'昵称只能2~20位，每个中文字算2位字符。',
 	'js_user_name_error2'=>'昵称仅支持中文（含繁体）、数字、大小写字母',

@@ -97,7 +97,7 @@ class GroupModule
 			$group_user_type_name = lang('group','group_user_type_'.$group_user_type);
 		}
 		$page_type = 0;
-		$where = ' WHERE fid = '.$fid;
+		$where = ' WHERE sort !=0 AND fid = '.$fid;
 		$type = $_FANWE['request']['type'];
 		if($type == 'best')
 		{

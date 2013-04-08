@@ -122,7 +122,7 @@ class TopicService
 			global $_FANWE;
 			$where = '';
 			if($fid > 0)
-				$where = ' WHERE ft.fid = '.$fid;
+				$where = ' WHERE sort !=0 AND ft.fid = '.$fid;
 	
 			$order = 'ft.tid DESC';
 	
@@ -174,7 +174,7 @@ class TopicService
 		$list = array();
 		$sql = 'SELECT ft.fid,ft.tid,ft.title,f.name AS group_name,ft.create_time,ft.lastpost,ft.lastposter,ft.uid,ft.post_count    
 			FROM '.FDB::table('forum_thread').' AS ft 
-			INNER JOIN '.FDB::table('forum').' AS f ON f.fid = ft.fid  
+			INNER JOIN '.FDB::table('forum').' AS f ON f.fid = ft.fid WHERE ft.sort !=0
 			ORDER BY ft.tid DESC LIMIT 0,'.(int)$num;
 		$res = FDB::query($sql);
 		while($data = FDB::fetch($res))
@@ -402,7 +402,7 @@ class TopicService
 		$sql = 'SELECT fid,tid,title,create_time,lastpost,lastposter,
 			uid,post_count,share_id
 			FROM '.FDB::table('forum_thread').'
-			WHERE uid = '.$uid.' AND tid <> '.$tid.' ORDER BY tid DESC LIMIT 0,'.$num;
+			WHERE sort !=0 AND uid = '.$uid.' AND tid <> '.$tid.' ORDER BY tid DESC LIMIT 0,'.$num;
 		$res = FDB::query($sql);
 		while($data = FDB::fetch($res))
 		{
@@ -475,7 +475,6 @@ class TopicService
 		$share = FS('Share')->getShareById($share_id);
 		FS('Share')->deleteShare($share_id,$is_score);
 		
-		//FIXME 一次性删除所有topic下的post
 		$res = FDB::query('SELECT * FROM '.FDB::table('forum_post').' WHERE tid = '.$tid);
 		while($data = FDB::fetch($res))
 		{

@@ -1,0 +1,43 @@
+<?php
+	$css_list[0]['url'] = './tpl/css/setting.css';
+?>
+<!--{template inc/header}-->
+<div id="body" class="fm960">
+	<div class="piece1">
+		<div class="piece1_hd"></div>
+		<div class="piece1_bd clearfix">
+			<div id="content" style="width:960px;">
+				<!--{template inc/settings/settings_menu}-->
+				<div id="setting_box" class="fl">
+					<div id="setting_form" class="setting_basic">
+						<form action="{u settings/savealipay}" method="post" name="personal">
+							<!--{if !empty($msg)}-->
+							<div class="green_alert_l">{$msg}</div>
+							<!--{/if}-->
+							<dl>
+								<dd>支付宝账号：</dd>
+								<!--{if empty($alipay)}-->
+								<dt class="unick">
+									<input type="text" name="alipay" value="{$alipay}" />
+								</dt>
+								<dd>&nbsp;&nbsp;</dd>
+								<dt>
+									<input type="hidden" name="action" value="savealipay" />
+									<input class="green_button" type="submit" value="提交">
+								</dt>
+								<!--{else}-->
+								<dt style="line-height: 24px;">
+									<b>{$alipay}</b>
+								</dt>
+								<!--{/if}-->
+							</dl>
+							<div class="unick" style="width:500px;"><span>*</span><b style="color:red;">只有在正确填写支付宝账号才可以安全提现，并且支付宝账号只能提交一次哦 ^_^</b>，有问题请联系管理员旺旺：贾斯特曼，QQ群：282900081</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="piece1_ft"></div>
+	</div>
+</div>
+<!--{template inc/footer}-->

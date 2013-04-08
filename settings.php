@@ -1,7 +1,7 @@
 <?php 
 define('MODULE_NAME','Settings');
 
-$actions = array('personal','savepersonal','avatar','saveavatar','password','savepassword','bind','setsyn','buyerverifier','bindbuyerverifier','unbuyerverifier');
+$actions = array('personal','alipay','savealipay','savepersonal','avatar','saveavatar','password','savepassword','bind','setsyn','buyerverifier','bindbuyerverifier','unbuyerverifier');
 $action = 'personal';
 
 if(isset($_REQUEST['action']))
@@ -26,6 +26,12 @@ switch(ACTION_NAME)
 {
 	case 'personal':
 		SettingsModule::personal();
+	break;
+	case 'alipay':
+		SettingsModule::alipay();
+	break;
+	case 'savealipay':
+		SettingsModule::savealipay();
 	break;
 	case 'savepersonal':
 		SettingsModule::savePersonal();
