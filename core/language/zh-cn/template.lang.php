@@ -238,7 +238,7 @@ $lang = array(
 	'js_email_error1'=>'电子邮件地址已经被使用。',
 	'js_email_error2'=>'验证电子邮件失败',
 	'js_referee_require'=>'请填写推荐人',
-	'js_no_such_referee'=>'该推荐人不存在，请核对',
+	'js_no_such_referee'=>'无此推荐人，解答加Q群：282900081',
 	'js_referee_error'=>'推荐人验证失败',
 	
 	

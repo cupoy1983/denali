@@ -54,7 +54,7 @@ $lang = array(
 	'register_password_range' => '输入密码需在6位到32位之间',
 	'register_checkcode_error' => '验证码输入错误，请重新输入',
 	
-	'no_such_referee' => '该推荐人不存在，请核对',
+	'no_such_referee' => '无此推荐人，解答加Q群：282900081',
 
 	'get_pwd_title'=>'[%s] 找回您的密码',
 	'get_pwd_html'=>'<div>亲爱的用户:</div><br /><div>感谢您注册%s,请点击以下链接重置您的密码。</div><br /><br /><div><a href="%s" target="_blank">%s</a></div><br /><br /><div>愿您在%s度过愉快的时光。</div><div></div><br /><br /><div><a href="%s" target="_blank">%s</a></div>',
