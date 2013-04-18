@@ -1227,7 +1227,7 @@ class UModule
 				
 				$data = array();
 				$data['money'] = $money;
-				$data['content'] = trim($_FANWE['request']['content']);
+				$data['content'] = trim($_FANWE['request']['content'])."</br>支付宝账号：".$alipay;
 				$data['uid'] = $_FANWE['uid'];
 				$data['create_time'] = TIME_UTC;
 				$data['create_day'] = getTodayTime();

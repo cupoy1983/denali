@@ -33,7 +33,7 @@ class CommissionService{
 		$order['status'] = 1;
 		$order['is_pay'] = 0;
 		$order['commission_rate'] = 0;
-		$order['commission'] = 3;
+		$order['commission'] = 2;
 		$order['title'] = "您介绍的朋友 ".$users['me']['nick']." 在 ". fToDate(TIME_UTC,'Y-m-d')." 注册成功给您的奖励";
 		$order['create_time'] = TIME_UTC;
 		FDB::insert('goods_order', $order, true);
@@ -46,7 +46,7 @@ class CommissionService{
 		$order['status'] = 1;
 		$order['is_pay'] = 0;
 		$order['commission_rate'] = 0;
-		$order['commission'] = 3;
+		$order['commission'] = 2;
 		$order['title'] = $users['me']['nick']." 感谢您在".fToDate(TIME_UTC,'Y-m-d')."成功注册妖精猫 ";
 		$order['create_time'] = TIME_UTC;
 		FDB::insert('goods_order', $order, true);

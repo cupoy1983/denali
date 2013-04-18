@@ -111,15 +111,19 @@ class Taobao
 		$resp = (array)$client->execute($req,trim($_FANWE["cache"]["business"]["taobao"]["session_key"]));
 		$is_complete = false;
 		$total_results = 0;
-
+		$is_insert = false;
+		$success = 1;
+		
 		if(isset($resp['taobaoke_report'])){
-			$count = 0;
 			$taobaoke_report = (array)$resp['taobaoke_report'];
 			$total_results = (int)$taobaoke_report['total_results'];
-			
-			if($total_results > 0){
-				$taobaoke_report_members = $taobaoke_report['taobaoke_report_members'];
-				foreach($taobaoke_report_members->taobaoke_report_member as $item){
+			$reports = $taobaoke_report['taobaoke_report_members'];
+			$results = null;
+			if(isset($reports)){
+				$results = $reports->xpath('taobaoke_report_member');
+			}
+			if((isset($results) && count($results) > 0)){
+				foreach($reports->taobaoke_report_member as $item){
 					$item = (array)$item;
 					$item['pay_time'] = str2Time($item['pay_time']);
 					$item['outer_code'] = isset($item['outer_code']) ? $item['outer_code'] : '';
@@ -143,7 +147,6 @@ class Taobao
 							continue;
 						}
 						
-						$is_insert = false;
 						$res = FDB::query('SELECT * FROM '.FDB::table('goods_order').' 
 							WHERE order_id = '.$order_id);
 						
@@ -233,18 +236,21 @@ class Taobao
 						}
 					}
 				}
-
-				if($page * $page_size >= $total_results){
-					FDB::query('INSERT INTO '.FDB::table('taobaoke_report').'(id,trade_id,num_iid,item_title,item_num,pay_price,real_pay_fee,commission_rate,commission,outer_code,app_key,pay_time,pay_day) SELECT NULL AS id,trade_id,num_iid,item_title,item_num,pay_price,real_pay_fee,commission_rate,commission,outer_code,app_key,pay_time,pay_day FROM '.FDB::table('taobaoke_report_temp').' ORDER BY pay_time ASC,trade_id ASC');
-					return 1;
-				}else{
-					return 0;
-				}
-			}else{
-				return 1;
 			}
+			//$page_size等于result的数量时，需要翻下一页
+			if(count($results) == $page_size){
+				$success = 0;
+			}
+			
+			//(当前页数据量小于$page_size则插入数据，否则翻下一页)
+			elseif((count($results) < $page_size) || (!isset($results) && $page > 1)){
+				FDB::query('INSERT INTO '.FDB::table('taobaoke_report').'(id,trade_id,num_iid,item_title,item_num,pay_price,real_pay_fee,commission_rate,commission,outer_code,app_key,pay_time,pay_day) SELECT NULL AS id,trade_id,num_iid,item_title,item_num,pay_price,real_pay_fee,commission_rate,commission,outer_code,app_key,pay_time,pay_day FROM '.FDB::table('taobaoke_report_temp').' ORDER BY pay_time ASC,trade_id ASC');
+			}
+			
+		}else{
+			$success = -1;
 		}
-		return -1;
+		return $success;
 	}
 }
 ?>
