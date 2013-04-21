@@ -4,6 +4,11 @@ class IndexModule
 	public function index()
 	{
 		global $_FANWE;
+		//如果有推荐人信息，跳转到返利页面
+		if($_GET['invite']>0){
+			header('Location: ' . '/fanli');
+			exit;
+		}
 		clearTempImage();
 		$cache_file = getTplCache('page/index_index',array(),2);
 		if(getCacheIsUpdate($cache_file,SHARE_CACHE_TIME,1))

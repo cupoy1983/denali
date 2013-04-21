@@ -117,13 +117,13 @@
 
 $(document).ready(function(){
 	if($("#J_Referee").val()==""){
-		$("#J_Referee").val("   推荐人(可选)");
+		$("#J_Referee").val("   推荐人(必填)");
 	}
 });
 
 $("#J_Referee").focus(function(){
     var val=$(this).val(); //得到当前文本框的值
-    if(val=="   推荐人(可选)"){
+    if(val=="   推荐人(必填)"){
         $(this).val("");  //如果符合条件，则清空文本框内容
         $(this).css("color","#000000");
     }else{
@@ -134,7 +134,7 @@ $("#J_Referee").focus(function(){
 $("#J_Referee").blur(function(){
     var val=$(this).val(); //得到当前文本框的值
     if(val==""){
-        $(this).val("   推荐人(可选)"); //如果符合条件，则设置内容
+        $(this).val("   推荐人(必填)"); //如果符合条件，则设置内容
         $(this).css("color","#999999");
     }
 });

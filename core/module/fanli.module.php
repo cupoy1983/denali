@@ -51,12 +51,12 @@ class FanLiModule{
 			$prefix = fToDate($last,'Y-m')." 至 ";
 		}
 		
-		//该用户当月未有成交，则朋友佣金比例降低，变为设定值的1/4
+		//该用户当月未有成交，则朋友佣金比例降低，变为设定值的1/3
 		$sql = 'SELECT count(order_id) FROM '.FDB::table('goods_order')." WHERE uid = "
 				.$uid." AND status = 1 AND type = 1 AND is_pay = 1 AND pay_time > ".$m1." AND pay_time < ".$m2;
 		$buy_count = intval(FDB::resultFirst($sql));
 		if($buy_count === 0 ){
-			$rate = $rate / 4;
+			$rate = $rate * 0.3;
 		}
 		$sql = 'SELECT uid, user_name FROM '.FDB::table('user').' WHERE is_lock=0 AND invite_id='.$uid;
 		$res = FDB::query($sql);
