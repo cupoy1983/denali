@@ -2,7 +2,8 @@
 $array = array(
 	'GOODSORDER'=>'会员佣金管理',
 	'GOODSORDER_INDEX'=>'佣金列表',
-	'ORDER_ID'=>'佣金编号',
+	'ORDER_ID'=>'订单编号',
+	'COMMISSION_ID'=>'佣金编号',
 	'GET_COMMISSION'=>'<span style="color:#ccc;">获取中</span>',
 	'COMMISSION'=>'佣金',
 	'COMMISSION_RATE'=>'佣金比率',

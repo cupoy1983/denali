@@ -1273,5 +1273,49 @@ class UModule
 		include template('page/u/u_commission');
 		display();
 	}
+	
+	public function disciple(){
+		global $_FANWE;
+		$home_uid = $_FANWE['uid'];
+		$current_menu = 'disciple';
+		$home_user = FS('User')->getUserById($home_uid);
+		$args = array();
+				
+		$where = ' WHERE status = 1 AND master_id = '.$home_uid;
+		
+		$sql = 'SELECT COUNT(id) FROM '.FDB::table('disciple_detail').$where;
+		$count = FDB::resultFirst($sql);
+		$pager = buildPage('u/disciple',$args,$count,$_FANWE['page'],10);
+		
+		$sql = 'SELECT * FROM '.FDB::table('disciple_detail').$where.' ORDER BY gmt_create DESC LIMIT '.$pager['limit'];
+		$res = FDB::query($sql);
+				
+		$order_list = array();
+		while($order = FDB::fetch($res)){
+			$name = FS('User')->getUserShowName($order['uid']);
+			$order['user_name'] = $name['name'];
+			$order['month_master']=priceFormat($order['month_fan']*$order['master_rate']/100);
+			$order['year_master']=priceFormat($order['year_fan']*$order['master_rate']/100);
+			$order['month_fee']=priceFormat($order['month_fee']);
+			$order['month_fan']=priceFormat($order['month_fan']);
+			$order['year_fee']=priceFormat($order['year_fee']);
+			$order['year_fan']=priceFormat($order['year_fan']);
+			$order['gmt_create']=date('Y-m-d',strtotime($order['gmt_create']));
+			$order_list[$order['id']] = $order;
+		}
+		//m本月第一秒的utc
+		$m = mktime(0,0,0,date("m",time()),1,date("Y",time()));
+		$master = FDB::fetchFirst("SELECT SUM(month_fan)*master_rate as month, SUM(year_fan)*master_rate as year FROM ".FDB::table('disciple_detail').$where. " AND UNIX_TIMESTAMP(gmt_create) >".$m);
+		if($master['year'] <= 0){
+			$master['valid'] = false;
+		}else{
+			$master['valid'] = true;
+		}
+		$master['month'] = priceFormat($master['month'] / 100);
+		$master['year'] = priceFormat($master['year'] / 100);
+		$_FANWE['nav_title'] = $_FANWE['home_user_names']['name'].'的徒弟';
+		include template('page/u/u_disciple');
+		display();
+	}
 }
 ?>

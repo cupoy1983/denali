@@ -88,7 +88,7 @@ class TaobaokeReportAction extends CommonAction
 		}
 		else
 		{
-			echoFlush('<script type="text/javascript">setTimeout(function(){$("#notice").html($("#notice").html() + "<br/>API返回数据错误");},500);</script>');
+			echoFlush('<script type="text/javascript">setTimeout(function(){$("#notice").html($("#notice").html() + "<br/>API返回数据错误，或当前无订单");},500);</script>');
 			echoFlush('<script type="text/javascript">setTimeout(function(){location.href="'.U('TaobaokeReport/index').'";},1500);</script>');
 		}
     }

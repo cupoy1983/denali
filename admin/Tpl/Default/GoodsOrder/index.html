@@ -4,8 +4,8 @@
 <div class="handle-btns">
 	<fanwe:imageBtn id="removeData" name="removeData" value="{$Think.lang.REMOVE}" click="removeData(this,'checkList')" />
 	<form action="__APP__">
-		<span>{$Think.lang.ORDER_ID}</span>
-		<input class="textinput" type="text" value="{$order_id}" name="order_id" size="10" />
+		<span>{$Think.lang.COMMISSION_ID}</span>
+		<input class="textinput" type="text" value="{$commission_id}" name="commission_id" size="10" />
 		<small></small>
 		<span>{$Think.lang.USER_NAME}</span>
 		<input class="textinput" type="text" value="{$uname}" name="uname" size="10" />
@@ -24,7 +24,8 @@
     <thead>
         <tr>
             <th width="30" class="first"><input type="checkbox" onclick="checkAll('checkList')"></th>
-            <th width="80">{$Think.lang.ORDER_ID}</th>
+            <th width="60">{$Think.lang.ORDER_ID}</th>
+            <th width="60">{$Think.lang.COMMISSION_ID}</th>
             <th>{$Think.lang.USER_NAME}</th>
 			<th width="60">{$Think.lang.TYPE}</th>
             <th width="60">{$Think.lang.COMMISSION}</th>
@@ -62,7 +63,8 @@
 		?>
         <tr{$tr_class}>
             <td class="first"{$row_count}><input type="checkbox" name="key" value="{$item.order_id}"></td>
-            <td {$row_count}>o{$item.order_id}</td>
+            <td {$row_count}>{$item.order_id}</td>
+            <td {$row_count}>{$item.outer_code}</td>
             <td align="left">{$item.user.name}</td>
             <td>{$item.user.type}</td>
             <td>{$item.user.commission}</td>

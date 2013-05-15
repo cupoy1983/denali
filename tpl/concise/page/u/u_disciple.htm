@@ -1,0 +1,49 @@
+<?php
+	$css_list[0]['url'][] = './tpl/css/zone.css';
+	$js_list[0] = './tpl/js/zone.js';
+?>
+<!--{template inc/header}-->
+<!--{template inc/u/u_menu}-->
+<div class="zone_wrapper" style="padding:16px 0;">
+<div class="summary">
+	<span class="col-orange">{$home_user['user_name']}</span> 您当月获得师傅奖励 <span class="col-red">{$master['month']}</span>元，全年共获得师傅奖励 <span class="col-red">{$master['year']}</span>元。
+	<!--{if $master['valid']}-->
+	详情如下：
+	<!--{else}-->
+	您还要继续努力哦，<a href="http://yaojingmao.com/invite" target="_blank" style="">去邀请朋友!</a>
+	<!--{/if}-->
+</div>
+<div class="order-content">
+<table>
+	<thead>
+		<tr class="history-head">
+	 		<th width="150px" class="th-style">徒弟昵称</th>
+			<th width="200px" class="th-style">消费总额(月/年)</th>
+			<th width="200px" class="th-style">获得折扣(月/年)</th>
+			<th width="150px" class="th-style">师父奖励(元/月)</th>
+			<th width="150px" class="th-style">师父奖励(元/年)</th>
+			<th width="95px" class="th-style">更新日期</th>
+		</tr>
+	</thead>
+	<tbody class="data">
+		<!--{eval $index = 0;}-->
+		<!--{loop $order_list $order}-->
+		<tr {if $index%2==0} class="server-even"{/if}>
+			<td class="pl30" style="padding-top: 8px;padding-bottom:8px;">{$order['user_name']}</td>
+			<td class="pl30">{$order['month_fee']}(<span class="col-orange">{$order['year_fee']}</span>)</td>
+			<td class="pl30">{$order['month_fan']}(<span class="col-orange">{$order['year_fan']}</span>)</td>
+			<td class="pl40"><span class="col-green">{$order['month_master']}</span></td>
+			<td class="pl40"><span class="col-red">{$order['year_master']}</span></td>
+			<td style="font-size:14px;line-height:20px;">$order['gmt_create']</td>
+		</tr>
+		<!--{eval $index++;}-->
+		<!--{/loop}-->
+	</tbody>
+</table>
+</div>
+<div class="pagination pt15">
+		<!--{subtemplate inc/pages}--> 
+</div>
+</div>
+
+<!--{template inc/footer}-->

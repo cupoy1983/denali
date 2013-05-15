@@ -1,7 +1,7 @@
 <?php
 define('MODULE_NAME','u');
 
-$actions = array('index','me','book','fav','bao','photo','topic','talk','atme','comments','all','group','ask','follow','fans','feed','attention','message','sendmsg','msgview','exchange','album','commission','notic','look','dapei','sysmsg');
+$actions = array('index','me','book','fav','bao','photo','topic','talk','atme','comments','all','group','ask','follow','fans','feed','attention','message','sendmsg','msgview','exchange','album','commission','notic','look','dapei','sysmsg','disciple');
 
 if(isset($_REQUEST['action']))
 {

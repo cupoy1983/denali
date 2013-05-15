@@ -46,9 +46,6 @@ switch(ACTION_NAME)
 	case 'agreement':
 		UserModule::agreement();
 	break;
-	case 'commission':
-		UserModule::commission();
-	break;
 	case 'bind':
 		UserModule::bind();
 	break;

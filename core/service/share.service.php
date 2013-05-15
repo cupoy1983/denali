@@ -3289,11 +3289,12 @@ class ShareService
 	{
 		$w = (int)fToDate(NULL,'w');
 		
-		if($w == 1)
+		if($w == 1){
 			FS('Cron')->createRequest(array('m'=>'share','a'=>'collect_count','type'=>'w'),true);
-		else
+		}
+		else{
 			FS('Cron')->createRequest(array('m'=>'share','a'=>'collect_count','type'=>'d'),true);
-			
+		}
 		$cron = array();
 		$cron['server'] = 'share';
 		$cron['run_time'] = getTodayTime() + 86400;

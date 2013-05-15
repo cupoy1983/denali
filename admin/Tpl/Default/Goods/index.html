@@ -13,10 +13,10 @@
 			var ids = new Array();
 			$("#checkList input:checked[name='key']").each(function(){
 				ids.push($(this).val());
-			}); 
+			});
 			ids = ids.join(',');
 			url = $("#J_Form").attr("action") + "?a=addLike&m=Goods&id=" +ids;
-			$.ajax({            
+			$.ajax({
 				type:"post",
 				url:url,
 				error:function(request) {      // 设置表单提交出错
@@ -24,8 +24,8 @@
 				},
 				success:function(data) {
 					alert("成功！");
-				}            
-			});       
+				}
+			});
 		});
 	});
 	

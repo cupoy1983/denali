@@ -146,7 +146,7 @@ class Taobao
 						if($bln > 0){
 							continue;
 						}
-						
+						//FIXME frankie 考虑将该无用判断去除
 						$res = FDB::query('SELECT * FROM '.FDB::table('goods_order').' 
 							WHERE order_id = '.$order_id);
 						
@@ -205,6 +205,7 @@ class Taobao
 								$o['commission_rate'] = $order['commission_rate'];
 								$o['commission'] = $commission;
 								$o['title'] = $item['item_title'];
+								$o['price'] = $item['real_pay_fee'];
 								$o['keyid'] = 'taobao_'.$item['num_iid'];
 								$o['out_trade_id'] = $item['trade_id'];
 								$o['outer_code'] = $item['outer_code'];
@@ -212,7 +213,7 @@ class Taobao
 								FDB::insert('goods_order', $o, true);
 							}else{
 								FDB::query('UPDATE '.FDB::table('goods_order').' SET status = 1,out_trade_id='.$item['trade_id'].',outer_code=\''.$item['outer_code'].
-								'\',settlement_time = '.TIME_UTC.',commission = '.$commission.' WHERE order_id = '.$o['order_id'].' AND uid = '.(int)$o['uid']);
+								'\',settlement_time = '.TIME_UTC.',commission = '.$commission.',order_total = '.$item['real_pay_fee'].' WHERE order_id = '.$o['order_id'].' AND uid = '.(int)$o['uid']);
 							}
 							
 							//用户返积分

@@ -430,3 +430,49 @@ right:-5px; top:-5px; }
 .pub_expand .pub_photo_detailed div{clear:both; height:20px; line-height:20px; width:260px;}
 .pub_expand .pub_photo_detailed div label{width:60px;line-height:20px;}
 .pub_expand .pub_photo_detailed .phd_close{width:11px; height:11px; display:block;background:url(../images/close_11x11_p.png) no-repeat 0 0; position:absolute; top:5px; right:5px; overflow:hidden; text-indent:-80px; cursor:pointer;}
+
+.history-head {
+    background: url("http://a.tbcdn.cn/img/app/trade/itemlist_bg.gif") repeat-x scroll 0 0 transparent;
+    border-bottom: 1px solid #AED2FF;
+    clear: both;
+    height: 29px;
+    margin-top: 8px;
+}
+.th-style {
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-top: 1px solid #AED2FF;
+    text-align: center;
+	font-size: 14px;
+	font-weight:normal;
+}
+.server-even {
+    background-color: #f1f1f1;
+}
+.order-content td{
+	border-bottom: 1px solid #EAEAEA;
+	font-size: 14px;
+}
+.order-content table{
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+.col-orange{
+	color:#FF6600;
+}
+.col-red{
+	color:red;
+}
+.col-green{
+	color:green;
+}
+.summary{
+	font-size:18px;
+	padding:0 0 15px 20px;
+}
+.summary a{
+	color:blue;
+}
+.summary a:hover{
+	color:#ff1566;
+}

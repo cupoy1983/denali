@@ -1,4 +1,6 @@
 <?php
+//默认不打开该时间程序，等修改后打开
+exit;
 require ROOT_PATH.'core/fanwe.php';
 $fanwe = &FanweService::instance();
 $fanwe->is_session = false;

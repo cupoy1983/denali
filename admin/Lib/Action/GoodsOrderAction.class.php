@@ -20,7 +20,7 @@ class GoodsOrderAction extends CommonAction
 		$where = '';
 		$parameter = array();
 		$uname = trim($_REQUEST['uname']);
-		$order_id = trim($_REQUEST['order_id']);
+		$commission_id = trim($_REQUEST['commission_id']);
 		$status = (int)$_REQUEST['status'];
 		
 		$is_empty = false;
@@ -35,13 +35,11 @@ class GoodsOrderAction extends CommonAction
 				$where.=" AND uid = ".$uid;
 		}
 		
-		if (!empty($order_id) && preg_match("/^o\d+$/",$order_id))
+		if (!empty($commission_id) && preg_match("/^o\d+$/",$commission_id))
 		{
-			$this->assign("order_id",$order_id);
-			$parameter['order_id'] = $order_id;
-			$order_id = (float)substr($order_id,1);
-			if($order_id > 0)
-				$where .= " AND order_id = ".$order_id;
+			$this->assign("commission_id",$commission_id);
+			$parameter['outer_code'] = $commission_id;
+			$where .= " AND outer_code = '".$commission_id."'";
 		}
 		
 		if($status > 0)

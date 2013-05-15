@@ -30,23 +30,16 @@
 	</div>
 	<div class="un_menu">
 		<ul>
-			<li{if $current_menu == 'index'} class="c"{/if}><a href="{u u/index uid=$home_uid}">动态</a></li>
-			<li{if $current_menu == 'commission'} class="c"{/if}><a href="{u u/commission uid=$home_uid}">我的折扣</a></li>
-			<li{if $current_menu == 'book'} class="c"{/if}><a href="{u u/book uid=$home_uid}">封面</a></li>
-			<li{if $current_menu == 'album'} class="c"{/if}><a href="{u u/album uid=$home_uid}">杂志社</a></li>
-			<li{if $current_menu == 'fav'} class="c"{/if}><a href="{u u/fav uid=$home_uid}">喜欢</a></li>
-			<!--{if $home_uid == $_FANWE['uid']}-->
-			<li{if $current_menu == 'group'} class="c"{/if}><a href="{u u/group uid=$home_uid}">小组</a></li>
-			<!--{else}-->
-			<li{if $current_menu == 'group'} class="c"{/if}><a href="{u u/topic uid=$home_uid}">小组</a></li>
-			<!--{/if}-->
-			<li{if $current_menu == 'look'} class="c"{/if}><a href="{u u/look uid=$home_uid}">晒货</a></li>
-			<li{if $current_menu == 'dapei'} class="c"{/if}><a href="{u u/dapei uid=$home_uid}">搭配</a></li>
-			<li{if $current_menu == 'photo'} class="c"{/if}><a href="{u u/photo uid=$home_uid}">相册</a></li>
-			<!--{if $home_uid == $_FANWE['uid']}-->
-			<li{if $current_menu == 'message'} class="c"{/if}><a href="{u u/message uid=$home_uid}">信件</a></li>
-			<li{if $current_menu == 'exchange'} class="c"{/if}><a href="{u u/exchange uid=$home_uid}">试用</a></li>
-			<!--{/if}-->
+			<li{if $current_menu == 'index'} class="c"{/if}><a href="/me">动态</a></li>
+			<li{if $current_menu == 'commission'} class="c"{/if}><a href="/u/commission">我的折扣</a></li>
+			<li{if $current_menu == 'disciple'} class="c"{/if}><a href="/u/disciple">我的徒弟</a></li>
+			<li{if $current_menu == 'book'} class="c"{/if}><a href="/u/book">封面</a></li>
+			<li{if $current_menu == 'album'} class="c"{/if}><a href="/u/album">杂志社</a></li>
+			<li{if $current_menu == 'group'} class="c"{/if}><a href="/u/group">小组</a></li>
+			<li{if $current_menu == 'look'} class="c"{/if}><a href="/u/look">晒货</a></li>
+			<li{if $current_menu == 'dapei'} class="c"{/if}><a href="/u/dapei">搭配</a></li>
+			<li{if $current_menu == 'photo'} class="c"{/if}><a href="/u/photo">相册</a></li>
+			<li{if $current_menu == 'exchange'} class="c"{/if}><a href="/u/exchange">试用</a></li>
 		</ul>
 	</div>
 </div>

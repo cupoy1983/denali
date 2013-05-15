@@ -571,64 +571,48 @@ class UserModule
 		display($cache_file);
 	}
 	
-	public function commission()
-	{
+	public function sendActivateMail(){
 		global $_FANWE;
-		if($_FANWE['setting']['is_open_commission'] == 0)
-			fHeader("location: ".FU('index/index'));
-		
-		$title = sprintf(lang('common','user_commission'),$_FANWE['setting']['site_name']);
+		$title = lang('common','user_mail_activate');
 		$_FANWE['nav_title'] = $title;
-		
-		$cache_file = getTplCache('page/user/user_commission');
-		if(!@include($cache_file))
-		{
-			include template('page/user/user_commission');
+		$uid = $_FANWE['cookie']['uid'];
+		if($uid>0){
+			$sql = "SELECT email FROM ".FDB::table('user')." WHERE uid = ".$uid;		
+			$user_info = FDB::fetchFirst($sql);
+			preg_match ('/\@([a-z]|[0-9])*/i',$user_info['email'],$str_arr);
+			$mail = substr($str_arr[0], 1);
+		}else{
+			fHeader("location: ".FU('user/register'));
 		}
-		display($cache_file);
-	}
-        public function sendActivateMail(){
-                global $_FANWE;
-                $title = lang('common','user_mail_activate');
-		$_FANWE['nav_title'] = $title;
-                $uid = $_FANWE['cookie']['uid'];
-                if($uid>0){
-                    $sql = "SELECT email FROM ".FDB::table('user')." WHERE uid = ".$uid;		
-                    $user_info = FDB::fetchFirst($sql);
-                    preg_match ('/\@([a-z]|[0-9])*/i',$user_info['email'],$str_arr);
-                    $mail = substr($str_arr[0], 1);
-                }else{
-                    fHeader("location: ".FU('user/register'));
-                }
                 
-                include template('page/user/send_activate_mail');
+		include template('page/user/send_activate_mail');
 		display();
-        }
-        function verifyUserMail(){
-                global $_FANWE;
-                $sn = $_REQUEST['sn'];
-                $sql_str = 'update ' . DB_PREFIX . 'user set last_ip = \'' . $_SESSION ["CLIENT_IP"] . '\',status = 1 where user_name = \'' . $userinfo ['user_name'] . '\' limit 1';
-                $userinfo = FDB::fetchFirst('select * from '.FDB::table('user').' where active_sn =\''.$sn.'\'');
-                $user = array(
-                    'uid'=>$userinfo['uid'],
-                    'password'=>$userinfo['password'],
-                );
-                fSetCookie('last_request', authcode(TIME_UTC - 10, 'ENCODE'), TIME_UTC + 816400, 1, true);
-                FS('User')->setSession($user);
+	}
+	function verifyUserMail(){
+		global $_FANWE;
+		$sn = $_REQUEST['sn'];
+		$sql_str = 'update ' . DB_PREFIX . 'user set last_ip = \'' . $_SESSION ["CLIENT_IP"] . '\',status = 1 where user_name = \'' . $userinfo ['user_name'] . '\' limit 1';
+		$userinfo = FDB::fetchFirst('select * from '.FDB::table('user').' where active_sn =\''.$sn.'\'');
+		$user = array(
+			'uid'=>$userinfo['uid'],
+			'password'=>$userinfo['password'],
+		);
+		fSetCookie('last_request', authcode(TIME_UTC - 10, 'ENCODE'), TIME_UTC + 816400, 1, true);
+		FS('User')->setSession($user);
 		
 		if($_FANWE['setting']['is_show_follow'] > 0 )
-				fSetCookie("show_zone_follow",1);
-                fHeader("location: ".FU('index/index'));
-        }
+			fSetCookie("show_zone_follow",1);
+		fHeader("location: ".FU('index/index'));
+	}
         
-        function mailRssCancel(){
-            global $_FANWE;
-            $rss_sn = $_FANWE['request']['rss_sn'];
-            $rss_info = FS('MailRss')->checkRssSn($rss_sn);
-            $rss_cate = FS('MailRss')->getRssCate(array(0,1),array('cate_id='.$rss_info['cate_id']));
-            FS('MailRss')->removeRss($rss_info['cate_id'],$rss_info['uid']);
-            include template('page/user/mail_rss_cancel');
-            display();
-        }
+	function mailRssCancel(){
+		global $_FANWE;
+		$rss_sn = $_FANWE['request']['rss_sn'];
+		$rss_info = FS('MailRss')->checkRssSn($rss_sn);
+		$rss_cate = FS('MailRss')->getRssCate(array(0,1),array('cate_id='.$rss_info['cate_id']));
+		FS('MailRss')->removeRss($rss_info['cate_id'],$rss_info['uid']);
+		include template('page/user/mail_rss_cancel');
+		display();
+	}
 }
 ?>
