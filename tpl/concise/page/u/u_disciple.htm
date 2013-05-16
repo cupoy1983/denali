@@ -10,7 +10,7 @@
 	<!--{if $master['valid']}-->
 	详情如下：
 	<!--{else}-->
-	您还要继续努力哦，<a href="http://yaojingmao.com/invite" target="_blank" style="">去邀请朋友!</a>
+	您还要继续努力哦，<a href="http://yaojingmao.com/invite" target="_blank">邀请朋友做您的徒弟!</a>
 	<!--{/if}-->
 </div>
 <div class="order-content">
@@ -29,12 +29,12 @@
 		<!--{eval $index = 0;}-->
 		<!--{loop $order_list $order}-->
 		<tr {if $index%2==0} class="server-even"{/if}>
-			<td class="pl30" style="padding-top: 8px;padding-bottom:8px;">{$order['user_name']}</td>
+			<td class="pl30">{$order['user_name']}</td>
 			<td class="pl30">{$order['month_fee']}(<span class="col-orange">{$order['year_fee']}</span>)</td>
 			<td class="pl30">{$order['month_fan']}(<span class="col-orange">{$order['year_fan']}</span>)</td>
 			<td class="pl40"><span class="col-green">{$order['month_master']}</span></td>
 			<td class="pl40"><span class="col-red">{$order['year_master']}</span></td>
-			<td style="font-size:14px;line-height:20px;">$order['gmt_create']</td>
+			<td style="line-height:35px;">$order['gmt_create']</td>
 		</tr>
 		<!--{eval $index++;}-->
 		<!--{/loop}-->

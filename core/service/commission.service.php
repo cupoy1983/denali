@@ -20,7 +20,7 @@ class CommissionService{
 		//FIXME frankie 修改前暂时关闭
 		//FS('Cron')->createRequest(array('m'=>'goods_order','a'=>'taobao'),true);
 		
-		//2.每月初执行三次，计算每月师傅奖励，并计算其各个徒弟的资金明细单(每月18-20日运行)
+		//2.每月执行三次，计算每月师傅奖励，并计算其各个徒弟的资金明细单(每月18-20日运行)
 		$date = getdate(TIMESTAMP);
 		if($date['mday'] >= 18 && $date['mday'] <= 20){
 			FS('Cron')->createRequest(array('m'=>'goods_order','a'=>'month'),true);
@@ -45,7 +45,7 @@ class CommissionService{
 		$order['is_pay'] = 0;
 		$order['commission_rate'] = 0;
 		$order['commission'] = 2;
-		$order['title'] = "您的徒弟 ".$users['me']['nick']." 在 ". fToDate(TIME_UTC,'Y-m-d')." 注册成功给您的奖励";
+		$order['title'] = "您的徒弟 ".$users['me']['nick']." ". fToDate(TIME_UTC,'Y-m-d')." 注册给您的奖励，期待您对他耐心指导！";
 		$order['create_time'] = TIME_UTC;
 		FDB::insert('goods_order', $order, true);
 		
@@ -80,7 +80,7 @@ class CommissionService{
 		.$uid." AND status = 1 AND type = 2 ORDER BY create_time DESC";
 		$last = intval(FDB::resultFirst($sql));
 		if($last > $m2){
-			$result['msg'] = "亲，您本月已经领取过徒弟奖励，请下月再来领取！";
+			$result['msg'] = "亲，您本月已经领取过带徒有功奖，请下月再来领取！";
 			return $result;
 		}elseif(!empty($last)){
 			$prefix = fToDate($last,'Y-m')." 至 ";

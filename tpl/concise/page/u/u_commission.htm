@@ -11,7 +11,7 @@
 			<span>|</span>
 			<a href="{u u/commission type=1}"{if $type == 1} class="c"{/if}>已结算(到账)</a>
 			<span>|</span>
-			<a href="{u u/commission type=2}"{if $type == 2} class="c"{/if}>朋友购物分红</a>
+			<a href="{u u/commission type=2}"{if $type == 2} class="c"{/if}>师傅奖励</a>
 			<span>|</span>
 			<a href="{u u/commission type=3}"{if $type == 3} class="c"{/if}>省钱日志</a>
 			<span>|</span>
@@ -24,10 +24,10 @@
 		<!--{else}-->
 		<div class="fright" style="width:100px;">
 			<!--{if $month != true}-->
-			<a href="/fanli/friend" class="zone_btn" >朋友分红</a>
-			<span style="color:red;">点击，更新朋友给您的现金奖励。</span>
+			<a href="/fanli/friend" class="zone_btn" >师傅奖励</a>
+			<span style="color:red;">点击，更新徒弟带给您的现金奖励。</span>
 			<!--{else}-->
-			<a href="#" class="zone_btn" >朋友分红</a>
+			<a href="#" class="zone_btn" >师傅奖励</a>
 			<span style="color:red;">您这个月已领取，等待下月再查询。</span>
 			<!--{/if}-->
 		</div>
@@ -151,7 +151,7 @@
 			<!--{loop $order_list $order}-->
 			<tr>
 				<td class="lt-td first" style="text-align:center; vertical-align:middle;" rowspan="2">o{$order['order_id']}</td>
-				<td class="lt-td tl" style="text-align:center;">{if $order['type'] == 1}购买返现{elseif $order['type'] == 2}朋友分红{elseif $order['type'] == 3}邀请奖励{elseif $order['type'] == 4}注册奖励{/if}</td>
+				<td class="lt-td tl" style="text-align:center;">{if $order['type'] == 1}购买返现{elseif $order['type'] == 2}师傅奖励{elseif $order['type'] == 3}邀请奖励{elseif $order['type'] == 4}注册奖励{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['commission'] > 0}{$order['commission_format']}{else}<span style="color:#ccc;">获取中</span>{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['pay_time'] > 0}{if $order['is_pay'] == 1}已支付{else}取消支付{/if}{else}未支付{/if}</td>
 				<td class="lt-td" style="text-align:center;">{if $order['pay_time'] > 0}{$order['pay_time_format']}{/if}</td>
