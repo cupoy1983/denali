@@ -205,7 +205,7 @@ class Taobao
 								$o['commission_rate'] = $order['commission_rate'];
 								$o['commission'] = $commission;
 								$o['title'] = $item['item_title'];
-								$o['price'] = $item['real_pay_fee'];
+								$o['order_total'] = $item['real_pay_fee'];
 								$o['keyid'] = 'taobao_'.$item['num_iid'];
 								$o['out_trade_id'] = $item['trade_id'];
 								$o['outer_code'] = $item['outer_code'];
