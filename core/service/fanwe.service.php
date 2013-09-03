@@ -487,6 +487,7 @@ function _fanweChecker()
 {	
 	$domain_array = array(
 		base64_encode(base64_encode('127.0.0.1')),
+		base64_encode(base64_encode('116.255.159.143')),
 		base64_encode(base64_encode('localhost')),
 		base64_encode(base64_encode('yaojingmao.com')),
 	  base64_encode(base64_encode('*.yaojingmao.com'))
