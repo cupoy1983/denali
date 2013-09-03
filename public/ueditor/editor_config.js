@@ -120,7 +120,7 @@ UEDITOR_HOME_URL : URL
 ,textarea:"content"  // 提交表单时，服务器获取编辑器提交内容的所用的参数，多实例时可以给容器name属性，会将name给定的值最为每个实例的键值，不用每次实例化的时候都设置这个值
 
 
-,focus:true //初始化时，是否让编辑器获得焦点true或false
+,focus:false //初始化时，是否让编辑器获得焦点true或false
 
 //,minFrameWidth:800    //编辑器最小宽度,默认800，拖动时以这个为准
 //,minFrameHeight:220  //编辑器最小高度,默认220,拖动时以这个为准
