@@ -54,20 +54,8 @@ class TaobaokeReportAction extends CommonAction
 
 	function collect()
 	{
-		$isInit =  (int)$_REQUEST['isInit'];
-		if($isInit == 1)
-		{
-			$date =  strZTime($_REQUEST['date']);
-			$page = 1;
-			$tips = '开始获取第 1 页报表';
-		}
-		else
-		{
-			$date = (int)$_REQUEST['date'];
-			$page = (int)$_REQUEST['page'];
 
-			$tips = '开始获取第 '.$page.' 页报表';
-		}
+		$tips = '开始获取报表';
 		$this->assign("tips",$tips);
 		
 		ob_start();
@@ -78,19 +66,9 @@ class TaobaokeReportAction extends CommonAction
 		vendor('common');
 		include fimport('class/taobao','api');
 		$api = new Taobao();
-		$result = $api->collectReport($date,$page);
-		if($result == 0)
-			echoFlush('<script type="text/javascript">setTimeout(function(){location.href="'.U('TaobaokeReport/collect',array('date'=>$date,'page'=>$page + 1)).'";},500);</script>');
-		elseif($result == 1)
-		{
-			echoFlush('<script type="text/javascript">setTimeout(function(){$("#notice").html($("#notice").html() + "<br/>采集成功");},500);</script>');
-			echoFlush('<script type="text/javascript">setTimeout(function(){location.href="'.U('TaobaokeReport/index').'";},1500);</script>');
-		}
-		else
-		{
-			echoFlush('<script type="text/javascript">setTimeout(function(){$("#notice").html($("#notice").html() + "<br/>API返回数据错误，或当前无订单");},500);</script>');
-			echoFlush('<script type="text/javascript">setTimeout(function(){location.href="'.U('TaobaokeReport/index').'";},1500);</script>');
-		}
+		$api->collectReport();
+		echoFlush('<script type="text/javascript">setTimeout(function(){$("#notice").html($("#notice").html() + "<br/>采集成功");},500);</script>');
+		echoFlush('<script type="text/javascript">setTimeout(function(){location.href="'.U('TaobaokeReport/index').'";},1500);</script>');
     }
 }
 ?>
