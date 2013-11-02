@@ -490,7 +490,8 @@ function _fanweChecker()
 		base64_encode(base64_encode('116.255.159.143')),
 		base64_encode(base64_encode('localhost')),
 		base64_encode(base64_encode('yaojingmao.com')),
-	  base64_encode(base64_encode('*.yaojingmao.com'))
+	  	base64_encode(base64_encode('*.yaojingmao.com')),
+		base64_encode(base64_encode('*.changxingba.com'))
 	);
 	$str = base64_encode(base64_encode(serialize($domain_array))."|".serialize($domain_array));
 

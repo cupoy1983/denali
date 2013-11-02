@@ -3,10 +3,11 @@
 ?>
 
 <!--{template inc/header}-->
+			
 <script src="/tpl/concise/js/fanli.js"></script>
 <div class="fm960">
 	<div class="top-info oh">
-       <div class="pwhere">当前位置:&nbsp;&nbsp;<font color="red">淘宝购物折扣区</font></div>
+       <div class="pwhere">当前位置:&nbsp;&nbsp;<font color="orange">淘宝购物折扣区</font></div>
 	</div>
 	<div class="search_rebate_d search_rebate pr">
 		<input type="text" id="J_Search" name="urlorname" class="input_fanli pa">
@@ -23,33 +24,15 @@
 </div>
 <br style="clear:both;" />
 <div id="resultContainer">
-	<!--  
-		<div style="display:none;" id="listNotice" class="list-notice">
-			<h4>
-				很抱歉，没有找到与“<span class="red">http://item.taobao.com/item.htm?spm=0.0.0.87.ChXvOq&amp;id=17425279471</span>”相关的宝贝<br>
-				并不是所有的宝贝都有返利，您可以尝试换一个商品搜索
-			</h4>
-			<p>建议您：</p>
-			<ol>
-				<li>看看输入的文字是否有误</li>
-				<li>去掉可能不必要的字词，如"的"、"什么"等</li>
-				<li>调整关键字，如“马克华菲正品男装针织衫”改成“马克华菲 针织衫”或“马克华菲 男装"</li>
-			</ol>
-		</div>
-	-->
 	<div class="result">
-		<div class="fl" id="main-pic">
-			<a target="_blank" href=""><img src=""></a>
-		</div>
+		<div class="fl" id="main-pic"></div>
 		<div class="fl" id="detail">
-			<h3>
-				<a target="_blank" href="" id="J_Title"></a>
-			</h3>
+			<h3 id="J_Title"></h3>
 			<table id="pro-detail">
 				<tbody>
 				<tr>
 					<th>店&nbsp;掌&nbsp;柜：</th>
-					<td><a target="_blank" href="" id="J_Shopname"></a>
+					<td><a target="_blank" id="J_Shopname"></a>
 					</td>
 				</tr>
 				<tr>
@@ -57,29 +40,36 @@
 					<td><span id="J_Location"></span></td>
 				</tr>
 				<tr>
-					<th>最近成交：</th>
-					<td><span id="J_Volume"></span>笔</td>
+					<th>商品数量：</th>
+					<td><span id="J_Volume"></span>件</td>
 				</tr>
 				<tr>
 					<th>淘&nbsp;宝&nbsp;价：</th>
 					<td>
 					<em class="price"><b>￥</b><span id="J_Price"></span></em>
-					<em class="red"><span id="J_Ture_Price"></span></em>
+					<em class="orange"><span id="J_Ture_Price"></span></em>
 					</td>
 				</tr>
 				<tr>
 					<th>折&nbsp;扣&nbsp;比：</th>
-					<td class="price"><em><span id="J_Rate"></span></em><span style="font-size:12px;">% (聚划算商品除外)</span></td>
+					<td class="price"><em><span id="J_Rate"></span></em><span style="font-size:12px;">% </span><b class="red">(淘宝打压返利，此列仅用于展示！)</b></td>
 				</tr>
 				<tr>
 					<th>折&nbsp;&nbsp;&nbsp;&nbsp;扣：</th>
-					<td><em class="red"><b>￥</b><span id="J_Commission"></span></em> (聚划算商品除外)</td>
+					<td><em class="orange"><b>￥</b><span id="J_Commission"></span></em></td>
+				</tr>
+				<tr>
+					<th>改&nbsp;版&nbsp;提&nbsp;示：</th>
+					<td class="price">
+						<div>如跳转到爱淘后请点击<b class="red">'马上去看看'</b>才能获得返利。</div>
+						<div>如不能返利，排查是否安装广告屏蔽，如有疑问请联系旺旺：<b class="red">贾斯特曼</b></div>
+					</td>
 				</tr>
 				</tbody>
 			</table>
 			<input type="hidden" value="$rate" v="" id="J_Commission_Rate" >
 			<p class="clearfix">
-				<a target="_blank" class="btn-simple" id="J_GoUrl" href="#" title="实际佣金以淘宝成交价格乘以返利比率为准">折扣模式购买</a>
+				<span id="J_GoUrl" ></span>
 				<a class="btn-simple" id="J_Share" href="javascript:void(0);">发布到分享</a>
 			</p>
 			

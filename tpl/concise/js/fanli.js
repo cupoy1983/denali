@@ -1,10 +1,17 @@
+function abc($t){
+	u =$t.attr('href').replace(/&rf=[\w-%\.]+&/,'&rf='+encodeURIComponent("http://www.changxingba.com")+'&');
+	 var url = $t.attr('togo')+'&url='+encodeURIComponent(u);
+	 $t.attr('href',url);
+	 return true; 
+}
+
 function getCommission() {
 	var url = $("#J_Search").val();
 	//在JavaScript中，正则表达式只能使用"/"开头和结束，不能使用双引号
     var Expression=/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
     var exp=new RegExp(Expression);
-    
 	var id = getUrlParam(url, 'id');
+	
 	if (/\d+/gi.test(id) && exp.test(url)) {
 		ItemsConvert(id);
 	} else {
@@ -20,45 +27,37 @@ function getUrlParam(url, paramName) {
 	else
 		return '';
 }
-function ItemsConvert(iids) {
+function ItemsConvert(iid) {
 	
 	TOP.api({
-		method : 'taobao.taobaoke.widget.items.convert',
-		fields : 'num_iid,title,nick,item_location,pic_url,price,click_url,shop_click_url,commission_rate,volume',
-		num_iids : iids
+		method : 'taobao.item.get',
+		fields : 'iid,detail_url,num_iid,title,nick,type,cid,pic_url,seller_cids,num,list_time,delist_time,stuff_status,location,price,post_fee,express_fee,ems_fee,has_discount,freight_payer,item_img',
+		num_iid : iid
 	}, function(resp) {
-		if (resp.taobaoke_items) {
+		if (resp.item) {
 			$("#resultContainer .result").css("display", "block");
-			var result = resp.taobaoke_items.taobaoke_item[0];
+			var result = resp.item;
 			var title = result.title;
 			var price = result.price;
-			var clickUrl = result.click_url;
-			var shopUrl = result.shop_click_url;
 			var picUrl = result.pic_url;
 			var nick = result.nick;
-			var location = result.item_location;
-			var r = parseFloat($("#J_Commission_Rate").val());
-			var rate = 0;
-			if(r > 0){
-				rate = (result.commission_rate * r) / 10000 ;
-			}
-			var volume = result.volume;
+			var location = result.location.city + " " + result.location.state;
+			var rate = Math.ceil(Math.random()*20);
+			var num = result.num;
 			var item = $("#J_Search").val();
-			var go = "/tgo.php?title=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(clickUrl) + "&item=" + encodeURIComponent(item) + "&from=fanli";
-			//保存rate变量下次api调用后使用
+			var go = "/tgo.php?title=" + encodeURIComponent(title) + "&item=" + encodeURIComponent(item) + "&from=fanli";
+			
 			$("#J_Commission_Rate").attr('v',rate);
 			$("#J_Rate").text(rate);
-			$("#J_Title").text(title);
-			$("#J_Title").attr("href", clickUrl);
 			$("#J_Shopname").text(nick);
-			$("#J_Shopname").attr("href", shopUrl);
 			$("#J_Location").text(location);
-			$("#J_Volume").text(volume);
+			$("#J_Volume").text(num);
 			$("#J_Price").text(price);
 			$("#J_Commission").text(Math.round(rate * price)/100);
-			$("#main-pic img").attr("src", picUrl);
-			$("#J_GoUrl").attr("href", go);
 			
+			$("#J_Title").html('<a style="cursor:pointer;" data-type="0" biz-itemid="'+ iid +'" data-tmpl="350x100" data-tmplid="6" data-rd="1" data-style="1" target="_blank">'+title+'</a>');
+			$("#main-pic").html('<a style="cursor:pointer;" data-type="0" biz-itemid="'+ iid +'" data-tmpl="350x100" data-tmplid="6" data-rd="1" data-style="1" target="_blank"><img src="'+picUrl+'"></a>');
+			$("#J_GoUrl").html('<a class="btn-simple" href="#" title="实际佣金以淘宝成交价格乘以返利比率为准" style="cursor:pointer;" data-type="0" biz-itemid="'+ iid +'" data-tmpl="350x100" data-tmplid="6" data-rd="1" data-style="1" target="_blank" onclick="return abc($(this));" togo="'+go+'">折扣模式购买</a>');
 		} else if(resp.total_results == 0) {
 			alert('Sorry，该宝贝无佣金返利!');
 			return false;

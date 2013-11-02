@@ -20,7 +20,6 @@ $fanwe = &FanweService::instance();
 $fanwe->initialize();
 
 require fimport('module/fanli');
-
 switch(Action_NAME) {
 	
 	case 'index' :

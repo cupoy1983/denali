@@ -124,8 +124,8 @@
     width: 360px;
 }
 #detail {
-    padding-left: 60px;
-    width: 360px;
+    padding-left: 30px;
+    width: 450px;
 }
 #detail h3{
 	color: #333333;
@@ -144,13 +144,16 @@
 #detail .price{
 	font-size:16px;
 }
-#detail .red{
+#detail .orange{
 	color:#FF6600;
 	font-size:26px;
 }
-#detail .red b{
+#detail .orange b{
 	font-size:18px;
 	font-weight:bold;
+}
+#detail .red{
+	color:red;
 }
 .btn-simple {
     background: url("/tpl/concise/images/sprite-search.png") no-repeat scroll 0 0 transparent;
@@ -159,7 +162,7 @@
     overflow: hidden;
     text-indent: -99999px;
 }
-#J_GoUrl {
+#J_GoUrl a{
     background-position: 0 -52px;
     height: 55px;
     margin: 14px 18px 0 0;
